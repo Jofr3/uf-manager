@@ -1,0 +1,111 @@
+package com.example.ufmanagerf.model;
+
+import org.springframework.lang.Nullable;
+
+import javax.persistence.*;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
+import java.util.List;
+
+@Entity
+public class Uf {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private int idUf;
+
+    @NotEmpty(message = "Aquest camp no pot estar buit")
+    private String numUf;
+
+    @NotEmpty(message = "Aquest camp no pot estar buit")
+    private String nomUf;
+
+    @Min(value = 1, message = "No pot ser menys de 1 hora")
+    @NotEmpty(message = "Aquest camp no pot estar buit")
+    private String horesUf;
+
+    @ManyToOne
+    @Nullable
+    private Mp mp;
+
+    @OneToMany(mappedBy = "uf", cascade = CascadeType.ALL)
+    private List<Itemmat> itemmats;
+
+    /*
+    idUf            int
+    numUf           string
+    nomUf           string
+    horesUf         string
+    mp              Mp
+    itemmats        List<itemmat>
+    */
+
+    public Uf(String numUf, String nomUf, String horesUf) {
+        this.numUf = numUf;
+        this.nomUf = nomUf;
+        this.horesUf = horesUf;
+    }
+
+    public Uf() {
+    }
+
+    public int getIdUf() {
+        return idUf;
+    }
+
+    public void setIdUf(int idUf) {
+        this.idUf = idUf;
+    }
+
+    public String getNumUf() {
+        return numUf;
+    }
+
+    public void setNumUf(String numUf) {
+        this.numUf = numUf;
+    }
+
+    public String getNomUf() {
+        return nomUf;
+    }
+
+    public void setNomUf(String nomUf) {
+        this.nomUf = nomUf;
+    }
+
+    public String getHoresUf() {
+        return horesUf;
+    }
+
+    public void setHoresUf(String horesUf) {
+        this.horesUf = horesUf;
+    }
+
+    public Mp getMp() {
+        return mp;
+    }
+
+    public void setMp(Mp mp) {
+        this.mp = mp;
+    }
+
+    public List<Itemmat> getItemmats() {
+        return itemmats;
+    }
+
+    public void setItemmats(List<Itemmat> itemmats) {
+        this.itemmats = itemmats;
+    }
+
+    @Override
+    public String toString() {
+        return "Uf{" +
+                "idUf=" + idUf +
+                ", numUf='" + numUf + '\'' +
+                ", nomUf='" + nomUf + '\'' +
+                ", horesUf='" + horesUf + '\'' +
+                ", mp=" + mp +
+                ", itemmats=" + itemmats +
+                '}';
+    }
+}

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Mps</title>
+    <style th:replace="components/bootstrap :: bootstrapCss"></style>
+    <style th:replace="components/bootstrap :: bootstrapIcons"></style>
+</head>
+<style>
+    body {
+        height: 80vh;
+        background-color: #2c2e32;
+        color: rgba(255, 255, 255, 0.65);
+    }
+</style>
+<body>
+
+<header th:replace="components/header"></header>
+
+<main>
+
+    <div class="container-fluid p-5 pt-4">
+        <div class="d-flex justify-content-between">
+            <h3>Mps</h3>
+            <a class="btn btn-success m-1" th:href="@{/mps/create}">Crea</a>
+        </div>
+
+        <table class="table table-secondary table-striped">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Nom</th>
+                <th scope="col">Ufs</th>
+                <th scope="col">Edita</th>
+                <th scope="col">Elimina</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="mp: ${mps}">
+                <th th:text="${mp.numMp}"></th>
+                <td th:text="${mp.nomMp}"></td>
+                <td>
+                    <div class="dropdown">
+                        <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                            Ufs
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li th:each="uf: ${mp.ufs}" th:text="${uf.nomUf}" class="dropdown-item"></li>
+                            <li><a th:href="@{/mps/ufs(id=${mp.idMp})}"><i style="font-size: 30px; padding-left: 14px;" class="bi bi-three-dots"></i></a></li>
+                        </ul>
+                    </div>
+                </td>
+                <td>
+                    <a th:href="@{/mps/edit(id=${mp.idMp})}" type="button" class="btn btn-primary">Edita</a>
+                </td>
+                <td>
+                    <a th:href="@{/mps/delete(id=${mp.idMp})}" type="button" class="btn btn-danger">Elimina</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+</main>
+
+<script th:replace="components/bootstrap :: bootstrapJs"></script>
+</body>
+</html>

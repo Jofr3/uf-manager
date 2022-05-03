@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Index</title>
+    <style th:replace="components/bootstrap :: bootstrapCss"></style>
+</head>
+<style>
+    body {
+        height: 80vh;
+        background-color: #2c2e32;
+        color: rgba(255, 255, 255, 0.65);
+    }
+</style>
+<body>
+
+<header th:replace="components/header"></header>
+
+<main>
+    <div class="container-fluid">
+        <div class="d-flex flex-wrap" th:for>
+
+            <div class="p-3">
+                <div class="card text-light bg-dark mb-3" style="max-width: 18rem;">
+                    <h5 class="card-header">Ufs</h5>
+                    <div class="card-body d-flex flex-wrap">
+
+                        <div class="card text-dark bg-secondary m-1">
+                            <h5 class="card-header" style="width: 250px">Nom uf</h5>
+                            <div class="card-body">
+                                <p class="m-0">Desc uf</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="p-3">
+                <div class="card text-light bg-dark mb-3" style="max-width: 18rem;">
+                    <h5 class="card-header">Mps</h5>
+                    <div class="card-body d-flex flex-wrap">
+                        <div class="card text-dark bg-secondary m-1">
+                            <h5 class="card-header" style="width: 250px">Nom mp</h5>
+                            <div class="card-body">
+                                <p class="m-0">Desc mp</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="p-3">
+                <div class="card text-light bg-dark mb-3" style="max-width: 18rem;">
+                    <h5 class="card-header">Plans</h5>
+                    <div class="card-body d-flex flex-wrap">
+                        <div class="card text-dark bg-secondary m-1">
+                            <h5 class="card-header" style="width: 250px">Nom pla</h5>
+                            <div class="card-body">
+                                <p class="m-0">Desc pla</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="p-3">
+                <div class="card text-light bg-dark mb-3" style="max-width: 18rem;">
+                    <h5 class="card-header">Matricules</h5>
+                    <div class="card-body d-flex flex-wrap">
+                        <div class="card text-dark bg-secondary m-1">
+                            <h5 class="card-header" style="width: 250px">Nom matricula</h5>
+                            <div class="card-body">
+                                <p class="m-0">Desc matricula</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="p-3">
+                <div class="card text-light bg-dark mb-3" style="max-width: 18rem;">
+                    <h5 class="card-header">Notes</h5>
+                    <div class="card-body d-flex flex-wrap">
+                        <div class="card text-dark bg-secondary m-1">
+                            <h5 class="card-header" style="width: 250px">Nom nota</h5>
+                            <div class="card-body">
+                                <p class="m-0">Desc nota</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="p-3">
+                <div class="card text-light bg-dark mb-3" style="max-width: 18rem;">
+                    <h5 class="card-header">Grups</h5>
+                    <div class="card-body d-flex flex-wrap">
+                        <div class="card text-dark bg-secondary m-1">
+                            <h5 class="card-header" style="width: 250px">Nom grup</h5>
+                            <div class="card-body">
+                                <p class="m-0">Desc grup</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="p-3">
+                <div class="card text-light bg-dark mb-3" style="max-width: 18rem;">
+                    <h5 class="card-header">Expedients</h5>
+                    <div class="card-body d-flex flex-wrap">
+                        <div class="card text-dark bg-secondary m-1">
+                            <h5 class="card-header" style="width: 250px">Nom expedient</h5>
+                            <div class="card-body">
+                                <p class="m-0">Desc expedient</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="p-3">
+                <div class="card text-light bg-dark mb-3" style="max-width: 18rem;">
+                    <h5 class="card-header">Estudiants</h5>
+                    <div class="card-body d-flex flex-wrap">
+                        <div class="card text-dark bg-secondary m-1">
+                            <h5 class="card-header" style="width: 250px">Nom estudiant</h5>
+                            <div class="card-body">
+                                <p class="m-0">Desc estudiant</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="p-3">
+                <div class="card text-light bg-dark mb-3" style="max-width: 18rem;">
+                    <h5 class="card-header">Curs</h5>
+                    <div class="card-body d-flex flex-wrap">
+                        <div class="card text-dark bg-secondary m-1">
+                            <h5 class="card-header" style="width: 250px">Nom curs</h5>
+                            <div class="card-body">
+                                <p class="m-0">Desc curs</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<script th:replace="components/bootstrap :: bootstrapJs"></script>
+</body>
+</html>

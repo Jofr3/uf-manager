@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Ufs</title>
+    <style th:replace="components/bootstrap :: bootstrapCss"></style>
+</head>
+<style>
+    body {
+        height: 80vh;
+        background-color: #2c2e32;
+        color: rgba(255, 255, 255, 0.65);
+    }
+</style>
+<body>
+
+<header th:replace="components/header"></header>
+
+<main>
+
+    <div class="container-fluid p-5 pt-4">
+        <div class="d-flex justify-content-between">
+            <h3>Ufs</h3>
+            <a class="btn btn-success m-1" th:href="@{/ufs/create}">Crea</a>
+        </div>
+
+        <table class="table table-secondary table-striped">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Nom</th>
+                <th scope="col">Hores</th>
+                <th scope="col">Mp</th>
+                <th scope="col">Edita</th>
+                <th scope="col">Elimina</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="uf: ${ufs}">
+                <th th:text="${uf.numUf}"></th>
+                <td th:text="${uf.nomUf}"></td>
+                <td th:text="${uf.horesUf}"></td>
+                <td th:text="${uf.mp != null} ? ${uf.mp.nomMp} : 'No pertany a cap mp'"></td>
+                <td>
+                    <a th:href="@{/ufs/edit(id=${uf.idUf})}" type="button" class="btn btn-primary">Edita</a>
+                </td>
+                <td>
+                    <a th:href="@{/ufs/delete(id=${uf.idUf})}" type="button" class="btn btn-danger">Elimina</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+</main>
+
+<script th:replace="components/bootstrap :: bootstrapJs"></script>
+</body>
+</html>
