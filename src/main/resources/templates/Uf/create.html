@@ -36,16 +36,25 @@
                     <div class="col-auto"><input th:field="*{numUf}" name="numUf" type="number" id="numUf" class="form-control"></div>
                     <div class="col-auto"><span class="form-text">Ha de ser integer</span></div>
                 </div>
+
+                <div class="d-flex justify-content-center"><span class="text-danger" th:if="${#fields.hasErrors('numUf')}" th:errors="*{numUf}"></span></div>
+
                 <div class="row g-3 align-items-center m-2">
                     <div class="col-auto"><label for="nomUf" class="col-form-label float-end">Nom</label></div>
                     <div class="col-auto"><input th:field="*{nomUf}" name="nomUf" type="text" id="nomUf" class="form-control"></div>
                     <div class="col-auto"><span class="form-text">Unic</span></div>
                 </div>
+
+                <div class="d-flex justify-content-center"><span class="text-danger" th:if="${#fields.hasErrors('nomUf')}" th:errors="*{nomUf}"></span></div>
+
                 <div class="row g-3 align-items-center m-2">
                     <div class="col-auto"><label for="horesUf" class="col-form-label float-end">Hores</label></div>
                     <div class="col-auto"><input th:field="*{horesUf}" name="horesUf" type="number" id="horesUf" class="form-control"></div>
                     <div class="col-auto"><span class="form-text">Ha de ser integer</span></div>
                 </div>
+
+                <div class="d-flex justify-content-center"><span class="text-danger" th:if="${#fields.hasErrors('horesUf')}" th:errors="*{horesUf}"></span></div>
+
                 <div class="m-4" style="margin-left: 250px !important;">
                     <button type="submit" class="btn btn-primary m-2">Crea</button>
                     <a class="btn btn-danger m-2" th:href="@{/ufs}">Cancela</a>

@@ -95,4 +95,14 @@ public class ServiceImpl_Uf implements Service_Uf {
             return null;
         }
     }
+
+    @Override
+    public boolean exists(String nomUf) {
+        return RepoUf.existsByNomUf(nomUf);
+    }
+
+    @Override
+    public boolean existsEdit(String nomUf, int idUf) {
+        return RepoUf.existsByNomUfAndIdUfIsNot(nomUf, idUf);
+    }
 }

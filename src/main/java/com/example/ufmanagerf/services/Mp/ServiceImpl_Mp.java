@@ -113,4 +113,14 @@ public class ServiceImpl_Mp implements Service_Mp {
             System.out.println("ERR: " + e);
         }
     }
+
+    @Override
+    public boolean exists(String nomMp) {
+        return RepoMp.existsByNomMp(nomMp);
+    }
+
+    @Override
+    public boolean existsEdit(String nomMp, int idMp) {
+        return RepoMp.existsByNomMpAndIdMpIsNot(nomMp, idMp);
+    }
 }

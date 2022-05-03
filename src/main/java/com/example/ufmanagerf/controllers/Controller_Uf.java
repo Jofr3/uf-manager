@@ -1,11 +1,13 @@
 package com.example.ufmanagerf.controllers;
 
 import com.example.ufmanagerf.model.Uf;
+import com.example.ufmanagerf.services.Mp.Service_Mp;
 import com.example.ufmanagerf.services.Uf.Service_Uf;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,6 +20,9 @@ public class Controller_Uf {
 
     @Autowired
     private Service_Uf UfService;
+
+    @Autowired
+    private Service_Mp MpService;
 
     @GetMapping("/ufs")
     public String index(Model m) {
@@ -34,6 +39,10 @@ public class Controller_Uf {
     @PostMapping("/ufs/save")
     public String save(@Valid @ModelAttribute Uf uf, BindingResult bindingResult, Model m) {
         if (!bindingResult.hasErrors()) {
+            if(UfService.exists(uf.getNomUf())){
+                bindingResult.addError(new FieldError("uf", "nomUf", "El nom ja existeix"));
+                return "Uf/create";
+            }
             UfService.add(uf);
         } else {
             System.out.println("Validation error");
@@ -58,13 +67,16 @@ public class Controller_Uf {
 
     @PostMapping("/ufs/editPost")
     public String editPost(@Valid @ModelAttribute Uf uf, BindingResult bindingResult, Model m) {
-        if (bindingResult.hasErrors()) {
+        if (!bindingResult.hasErrors()) {
+            if(UfService.existsEdit(uf.getNomUf(), uf.getIdUf())){
+                bindingResult.addError(new FieldError("uf", "nomUf", "El nom ja existeix"));
+                return "Uf/edit";
+            };
+            UfService.edit(uf);
+        } else {
             System.out.println("Validation error");
             return "Uf/edit";
-        } else {
-            UfService.edit(uf);
         }
         return "redirect:/ufs";
     }
-
 }

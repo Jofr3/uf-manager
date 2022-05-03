@@ -22,4 +22,8 @@ public interface Service_Uf {
     public void remove(int id);
 
     public void edit(Uf uf);
+
+    boolean exists(String nomUf);
+
+    public boolean existsEdit(String nomUf, int idUf);
 }

@@ -1,5 +1,6 @@
 package com.example.ufmanagerf.model;
 
+import org.hibernate.validator.constraints.UniqueElements;
 import org.springframework.lang.Nullable;
 
 import javax.persistence.*;

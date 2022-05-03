@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -41,6 +42,10 @@ public class Controller_Mp {
     @PostMapping("/mps/save")
     public String save(@Valid @ModelAttribute Mp mp, BindingResult bindingResult, Model m) {
         if (!bindingResult.hasErrors()) {
+            if(MpService.exists(mp.getNomMp())){
+                bindingResult.addError(new FieldError("mp", "nomMp", "El nom ja existeix"));
+                return "Mp/create";
+            }
             MpService.add(mp);
             MpService.addUfs(mp, mp.getUfs());
         } else {
@@ -66,14 +71,16 @@ public class Controller_Mp {
     }
 
     @PostMapping("/mps/editPost")
-    public String editPost(@Valid @ModelAttribute Mp mp, BindingResult bindingResult) {
+    public String editPost(@Valid @ModelAttribute Mp mp, BindingResult bindingResult, HttpServletRequest request) {
         if (!bindingResult.hasErrors()) {
+            if(MpService.existsEdit(mp.getNomMp(), mp.getIdMp())){
+                bindingResult.addError(new FieldError("mp", "nomMp", "El nom ja existeix"));
+                return "Mp/edit";
+            };
             List<Uf> allUfs = UfSerivce.getAll();
             List<Uf> newUfs = mp.getUfs();
-            System.out.println(allUfs);
             MpService.edit(mp);
             MpService.removeUfs(mp, allUfs);
-            System.out.println(newUfs);
             MpService.addUfs(mp, newUfs);
         } else {
             System.out.println("Validation error");
@@ -94,7 +101,17 @@ public class Controller_Mp {
     public String ufs(Model m, HttpServletRequest request) {
         Mp mp = MpService.get(Integer.parseInt(request.getParameter("id")));
         m.addAttribute("mp", mp);
-        m.addAttribute("ufs", UfSerivce.filter(mp));
+        m.addAttribute("ufsNoMp", UfSerivce.getAllWhereMpIsNull());
         return "Mp/ufs";
+    }
+
+    @PostMapping("/mps/ufs/editPost")
+    public String ufsPost(@ModelAttribute Mp mp, Model m, HttpServletRequest request) {
+        Mp MP = MpService.get(Integer.parseInt(request.getParameter("id")));
+        List<Uf> allUfs = UfSerivce.getAll();
+        List<Uf> newUfs = mp.getUfs();
+        MpService.removeUfs(MP, allUfs);
+        MpService.addUfs(MP, newUfs);
+        return "redirect:/mps";
     }
 }

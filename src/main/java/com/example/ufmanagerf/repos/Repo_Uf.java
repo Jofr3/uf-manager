@@ -14,6 +14,10 @@ public interface Repo_Uf extends CrudRepository<Uf, Integer> {
 
     public Uf getById(int id);
 
+    public boolean existsByNomUf(String nomUf);
+
+    public boolean existsByNomUfAndIdUfIsNot(String nomUf, int idUf);
+
     public List<Uf> getAllByMpIsNull();
 
     public List<Uf> getAllByMpIsNullOrMpEquals(Mp mp);
