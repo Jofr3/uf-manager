@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Ufs</title>
+    <title>Notes</title>
     <style th:replace="components/bootstrap :: bootstrapCss"></style>
     <style th:replace="components/bootstrap :: bootstrapIcons"></style>
 </head>
@@ -22,38 +22,39 @@
     <div class="container-fluid p-5 pt-4">
         <div th:replace="components/flash :: ok"></div>
         <div class="d-flex justify-content-between">
-            <h3>Ufs</h3>
-            <a class="btn btn-success m-1" th:href="@{/ufs/create}">Crea</a>
+            <h3>Notes</h3>
+            <a class="btn btn-success m-1" th:href="@{/notes/create}">Crea</a>
         </div>
 
         <table class="table table-secondary table-striped">
             <thead>
             <tr>
                 <th scope="col">#</th>
-                <th scope="col">Nom</th>
-                <th scope="col">Hores</th>
-                <th scope="col">Mp</th>
+                <th scope="col">Uf</th>
+                <th scope="col">Nota ordinaria</th>
+                <th scope="col">Nota extraordinaria</th>
+                <th scope="col">Matricula</th>
                 <th scope="col">Edita</th>
                 <th scope="col">Elimina</th>
             </tr>
             </thead>
             <tbody>
-            <tr th:each="uf: ${ufs}">
-                <th th:text="${uf.numUf}"></th>
-                <td th:text="${uf.nomUf}"></td>
-                <td th:text="${uf.horesUf}"></td>
-                <td th:text="${uf.mp != null} ? ${uf.mp.nomMp} : 'No pertany a cap mp'"></td>
+            <tr th:each="nota: ${notes}">
+                <th th:text="${nota.uf != null} ? ${nota.uf.nomUf} : 'No pertany a cap uf'"></th>
+                <td th:text="${nota.notaOrd}"></td>
+                <td th:text="${nota.notaExtra}"></td>
+                <td th:text="${nota.matricula != null} ? ${nota.matricula.nomMatricula} : 'No pertany a cap matricula'"></td>
                 <td>
-                    <a th:href="@{/ufs/edit(id=${uf.idUf})}" type="button" class="btn btn-primary">Edita</a>
+                    <a th:href="@{/notes/edit(id=${nota.idItemmat})}" type="button" class="btn btn-primary">Edita</a>
                 </td>
                 <td>
-                    <a th:href="@{/ufs/delete/modal(id=${uf.idUf})}" type="button" class="btn btn-danger">Elimina</a>
+                    <a th:href="@{/notes/delete/modal(id=${uf.idItemmat})}" type="button" class="btn btn-danger">Elimina</a>
                 </td>
             </tr>
             </tbody>
         </table>
     </div>
-    <script th:replace="components/modals :: modalUf"></script>
+    <script th:replace="components/modals :: modalNota"></script>
 </main>
 
 
@@ -63,7 +64,7 @@
     $(document).ready(function () {
         let id = "[[${id}]]";
         if (id !== "") {
-            $('#modalUf').modal('show');
+            $('#modalNota').modal('show');
         }
 
         let flash = "[[${flash}]]"

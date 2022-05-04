@@ -12,6 +12,7 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -40,7 +41,7 @@ public class Controller_Mp {
     }
 
     @PostMapping("/mps/save")
-    public String save(@Valid @ModelAttribute Mp mp, BindingResult bindingResult, Model m) {
+    public String save(@Valid @ModelAttribute Mp mp, BindingResult bindingResult, Model m, RedirectAttributes redir) {
         if (!bindingResult.hasErrors()) {
             if(MpService.exists(mp.getNomMp())){
                 bindingResult.addError(new FieldError("mp", "nomMp", "El nom ja existeix"));
@@ -48,6 +49,7 @@ public class Controller_Mp {
             }
             MpService.add(mp);
             MpService.addUfs(mp, mp.getUfs());
+            redir.addFlashAttribute("flash", "La mp s'ha creat correctament");
         } else {
             System.out.println("Validation error");
             m.addAttribute("mp", mp);
@@ -56,9 +58,19 @@ public class Controller_Mp {
         return "redirect:/mps";
     }
 
+    @GetMapping("/mps/delete/modal")
+    public String deleteModal(HttpServletRequest request, RedirectAttributes redir, Model m) {
+        Mp mp = MpService.get(Integer.parseInt(request.getParameter("id")));
+        redir.addFlashAttribute("id", request.getParameter("id"));
+        redir.addFlashAttribute("obj", mp);
+        System.out.println(mp);
+        return "redirect:/mps";
+    }
+
     @GetMapping("/mps/delete")
-    public String delete(HttpServletRequest request) {
+    public String delete(HttpServletRequest request, RedirectAttributes redir) {
         MpService.remove(Integer.parseInt(request.getParameter("id")));
+        redir.addFlashAttribute("flash", "La mp s'ha eliminat correctament");
         return "redirect:/mps";
     }
 
@@ -71,7 +83,7 @@ public class Controller_Mp {
     }
 
     @PostMapping("/mps/editPost")
-    public String editPost(@Valid @ModelAttribute Mp mp, BindingResult bindingResult, HttpServletRequest request) {
+    public String editPost(@Valid @ModelAttribute Mp mp, BindingResult bindingResult, RedirectAttributes redir) {
         if (!bindingResult.hasErrors()) {
             if(MpService.existsEdit(mp.getNomMp(), mp.getIdMp())){
                 bindingResult.addError(new FieldError("mp", "nomMp", "El nom ja existeix"));
@@ -82,6 +94,7 @@ public class Controller_Mp {
             MpService.edit(mp);
             MpService.removeUfs(mp, allUfs);
             MpService.addUfs(mp, newUfs);
+            redir.addFlashAttribute("flash", "La mp s'ha editat correctament");
         } else {
             System.out.println("Validation error");
             return "Mp/edit";
@@ -106,12 +119,13 @@ public class Controller_Mp {
     }
 
     @PostMapping("/mps/ufs/editPost")
-    public String ufsPost(@ModelAttribute Mp mp, Model m, HttpServletRequest request) {
+    public String ufsPost(@ModelAttribute Mp mp, Model m, HttpServletRequest request, RedirectAttributes redir) {
         Mp MP = MpService.get(Integer.parseInt(request.getParameter("id")));
         List<Uf> allUfs = UfSerivce.getAll();
         List<Uf> newUfs = mp.getUfs();
         MpService.removeUfs(MP, allUfs);
         MpService.addUfs(MP, newUfs);
+        redir.addFlashAttribute("flash", "La mp s'ha editat correctament");
         return "redirect:/mps";
     }
 }

@@ -22,7 +22,7 @@ public class Mp {
     private String nomMp;
 
     @Nullable
-    @OneToMany(mappedBy = "mp", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "mp", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Uf> ufs;
 
     @ManyToOne

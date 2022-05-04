@@ -1,0 +1,7 @@
+<div th:fragment="ok" th:switch="${flash}">
+    <div th:case="*"  class="alert alert-success alert-dismissible d-flex align-items-center" style="display: none !important; padding: 10px" id="flash" role="alert">
+        <i class="bi bi-check2-circle mx-3" style="font-size: 25px"></i>
+        <p th:text="${flash}" class="m-0"></p>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+</div>

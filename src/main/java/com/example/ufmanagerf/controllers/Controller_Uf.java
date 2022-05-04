@@ -11,6 +11,7 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -37,13 +38,14 @@ public class Controller_Uf {
     }
 
     @PostMapping("/ufs/save")
-    public String save(@Valid @ModelAttribute Uf uf, BindingResult bindingResult, Model m) {
+    public String save(@Valid @ModelAttribute Uf uf, BindingResult bindingResult, Model m, RedirectAttributes redir) {
         if (!bindingResult.hasErrors()) {
             if(UfService.exists(uf.getNomUf())){
                 bindingResult.addError(new FieldError("uf", "nomUf", "El nom ja existeix"));
                 return "Uf/create";
             }
             UfService.add(uf);
+            redir.addFlashAttribute("flash", "La uf s'ha creat correctament");
         } else {
             System.out.println("Validation error");
             m.addAttribute("uf", uf);
@@ -52,9 +54,19 @@ public class Controller_Uf {
         return "redirect:/ufs";
     }
 
+    @GetMapping("/ufs/delete/modal")
+    public String deleteModal(HttpServletRequest request, RedirectAttributes redir, Model m) {
+        Uf uf = UfService.get(Integer.parseInt(request.getParameter("id")));
+        redir.addFlashAttribute("id", request.getParameter("id"));
+        redir.addFlashAttribute("obj", uf);
+        System.out.println(uf);
+        return "redirect:/ufs";
+    }
+
     @GetMapping("/ufs/delete")
-    public String delete(HttpServletRequest request) {
+    public String delete(HttpServletRequest request, RedirectAttributes redir) {
         UfService.remove(Integer.parseInt(request.getParameter("id")));
+        redir.addFlashAttribute("flash", "La uf s'ha eliminat correctament");
         return "redirect:/ufs";
     }
 
@@ -66,13 +78,14 @@ public class Controller_Uf {
     }
 
     @PostMapping("/ufs/editPost")
-    public String editPost(@Valid @ModelAttribute Uf uf, BindingResult bindingResult, Model m) {
+    public String editPost(@Valid @ModelAttribute Uf uf, BindingResult bindingResult, RedirectAttributes redir) {
         if (!bindingResult.hasErrors()) {
             if(UfService.existsEdit(uf.getNomUf(), uf.getIdUf())){
                 bindingResult.addError(new FieldError("uf", "nomUf", "El nom ja existeix"));
                 return "Uf/edit";
             };
             UfService.edit(uf);
+            redir.addFlashAttribute("flash", "La uf s'ha editat correctament");
         } else {
             System.out.println("Validation error");
             return "Uf/edit";
