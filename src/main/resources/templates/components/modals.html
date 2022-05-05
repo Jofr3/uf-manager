@@ -64,3 +64,26 @@
         </div>
     </div>
 </div>
+
+<div th:fragment="modalMatricula" class="modal" tabindex="-1" id="modalMatricula" style="color: black">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Confirma elimina</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" th:switch="${obj}">
+                <div th:case="null"></div>
+                <div th:case="*">
+                    <p>Segur que vols elimina la <strong>matricula</strong>?</p>
+                    <p>Totes les <strong>notes</strong> de la matricula també s'eliminaran</p>
+                </div>
+            </div>
+            <div class="modal-footer" th:switch="${id}">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancela</button>
+                <button th:case="null" type="submit" class="btn btn-primary">Elimina</button>
+                <a th:case="*" th:href="@{/matricules/delete(id=${id})}" type="submit" class="btn btn-danger">Elimina</a>
+            </div>
+        </div>
+    </div>
+</div>

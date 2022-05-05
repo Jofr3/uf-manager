@@ -29,8 +29,9 @@ public class Matricula {
     itemmats        List<Itemmat>
     */
 
-    public Matricula(String dataMatricula) {
+    public Matricula(String dataMatricula, List<Itemmat> itemmats) {
         this.dataMatricula = dataMatricula;
+        this.itemmats = itemmats;
     }
 
     public Matricula() {
@@ -58,6 +59,10 @@ public class Matricula {
 
     public void setItemmats(List<Itemmat> itemmats) {
         this.itemmats = itemmats;
+    }
+
+    public void setItemmat(Itemmat itemmat) {
+        this.itemmats.add(itemmat);
     }
 
     @Nullable

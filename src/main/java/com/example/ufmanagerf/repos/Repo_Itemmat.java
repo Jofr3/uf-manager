@@ -1,6 +1,7 @@
 package com.example.ufmanagerf.repos;
 
 import com.example.ufmanagerf.model.Itemmat;
+import com.example.ufmanagerf.model.Matricula;
 import com.example.ufmanagerf.model.Mp;
 import com.example.ufmanagerf.model.Uf;
 import org.springframework.data.repository.CrudRepository;
@@ -17,5 +18,11 @@ public interface Repo_Itemmat extends CrudRepository<Itemmat, Integer> {
 
     public List<Itemmat> getAllByUfEquals(Uf uf);
 
+    public List<Itemmat> getAllByMatriculaEquals(Matricula matricula);
+
     public List<Itemmat> getAllByUfIsNull();
+
+    public List<Itemmat> getAllByMatriculaIsNull();
+
+    public List<Itemmat> getAllByMatriculaIsNullOrMatriculaEquals(Matricula matricula);
 }

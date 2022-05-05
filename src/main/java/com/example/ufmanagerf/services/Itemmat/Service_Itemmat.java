@@ -1,6 +1,7 @@
-package com.example.ufmanagerf.services.Itemmat.Uf;
+package com.example.ufmanagerf.services.Itemmat;
 
 import com.example.ufmanagerf.model.Itemmat;
+import com.example.ufmanagerf.model.Matricula;
 import com.example.ufmanagerf.model.Mp;
 import com.example.ufmanagerf.model.Uf;
 
@@ -20,7 +21,13 @@ public interface Service_Itemmat {
 
     public void addUf(Itemmat nota, Uf uf);
 
-    public List<Itemmat> filter(Uf uf);
+    public List<Itemmat> filterUf(Uf uf);
+
+    public List<Itemmat> filterMatricula(Matricula matricula);
 
     public List<Itemmat> getAllWhereUfIsNull();
+
+    public List<Itemmat> getAllWhereMatriculaIsNull();
+
+    public List<Itemmat> getAllWhereMatriculaIsNullOrMatriculaIs(Matricula matricula);
 }

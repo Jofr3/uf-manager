@@ -1,6 +1,7 @@
-package com.example.ufmanagerf.services.Itemmat.Uf;
+package com.example.ufmanagerf.services.Itemmat;
 
 import com.example.ufmanagerf.model.Itemmat;
+import com.example.ufmanagerf.model.Matricula;
 import com.example.ufmanagerf.model.Mp;
 import com.example.ufmanagerf.model.Uf;
 import com.example.ufmanagerf.repos.Repo_Itemmat;
@@ -79,9 +80,19 @@ public class ServiceImpl_Itemmat implements Service_Itemmat {
     }
 
     @Override
-    public List<Itemmat> filter(Uf uf) {
+    public List<Itemmat> filterUf(Uf uf) {
         try {
             return RepoItemmat.getAllByUfEquals(uf);
+        } catch (Exception e) {
+            System.out.println("ERR: " + e);
+            return null;
+        }
+    }
+
+    @Override
+    public List<Itemmat> filterMatricula(Matricula matricula) {
+        try {
+            return RepoItemmat.getAllByMatriculaEquals(matricula);
         } catch (Exception e) {
             System.out.println("ERR: " + e);
             return null;
@@ -92,6 +103,26 @@ public class ServiceImpl_Itemmat implements Service_Itemmat {
     public List<Itemmat> getAllWhereUfIsNull() {
         try {
             return RepoItemmat.getAllByUfIsNull();
+        } catch (Exception e) {
+            System.out.println("ERR: " + e);
+            return null;
+        }
+    }
+
+    @Override
+    public List<Itemmat> getAllWhereMatriculaIsNull() {
+        try {
+            return RepoItemmat.getAllByMatriculaIsNull();
+        } catch (Exception e) {
+            System.out.println("ERR: " + e);
+            return null;
+        }
+    }
+
+    @Override
+    public List<Itemmat> getAllWhereMatriculaIsNullOrMatriculaIs(Matricula matricula) {
+        try {
+            return RepoItemmat.getAllByMatriculaIsNullOrMatriculaEquals(matricula);
         } catch (Exception e) {
             System.out.println("ERR: " + e);
             return null;

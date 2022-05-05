@@ -1,10 +1,8 @@
 package com.example.ufmanagerf.controllers;
 
 import com.example.ufmanagerf.model.Itemmat;
-import com.example.ufmanagerf.model.Mp;
 import com.example.ufmanagerf.model.Uf;
-import com.example.ufmanagerf.services.Itemmat.Uf.Service_Itemmat;
-import com.example.ufmanagerf.services.Mp.Service_Mp;
+import com.example.ufmanagerf.services.Itemmat.Service_Itemmat;
 import com.example.ufmanagerf.services.Uf.Service_Uf;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -101,7 +99,7 @@ public class Controller_Uf {
     public String filter(Model m, HttpServletRequest request) {
         Uf uf = UfService.get(Integer.parseInt(request.getParameter("id")));
         m.addAttribute("uf", uf);
-        m.addAttribute("notes", ItemmatService.filter(uf));
+        m.addAttribute("notes", ItemmatService.filterUf(uf));
         return "Uf/filter";
     }
 

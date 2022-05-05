@@ -9,5 +9,8 @@ public class Controller_Main {
     @GetMapping("/")
     public String index() {
         return "index";
+    }
 }
-}
+
+// TODO acabar index de notes (mostrar estudiant de la matricula)
+// TODO la matricula de la nota es borra al editar-la

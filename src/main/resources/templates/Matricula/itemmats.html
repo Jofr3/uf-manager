@@ -34,7 +34,7 @@
 <main>
     <div class="container-fluid p-5 pt-4">
         <div class="d-flex justify-content-between">
-            <h3 th:text="${'Notes de ' + uf.nomUf}"></h3>
+            <h3 th:text="${'Notes de ' + matricula.dataMatricula}"></h3>
         </div>
 
         <div class="row col-wrapper">
@@ -49,7 +49,7 @@
                     </thead>
                 </table>
                 <select name="from[]" id="multiselect" class="form-control" multiple="multiple">
-                    <option th:each="nota: ${notesNoUf}" th:value="${nota.idItemmat}" th:text="${nota.notaOrd +' ㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤ'+nota.notaExtra+'ㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤ(Matricula)'}"></option>
+                    <option th:each="nota: ${notesNoMatricula}" th:value="${nota.idItemmat}" th:text="${nota.notaOrd +' ㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤ'+nota.notaExtra+'ㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤ(Matricula)'}"></option>
                 </select>
             </div>
 
@@ -70,9 +70,9 @@
                     </tr>
                     </thead>
                 </table>
-                <form method="post" th:action="@{/ufs/notes/editPost(id=${uf.idUf})}" th:object="${uf}">
+                <form method="post" th:action="@{/matricules/notes/editPost(id=${matricula.idMatricula})}" th:object="${matricula}">
                     <select th:field="*{itemmats}" name="to[]" id="multiselect_to" class="form-control" multiple="multiple">
-                        <option th:each="nota: ${uf.getItemmats()}" th:value="${nota.idItemmat}" th:text="${nota.notaOrd +' ㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤ'+nota.notaExtra+'ㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤ(Matricula)'}"></option>
+                        <option th:each="nota: ${matricula.getItemmats()}" th:value="${nota.idItemmat}" th:text="${nota.notaOrd +' ㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤ'+nota.notaExtra+'ㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤ(Matricula)'}"></option>
                     </select>
                     <button type="submit" class="btn btn-light float-end mt-1">Confirma</button>
                 </form>
