@@ -34,7 +34,7 @@ public class Controller_Itemmat {
 
     @GetMapping("/notes/create")
     public String create(Model m) {
-        m.addAttribute("nota", new Uf());
+        m.addAttribute("nota", new Itemmat());
         m.addAttribute("ufs", UfService.getAll());
         return "Itemmat/create";
     }
@@ -43,6 +43,7 @@ public class Controller_Itemmat {
     public String save(@Valid @ModelAttribute Itemmat nota, BindingResult bindingResult, Model m, RedirectAttributes redir) {
         if (!bindingResult.hasErrors()) {
             ItemmatService.add(nota);
+            ItemmatService.addUf(nota, nota.getUf());
             redir.addFlashAttribute("flash", "La nota s'ha creat correctament");
         } else {
             System.out.println("Validation error");
@@ -72,11 +73,14 @@ public class Controller_Itemmat {
     public String edit(HttpServletRequest request, Model m) {
         Itemmat nota = ItemmatService.get(Integer.parseInt(request.getParameter("id")));
         m.addAttribute("nota", nota);
+        m.addAttribute("ufs", UfService.getAll());
         return "Itemmat/edit";
     }
 
     @PostMapping("/notes/editPost")
-    public String editPost(@Valid @ModelAttribute Itemmat nota, BindingResult bindingResult, RedirectAttributes redir) {
+    public String editPost(@Valid @ModelAttribute Itemmat nota, HttpServletRequest request, BindingResult bindingResult, RedirectAttributes redir) {
+        Uf oldUf = UfService.get(Integer.parseInt(request.getParameter("uf")));
+        nota.setIdItemmat(Integer.parseInt(request.getParameter("id")));
         if (!bindingResult.hasErrors()) {
             ItemmatService.edit(nota);
             redir.addFlashAttribute("flash", "La nota s'ha editat correctament");

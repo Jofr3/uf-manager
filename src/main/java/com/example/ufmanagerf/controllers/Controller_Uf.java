@@ -1,6 +1,9 @@
 package com.example.ufmanagerf.controllers;
 
+import com.example.ufmanagerf.model.Itemmat;
+import com.example.ufmanagerf.model.Mp;
 import com.example.ufmanagerf.model.Uf;
+import com.example.ufmanagerf.services.Itemmat.Uf.Service_Itemmat;
 import com.example.ufmanagerf.services.Mp.Service_Mp;
 import com.example.ufmanagerf.services.Uf.Service_Uf;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +18,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.util.List;
 
 @Controller
 public class Controller_Uf {
@@ -23,7 +27,7 @@ public class Controller_Uf {
     private Service_Uf UfService;
 
     @Autowired
-    private Service_Mp MpService;
+    private Service_Itemmat ItemmatService;
 
     @GetMapping("/ufs")
     public String index(Model m) {
@@ -90,6 +94,33 @@ public class Controller_Uf {
             System.out.println("Validation error");
             return "Uf/edit";
         }
+        return "redirect:/ufs";
+    }
+
+    @GetMapping("/ufs/notes")
+    public String filter(Model m, HttpServletRequest request) {
+        Uf uf = UfService.get(Integer.parseInt(request.getParameter("id")));
+        m.addAttribute("uf", uf);
+        m.addAttribute("notes", ItemmatService.filter(uf));
+        return "Uf/filter";
+    }
+
+    @GetMapping("/ufs/notes/edit")
+    public String notes(Model m, HttpServletRequest request) {
+        Uf uf = UfService.get(Integer.parseInt(request.getParameter("id")));
+        m.addAttribute("uf", uf);
+        m.addAttribute("notesNoUf", ItemmatService.getAllWhereUfIsNull());
+        return "Uf/itemmats";
+    }
+
+    @PostMapping("/ufs/notes/editPost")
+    public String notesPost(@ModelAttribute Uf uf, Model m, HttpServletRequest request, RedirectAttributes redir) {
+        Uf UF = UfService.get(Integer.parseInt(request.getParameter("id")));
+        List<Itemmat> allNotes = ItemmatService.getAll();
+        List<Itemmat> newNotes = uf.getItemmats();
+        UfService.removeNotes(UF, allNotes);
+        UfService.addNotes(UF, newNotes);
+        redir.addFlashAttribute("flash", "La uf s'ha editat correctament");
         return "redirect:/ufs";
     }
 }

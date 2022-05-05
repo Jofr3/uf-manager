@@ -59,24 +59,7 @@ public class ServiceImpl_Mp implements Service_Mp {
     @Override
     public void edit(Mp mp) {
         try {
-            Mp newMp = RepoMp.getById(mp.getIdMp());
-            newMp.setNumMp(mp.getNumMp());
-            newMp.setNomMp(mp.getNomMp());
-            newMp.setUfs(mp.getUfs());
-            newMp.setPla(mp.getPla());
-            RepoMp.save(newMp);
-        } catch (Exception e) {
-            System.out.println("ERR: " + e);
-        }
-    }
-
-    @Override
-    public void addUf(Mp mp, Uf uf) {
-        try {
-            mp.setUf(uf);
-            uf.setMp(mp);
             RepoMp.save(mp);
-            RepoUf.save(uf);
         } catch (Exception e) {
             System.out.println("ERR: " + e);
         }

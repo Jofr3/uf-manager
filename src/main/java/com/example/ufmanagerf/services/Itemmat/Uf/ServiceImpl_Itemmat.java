@@ -16,6 +16,9 @@ public class ServiceImpl_Itemmat implements Service_Itemmat {
     @Autowired
     Repo_Itemmat RepoItemmat;
 
+    @Autowired
+    Repo_Uf RepoUf;
+
     @Override
     public List<Itemmat> getAll() {
         try {
@@ -57,14 +60,41 @@ public class ServiceImpl_Itemmat implements Service_Itemmat {
     @Override
     public void edit(Itemmat nota) {
         try {
-            Itemmat newNota = RepoItemmat.getById(nota.getIdItemmat());
-            newNota.setUf(nota.getUf());
-            newNota.setNotaOrd(nota.getNotaOrd());
-            newNota.setNotaExtra(nota.getNotaExtra());
-            newNota.setMatricula(nota.getMatricula());
-            RepoItemmat.save(newNota);
+            RepoItemmat.save(nota);
         } catch (Exception e) {
             System.out.println("ERR: " + e);
+        }
+    }
+
+    @Override
+    public void addUf(Itemmat nota, Uf uf) {
+        try {
+            nota.setUf(uf);
+            uf.setItemmat(nota);
+            RepoItemmat.save(nota);
+            RepoUf.save(uf);
+        } catch (Exception e) {
+            System.out.println("ERR: " + e);
+        }
+    }
+
+    @Override
+    public List<Itemmat> filter(Uf uf) {
+        try {
+            return RepoItemmat.getAllByUfEquals(uf);
+        } catch (Exception e) {
+            System.out.println("ERR: " + e);
+            return null;
+        }
+    }
+
+    @Override
+    public List<Itemmat> getAllWhereUfIsNull() {
+        try {
+            return RepoItemmat.getAllByUfIsNull();
+        } catch (Exception e) {
+            System.out.println("ERR: " + e);
+            return null;
         }
     }
 }

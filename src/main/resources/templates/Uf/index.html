@@ -33,6 +33,7 @@
                 <th scope="col">Nom</th>
                 <th scope="col">Hores</th>
                 <th scope="col">Mp</th>
+                <th scope="col">Notes</th>
                 <th scope="col">Edita</th>
                 <th scope="col">Elimina</th>
             </tr>
@@ -43,6 +44,17 @@
                 <td th:text="${uf.nomUf}"></td>
                 <td th:text="${uf.horesUf}"></td>
                 <td th:text="${uf.mp != null} ? ${uf.mp.nomMp} : 'No pertany a cap mp'"></td>
+                <td>
+                    <div class="dropdown">
+                        <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                            Notes
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li th:each="nota: ${uf.itemmats}" th:text="${nota.idItemmat}" class="dropdown-item"></li>
+                            <li><a th:href="@{/ufs/notes(id=${uf.idUf})}"><i style="font-size: 30px; padding-left: 14px;" class="bi bi-three-dots"></i></a></li>
+                        </ul>
+                    </div>
+                </td>
                 <td>
                     <a th:href="@{/ufs/edit(id=${uf.idUf})}" type="button" class="btn btn-primary">Edita</a>
                 </td>

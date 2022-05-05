@@ -2,8 +2,9 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Crea Nota</title>
+    <title>Edita Nota</title>
     <style th:replace="components/bootstrap :: bootstrapCss"></style>
+    <style th:replace="components/bootstrap :: bootstrapSelectCss"></style>
 </head>
 <style>
     body {
@@ -19,6 +20,10 @@
     .col-auto:last-child {
         width: 140px;
     }
+
+    .bootstrap-select {
+        width: 262px !important;
+    }
 </style>
 <body>
 
@@ -28,15 +33,14 @@
     <div class="container p-4 d-flex justify-content-center">
         <div>
             <div class="d-flex justify-content-center">
-                <h1>Crea una Nota</h1>
+                <h1>Edita Nota</h1>
             </div>
-            <form th:action="@{/notes/save}" method="post" th:object="${nota}">
+            <form th:action="@{/notes/editPost(id=${nota.getIdItemmat()})}" method="post" th:object="${nota}">
                 <div class="row g-3 align-items-center m-2">
                     <div class="col-auto"><label for="uf" class="col-form-label float-end">Ufs</label></div>
                     <div class="col-auto">
-                        <select th:field="*{uf}" class="form-select" id="uf" name="uf" aria-label="Default select example" style="width: 17vw">
-                            <option th:value="null" selected></option>
-                            <option th:each="ufa: ${ufs}" th:value="${ufa.idUf}" th:text="${ufa.nomUf}"></option>
+                        <select th:field="*{uf}" class="selectpicker" id="uf" name="uf" aria-label="size 3 select example">
+                            <option th:each="uf: ${ufs}" th:value="${uf.idUf}" th:text="${uf.nomUf}"></option>
                         </select>
                     </div>
                     <div class="col-auto"><span class="form-text"></span></div>
@@ -60,18 +64,18 @@
 
                 <div class="d-flex justify-content-center"><span class="text-danger" th:if="${#fields.hasErrors('notaExtra')}" th:errors="*{notaExtra}"></span></div>
 
-<!--
-                <div class="row g-3 align-items-center m-2">
-                    <div class="col-auto"><label for="matricula" class="col-form-label float-end">Matricula</label></div>
-                    <div class="col-auto"><input th:field="*{matricula}" name="matricula" type="text" id="matricula" class="form-control"></div>
-                    <div class="col-auto"><span class="form-text"></span></div>
-                </div>
+                <!--
+                                <div class="row g-3 align-items-center m-2">
+                                    <div class="col-auto"><label for="matricula" class="col-form-label float-end">Matricula</label></div>
+                                    <div class="col-auto"><input th:field="*{matricula}" name="matricula" type="text" id="matricula" class="form-control"></div>
+                                    <div class="col-auto"><span class="form-text"></span></div>
+                                </div>
 
-                <div class="d-flex justify-content-center"><span class="text-danger" th:if="${#fields.hasErrors('matricula')}" th:errors="*{matricula}"></span></div>
--->
+                                <div class="d-flex justify-content-center"><span class="text-danger" th:if="${#fields.hasErrors('matricula')}" th:errors="*{matricula}"></span></div>
+                -->
 
                 <div class="m-4" style="margin-left: 250px !important;">
-                    <button type="submit" class="btn btn-primary m-2">Crea</button>
+                    <button type="submit" class="btn btn-primary m-2">Edita</button>
                     <a class="btn btn-danger m-2" th:href="@{/notes}">Cancela</a>
                 </div>
             </form>
@@ -79,6 +83,8 @@
     </div>
 </main>
 
-<script th:replace="components/bootstrap :: bootstrapJs"></script>
+<style th:replace="components/bootstrap :: jquery"></style>
+<style th:replace="components/bootstrap :: bootstrapJs"></style>
+<style th:replace="components/bootstrap :: bootstrapSelectJs"></style>
 </body>
 </html>

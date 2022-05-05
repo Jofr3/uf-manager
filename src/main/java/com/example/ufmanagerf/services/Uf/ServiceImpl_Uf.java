@@ -1,7 +1,9 @@
 package com.example.ufmanagerf.services.Uf;
 
+import com.example.ufmanagerf.model.Itemmat;
 import com.example.ufmanagerf.model.Mp;
 import com.example.ufmanagerf.model.Uf;
+import com.example.ufmanagerf.repos.Repo_Itemmat;
 import com.example.ufmanagerf.repos.Repo_Uf;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,6 +15,9 @@ public class ServiceImpl_Uf implements Service_Uf {
 
     @Autowired
     Repo_Uf RepoUf;
+
+    @Autowired
+    Repo_Itemmat RepoItemmat;
 
     @Override
     public List<Uf> getAll() {
@@ -75,12 +80,7 @@ public class ServiceImpl_Uf implements Service_Uf {
     @Override
     public void edit(Uf uf) {
         try {
-            Uf newUf = RepoUf.getById(uf.getIdUf());
-            newUf.setNumUf(uf.getNumUf());
-            newUf.setNomUf(uf.getNomUf());
-            newUf.setHoresUf(uf.getHoresUf());
-            newUf.setMp(uf.getMp());
-            RepoUf.save(newUf);
+            RepoUf.save(uf);
         } catch (Exception e) {
             System.out.println("ERR: " + e);
         }
@@ -104,5 +104,37 @@ public class ServiceImpl_Uf implements Service_Uf {
     @Override
     public boolean existsEdit(String nomUf, int idUf) {
         return RepoUf.existsByNomUfAndIdUfIsNot(nomUf, idUf);
+    }
+
+    @Override
+    public void addNotes(Uf uf, List<Itemmat> notes) {
+        try {
+            uf.setItemmats(notes);
+            for (Itemmat nota : notes) {
+                nota.setUf(uf);
+                RepoItemmat.save(nota);
+            }
+            RepoUf.save(uf);
+        } catch (Exception e) {
+            System.out.println("ERR: " + e);
+        }
+    }
+
+    @Override
+    public void removeNotes(Uf uf, List<Itemmat> notes) {
+        try {
+            uf.setItemmat(null);
+            for (Itemmat nota : notes) {
+                if(nota.getUf() != null){
+                    if (nota.getUf().getIdUf() == uf.getIdUf()) {
+                        nota.setUf(null);
+                        RepoItemmat.save(nota);
+                    }
+                }
+            }
+            RepoUf.save(uf);
+        } catch (Exception e) {
+            System.out.println("ERR: " + e);
+        }
     }
 }

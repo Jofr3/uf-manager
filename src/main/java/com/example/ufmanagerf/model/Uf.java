@@ -30,6 +30,7 @@ public class Uf {
     private Mp mp;
 
     @OneToMany(mappedBy = "uf", cascade = CascadeType.ALL)
+    @Nullable
     private List<Itemmat> itemmats;
 
     /*
@@ -98,6 +99,14 @@ public class Uf {
         this.itemmats = itemmats;
     }
 
+    public void setItemmat(Itemmat itemmat) {
+        this.itemmats.add(itemmat);
+    }
+
+    public void removeItemmat(Itemmat itemmat) {
+        this.itemmats.remove(itemmat);
+    }
+
     @Override
     public String toString() {
         return "Uf{" +
@@ -106,7 +115,6 @@ public class Uf {
                 ", nomUf='" + nomUf + '\'' +
                 ", horesUf='" + horesUf + '\'' +
                 ", mp=" + mp +
-                ", itemmats=" + itemmats +
                 '}';
     }
 }

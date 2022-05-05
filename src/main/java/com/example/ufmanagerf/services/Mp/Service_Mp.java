@@ -17,8 +17,6 @@ public interface Service_Mp {
 
     public void edit(Mp mp);
 
-    public void addUf(Mp mp, Uf uf);
-
     public void addUfs(Mp mp, List<Uf> uf);
 
     public void removeUfs(Mp mp, List<Uf> uf);
