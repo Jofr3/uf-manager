@@ -1,5 +1,7 @@
 package com.example.ufmanagerf.model;
 
+import org.springframework.lang.Nullable;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 
@@ -28,6 +30,10 @@ public class Estudiant {
     @ManyToOne
     private Grup grup;
 
+    @Nullable
+    @OneToOne
+    private Expedient expedient;
+
     /*
     idEstudiant         int
     nomEstudiant        String
@@ -35,6 +41,7 @@ public class Estudiant {
     mailEstudiant       String
     dniEstudiant        String
     dataNaixEstudiant   String
+    expedient           Expedinet
     */
 
     public Estudiant(String nomEstudiant, String cognomEstudiant, String mailEstudiant, String dniEstudiant, String dataNaixEstudiant) {
@@ -94,6 +101,11 @@ public class Estudiant {
 
     public void setDataNaixEstudiant(String dataNaixEstudiant) {
         this.dataNaixEstudiant = dataNaixEstudiant;
+    }
+
+    @Nullable
+    public Expedient getExpedient() {
+        return expedient;
     }
 
     public Grup getGrup() {

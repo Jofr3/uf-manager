@@ -15,38 +15,26 @@ public class Expedient {
     private int idExpedient;
 
     @NotEmpty(message = "Aquest camp no pot estar buit")
-    private String dataExpedient;
+    private String nomExpedient;
 
     @Nullable
-    @ManyToOne
+    @OneToOne
     private Estudiant estudiant;
 
     @Nullable
     @OneToMany(mappedBy = "expedient", cascade = CascadeType.ALL)
     private List<Matricula> matricules;
 
-    @Nullable
-    private int matriculaActiva;
-
-    @Nullable
-    @OneToMany(mappedBy = "expedient", cascade = CascadeType.ALL)
-    private List<Pla> plans;
-
-    private boolean actiu;
-
     /*
     idExpedient     int
-    dataExpedient   String
+    nomExpedient    String
     estudiant       Estudiant
     matricules      List<Matricula>
-    matriculaActiva int
-    plans           List<Pla>
-    actiu           boolean
     */
 
-    public Expedient(String dataExpedient, boolean actiu) {
-        this.dataExpedient = dataExpedient;
-        this.actiu = actiu;
+    public Expedient(String nomExpedient, @Nullable List<Matricula> matricules) {
+        this.nomExpedient = nomExpedient;
+        this.matricules = matricules;
     }
 
     public Expedient() {
@@ -60,12 +48,12 @@ public class Expedient {
         this.idExpedient = idExpedient;
     }
 
-    public String getDataExpedient() {
-        return dataExpedient;
+    public String getNomExpedient() {
+        return nomExpedient;
     }
 
-    public void setDataExpedient(String dataExpedient) {
-        this.dataExpedient = dataExpedient;
+    public void setNomExpedient(String nomExpedient) {
+        this.nomExpedient = nomExpedient;
     }
 
     @Nullable
@@ -86,28 +74,11 @@ public class Expedient {
         this.matricules = matricules;
     }
 
-    public int getMatriculaActiva() {
-        return matriculaActiva;
-    }
-
-    public void setMatriculaActiva(int matriculaActiva) {
-        this.matriculaActiva = matriculaActiva;
-    }
-
-    @Nullable
-    public List<Pla> getPlans() {
-        return plans;
-    }
-
-    public void setPlans(@Nullable List<Pla> plans) {
-        this.plans = plans;
-    }
-
-    public boolean isActiu() {
-        return actiu;
-    }
-
-    public void setActiu(boolean actiu) {
-        this.actiu = actiu;
+    @Override
+    public String toString() {
+        return "Expedient{" +
+                "idExpedient=" + idExpedient +
+                ", nomExpedient='" + nomExpedient + '\'' +
+                '}';
     }
 }

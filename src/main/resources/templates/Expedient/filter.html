@@ -20,10 +20,9 @@
 <main>
 
     <div class="container-fluid p-5 pt-4">
-        <div th:replace="components/flash :: ok"></div>
         <div class="d-flex justify-content-between">
-            <h3>Matricules</h3>
-            <a class="btn btn-success m-1" th:href="@{/matricules/create}">Crea</a>
+            <h3 th:text="${'Matricules de ' + expedient.nomExpedient}"></h3>
+            <a class="btn btn-success m-1" th:href="@{/expedients/matricules/edit(id=${expedient.idExpedient})}" th:text="${'Maneja les matricules de '+expedient.nomExpedient}"></a>
         </div>
 
         <table class="table table-secondary table-striped">
@@ -50,7 +49,7 @@
                         </ul>
                     </div>
                 </td>
-                <td th:text="${matricula.expedient != null} ? ${matricula.expedient.dataExpedient} : 'No pertany a cap expedient'"></td>
+                <td th:text="${matricula.expedient != null} ? ${matricula.expedient.nomExpedient} : 'No pertany a cap expedient'"></td>
                 <td>
                     <a th:href="@{/matricules/edit(id=${matricula.idMatricula})}" type="button" class="btn btn-primary">Edita</a>
                 </td>
@@ -61,25 +60,9 @@
             </tbody>
         </table>
     </div>
-    <script th:replace="components/modals :: modalMatricula"></script>
+
 </main>
 
-
-<script th:replace="components/bootstrap :: jquery"></script>
 <script th:replace="components/bootstrap :: bootstrapJs"></script>
-<script>
-    $(document).ready(function () {
-        let id = "[[${id}]]";
-        if (id !== "") {
-            $('#modalMatricula').modal('show');
-        }
-
-        let flash = "[[${flash}]]"
-        if (flash !== "") {
-            console.log(flash);
-            $("#flash").show();
-        }
-    })
-</script>
 </body>
 </html>

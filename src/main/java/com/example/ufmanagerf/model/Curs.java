@@ -26,12 +26,17 @@ public class Curs {
     @OneToMany(mappedBy = "curs", cascade = CascadeType.ALL)
     private List<Grup> grups;
 
+    @Nullable
+    @OneToOne
+    private Pla pla;
+
     /*
     idCurs          int
     nomCurs         String
     anyIniciCurs    String
     anyFinalCurs    String
     grups           List<Grup>;
+    pla             Pla
     */
 
     public Curs(String nomCurs, String anyIniciCurs, String anyFinalCurs) {

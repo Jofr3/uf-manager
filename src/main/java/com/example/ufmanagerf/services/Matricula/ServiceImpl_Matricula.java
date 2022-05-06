@@ -1,9 +1,6 @@
 package com.example.ufmanagerf.services.Matricula;
 
-import com.example.ufmanagerf.model.Itemmat;
-import com.example.ufmanagerf.model.Matricula;
-import com.example.ufmanagerf.model.Mp;
-import com.example.ufmanagerf.model.Uf;
+import com.example.ufmanagerf.model.*;
 import com.example.ufmanagerf.repos.Repo_Itemmat;
 import com.example.ufmanagerf.repos.Repo_Matricula;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -99,30 +96,26 @@ public class ServiceImpl_Matricula implements Service_Matricula {
         }
     }
 
+    @Override
+    public List<Matricula> getAllWhereExpedientIsNull() {
+        try {
+            return RepoMatricula.getAllByExpedientIsNull();
+        } catch (Exception e) {
+            System.out.println("ERR: " + e);
+            return null;
+        }
+    }
+
+    @Override
+    public List<Matricula> getAllWhereExpedientIsNullOrExpedientIsEquals(Expedient expedient) {
+        try {
+            return RepoMatricula.getAllByExpedientIsNullOrExpedientEquals(expedient);
+        } catch (Exception e) {
+            System.out.println("ERR: " + e);
+            return null;
+        }
+    }
 /*
-    @Override
-    public List<Matricula> getAllWhereMpIsNull() {
-        try {
-            return RepoUf.getAllByMpIsNull();
-        } catch (Exception e) {
-            System.out.println("ERR: " + e);
-            return null;
-        }
-    }
-
-    @Override
-    public List<Uf> getAllWhereMpIsNullOrMpIsEquals(Mp mp) {
-        try {
-            return RepoUf.getAllByMpIsNullOrMpEquals(mp);
-        } catch (Exception e) {
-            System.out.println("ERR: " + e);
-            return null;
-        }
-    }
-
-
-
-
     @Override
     public List<Uf> filter(Mp mp) {
         try {

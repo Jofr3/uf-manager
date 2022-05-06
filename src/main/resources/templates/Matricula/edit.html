@@ -35,7 +35,7 @@
             <div class="d-flex justify-content-center">
                 <h1>Edita Uf</h1>
             </div>
-            <form th:action="@{/matricules/save}" method="post" th:object="${matricula}">
+            <form th:action="@{/matricules/editPost(id=${matricula.idMatricula})}" method="post" th:object="${matricula}">
                 <div class="row g-3 align-items-center m-2">
                     <div class="col-auto"><label for="dataMatricula" class="col-form-label float-end">Numero</label></div>
                     <div class="col-auto"><input th:field="*{dataMatricula}" name="dataMatricula" type="date" id="dataMatricula" class="form-control" style="width: 17vw"></div>

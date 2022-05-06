@@ -21,9 +21,6 @@ public class Grup {
     private List<Estudiant> estudiants;
 
     @Nullable
-    private String numEstudiants;
-
-    @Nullable
     @ManyToOne
     private Curs curs;
 
@@ -65,15 +62,6 @@ public class Grup {
 
     public void setEstudiants(@Nullable List<Estudiant> estudiants) {
         this.estudiants = estudiants;
-    }
-
-    @Nullable
-    public String getNumEstudiants() {
-        return numEstudiants;
-    }
-
-    public void setNumEstudiants(@Nullable String numEstudiants) {
-        this.numEstudiants = numEstudiants;
     }
 
     @Nullable

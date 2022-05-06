@@ -80,9 +80,9 @@ public class Controller_Matricula {
     }
 
     @PostMapping("/matricules/editPost")
-    public String editPost(@Valid @ModelAttribute Matricula matricula, BindingResult bindingResult, RedirectAttributes redir) {
+    public String editPost(@Valid @ModelAttribute Matricula matricula, HttpServletRequest request, BindingResult bindingResult, RedirectAttributes redir) {
+        matricula.setIdMatricula(Integer.parseInt(request.getParameter("id")));
         if (!bindingResult.hasErrors()) {
-
             List<Itemmat> allNotes = ItemmatService.getAll();
             List<Itemmat> newNotes = matricula.getItemmats();
             MatriculaService.edit(matricula);

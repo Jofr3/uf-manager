@@ -1,5 +1,7 @@
 package com.example.ufmanagerf.model;
 
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
 import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
@@ -65,6 +67,11 @@ public class Matricula {
         this.itemmats.add(itemmat);
     }
 
+    public void removeItemmat(Itemmat itemmat) {
+        this.itemmats.remove(itemmat);
+    }
+
+
     @Nullable
     public Expedient getExpedient() {
         return expedient;
@@ -72,5 +79,13 @@ public class Matricula {
 
     public void setExpedient(@Nullable Expedient expedient) {
         this.expedient = expedient;
+    }
+
+    @Override
+    public String toString() {
+        return "Matricula{" +
+                "idMatricula=" + idMatricula +
+                ", dataMatricula='" + dataMatricula + '\'' +
+                '}';
     }
 }

@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Matricules</title>
+    <title>Expedients</title>
     <style th:replace="components/bootstrap :: bootstrapCss"></style>
     <style th:replace="components/bootstrap :: bootstrapIcons"></style>
 </head>
@@ -22,56 +22,56 @@
     <div class="container-fluid p-5 pt-4">
         <div th:replace="components/flash :: ok"></div>
         <div class="d-flex justify-content-between">
-            <h3>Matricules</h3>
-            <a class="btn btn-success m-1" th:href="@{/matricules/create}">Crea</a>
+            <h3>Expedients</h3>
+            <a class="btn btn-success m-1" th:href="@{/expedients/create}">Crea</a>
         </div>
 
         <table class="table table-secondary table-striped">
             <thead>
             <tr>
-                <th scope="col">Data</th>
-                <th scope="col">Notes</th>
-                <th scope="col">Expedient</th>
+                <th scope="col">Nom</th>
+                <th scope="col">Estudiant</th>
+                <th scope="col">Matricules</th>
                 <th scope="col">Edita</th>
                 <th scope="col">Elimina</th>
             </tr>
             </thead>
             <tbody>
-            <tr th:each="matricula: ${matricules}">
-                <th th:text="${matricula.dataMatricula}"></th>
+            <tr th:each="expedient: ${expedients}">
+                <th th:text="${expedient.nomExpedient}"></th>
+                <td th:text="${expedient.estudiant != null} ? ${expedient.estudiant.nomEstudiant} : 'No pertany a cap estudiant'"></td>
                 <td>
                     <div class="dropdown">
                         <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                            Notes
+                            Matricules
                         </button>
                         <ul class="dropdown-menu">
-                            <li th:each="nota: ${matricula.itemmats}" th:text="${nota.idItemmat}" class="dropdown-item"></li>
-                            <li><a th:href="@{/matricules/notes(id=${matricula.idMatricula})}"><i style="font-size: 30px; padding-left: 14px;" class="bi bi-three-dots"></i></a></li>
+                            <li th:each="matricula: ${expedient.matricules}" th:text="${expedient.nomExpedient}" class="dropdown-item"></li>
+                            <li><a th:href="@{/expedients/matricules(id=${expedient.idExpedient})}"><i style="font-size: 30px; padding-left: 14px;" class="bi bi-three-dots"></i></a></li>
                         </ul>
                     </div>
                 </td>
-                <td th:text="${matricula.expedient != null} ? ${matricula.expedient.dataExpedient} : 'No pertany a cap expedient'"></td>
                 <td>
-                    <a th:href="@{/matricules/edit(id=${matricula.idMatricula})}" type="button" class="btn btn-primary">Edita</a>
+                    <a th:href="@{/expedients/edit(id=${expedient.idExpedient})}" type="button" class="btn btn-primary">Edita</a>
                 </td>
                 <td>
-                    <a th:href="@{/matricules/delete/modal(id=${matricula.idMatricula})}" type="button" class="btn btn-danger">Elimina</a>
+                    <a th:href="@{/expedients/delete/modal(id=${expedient.idExpedient})}" type="button" class="btn btn-danger">Elimina</a>
                 </td>
             </tr>
             </tbody>
         </table>
     </div>
-    <script th:replace="components/modals :: modalMatricula"></script>
+    <script th:replace="components/modals :: modalExpedient"></script>
 </main>
 
 
-<script th:replace="components/bootstrap :: jquery"></script>
-<script th:replace="components/bootstrap :: bootstrapJs"></script>
+<style th:replace="components/bootstrap :: jquery"></style>
+<style th:replace="components/bootstrap :: bootstrapJs"></style>
 <script>
     $(document).ready(function () {
         let id = "[[${id}]]";
         if (id !== "") {
-            $('#modalMatricula').modal('show');
+            $('#modalExpedient').modal('show');
         }
 
         let flash = "[[${flash}]]"

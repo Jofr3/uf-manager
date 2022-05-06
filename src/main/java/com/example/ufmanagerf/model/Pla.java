@@ -17,34 +17,25 @@ public class Pla {
     @NotEmpty(message = "Aquest camp no pot estar buit")
     private String nomPla;
 
-    @Min(value = 1, message = "Valor invalid")
-    @NotEmpty(message = "Aquest camp no pot estar buit")
-    private String anyPla;
-
     @Nullable
     @OneToMany(mappedBy = "pla", cascade = CascadeType.ALL)
     private List<Mp> mps;
 
     @Nullable
-    @ManyToOne
-    private Expedient expedient;
-
-    @Nullable
-    @ManyToOne
-    private Estudi estudi;
+    @NotEmpty(message = "Aquest camp no pot estar buit")
+    private String estudi;
 
     /*
     idPla       int
     nomPla      String
-    anyPla      String
     mps         List<Mp>
-    expedient   Expedient
-    estudi      Estudi
+    estudi      String
     */
 
-    public Pla(String nomPla, String anyPla) {
+    public Pla(String nomPla, @Nullable List<Mp> mps, @Nullable String estudi) {
         this.nomPla = nomPla;
-        this.anyPla = anyPla;
+        this.mps = mps;
+        this.estudi = estudi;
     }
 
     public Pla() {
@@ -66,14 +57,6 @@ public class Pla {
         this.nomPla = nomPla;
     }
 
-    public String getAnyPla() {
-        return anyPla;
-    }
-
-    public void setAnyPla(String anyPla) {
-        this.anyPla = anyPla;
-    }
-
     @Nullable
     public List<Mp> getMps() {
         return mps;
@@ -84,20 +67,11 @@ public class Pla {
     }
 
     @Nullable
-    public Expedient getExpedient() {
-        return expedient;
-    }
-
-    public void setExpedient(@Nullable Expedient expedient) {
-        this.expedient = expedient;
-    }
-
-    @Nullable
-    public Estudi getEstudi() {
+    public String getEstudi() {
         return estudi;
     }
 
-    public void setEstudi(@Nullable Estudi estudi) {
+    public void setEstudi(@Nullable String estudi) {
         this.estudi = estudi;
     }
 }

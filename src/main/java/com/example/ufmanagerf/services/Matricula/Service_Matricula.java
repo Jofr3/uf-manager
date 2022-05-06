@@ -1,5 +1,6 @@
 package com.example.ufmanagerf.services.Matricula;
 
+import com.example.ufmanagerf.model.Expedient;
 import com.example.ufmanagerf.model.Itemmat;
 import com.example.ufmanagerf.model.Matricula;
 
@@ -21,8 +22,10 @@ public interface Service_Matricula {
 
     public void removeNotes(Matricula matricula, List<Itemmat> notes);
 
+    public List<Matricula> getAllWhereExpedientIsNull();
+
+    public List<Matricula> getAllWhereExpedientIsNullOrExpedientIsEquals(Expedient expedient);
 /*
-    public List<Uf> getAllWhereMpIsNull();
 
     public List<Uf> getAllWhereMpIsNullOrMpIsEquals(Mp mp);
 
