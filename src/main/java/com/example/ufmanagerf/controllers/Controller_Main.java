@@ -19,6 +19,9 @@ public class Controller_Main {
 // TODO hi han dates que nomes son l'any (o totes ns)
 // TODO si intento crear una nota sense uf peta (posar un validate required)
 
+// Final
+// TODO repassar els validators, que tinguin sentit
+
 // EXTRA (si tens temps)
 // TODO canviar els edits que utilitzin la id per paremetre i no per el form en ocult
 

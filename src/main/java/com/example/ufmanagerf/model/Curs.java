@@ -88,4 +88,13 @@ public class Curs {
     public void setGrups(@Nullable List<Grup> grups) {
         this.grups = grups;
     }
+
+    @Nullable
+    public Pla getPla() {
+        return pla;
+    }
+
+    public void setPla(@Nullable Pla pla) {
+        this.pla = pla;
+    }
 }

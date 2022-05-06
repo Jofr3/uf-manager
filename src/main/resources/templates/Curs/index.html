@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Cursos</title>
+    <style th:replace="components/bootstrap :: bootstrapCss"></style>
+    <style th:replace="components/bootstrap :: bootstrapIcons"></style>
+</head>
+<style>
+    body {
+        height: 80vh;
+        background-color: #2c2e32;
+        color: rgba(255, 255, 255, 0.65);
+    }
+</style>
+<body>
+
+<header th:replace="components/header"></header>
+
+<main>
+
+    <div class="container-fluid p-5 pt-4">
+        <div th:replace="components/flash :: ok"></div>
+        <div class="d-flex justify-content-between">
+            <h3>Cursos</h3>
+            <a class="btn btn-success m-1" th:href="@{/cursos/create}">Crea</a>
+        </div>
+
+        <table class="table table-secondary table-striped">
+            <thead>
+            <tr>
+                <th scope="col">Nom</th>
+                <th scope="col">Any inici</th>
+                <th scope="col">Any final</th>
+                <th scope="col">Grups</th>
+                <th scope="col">Pla</th>
+                <th scope="col">Edita</th>
+                <th scope="col">Elimina</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="curs: ${cursos}">
+                <th th:text="${curs.nomCurs}"></th>
+                <td th:text="${curs.anyIniciCurs}"></td>
+                <td th:text="${curs.anyFinalCurs}"></td>
+                <td>
+                    <div class="dropdown">
+                        <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuButton1"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                            Grups
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li th:each="grup: ${curs.grups}" th:text="${grup.nomGrup}" class="dropdown-item"></li>
+                            <!--
+                                                        <li><a th:href="@{/mps/ufs(id=${mp.idMp})}"><i style="font-size: 30px; padding-left: 14px;" class="bi bi-three-dots"></i></a></li>
+                            -->
+                        </ul>
+                    </div>
+                </td>
+                <td th:text="${curs.pla != null} ? ${curs.pla.nomPla} : 'No pertany a cap pla'"></td>
+                <td>
+                    <a th:href="@{/cursos/edit(id=${curs.idCurs})}" type="button" class="btn btn-primary">Edita</a>
+                </td>
+                <td>
+                    <a th:href="@{/cursos/delete/modal(id=${curs.idCurs})}" type="button"
+                       class="btn btn-danger">Elimina</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <script th:replace="components/modals :: modal"></script>
+</main>
+
+
+<script th:replace="components/bootstrap :: jquery"></script>
+<script th:replace="components/bootstrap :: bootstrapJs"></script>
+<script>
+    $(document).ready(function () {
+        let id = "[[${id}]]";
+        if (id !== "") {
+            $('#modal').modal('show');
+        }
+
+        let flash = "[[${flash}]]"
+        if (flash !== "") {
+            console.log(flash);
+            $("#flash").show();
+        }
+    })
+</script>
+</body>
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Crea Estudiant</title>
+    <style th:replace="components/bootstrap :: bootstrapCss"></style>
+</head>
+<style>
+    body {
+        height: 80vh;
+        background-color: #2c2e32;
+        color: rgba(255, 255, 255, 0.65);
+    }
+
+    .col-auto:first-child {
+        width: 140px;
+    }
+
+    .col-auto:last-child {
+        width: 140px;
+    }
+</style>
+<body>
+
+<header th:replace="components/header"></header>
+
+<main>
+    <div class="container p-4 d-flex justify-content-center">
+        <div>
+            <div class="d-flex justify-content-center">
+                <h1>Crea un Estudiant</h1>
+            </div>
+            <form th:action="@{/estudiants/save}" method="post" th:object="${estudiant}">
+                <div class="row g-3 align-items-center m-2">
+                    <div class="col-auto"><label for="nomEstudiant" class="col-form-label float-end">Nom</label></div>
+                    <div class="col-auto"><input th:field="*{nomEstudiant}" name="nomEstudiant" type="text" id="nomEstudiant" class="form-control"></div>
+                    <div class="col-auto"><span class="form-text">Unic</span></div>
+                </div>
+
+                <div class="d-flex justify-content-center"><span class="text-danger" th:if="${#fields.hasErrors('nomEstudiant')}" th:errors="*{nomEstudiant}"></span></div>
+
+                <div class="row g-3 align-items-center m-2">
+                    <div class="col-auto"><label for="congomEstudiant" class="col-form-label float-end">Cognom</label></div>
+                    <div class="col-auto"><input th:field="*{cognomEstudiant}" name="cognomEstudiant" type="text" id="congomEstudiant" class="form-control"></div>
+                    <div class="col-auto"><span class="form-text"></span></div>
+                </div>
+
+                <div class="d-flex justify-content-center"><span class="text-danger" th:if="${#fields.hasErrors('cognomEstudiant')}" th:errors="*{cognomEstudiant}"></span></div>
+
+                <div class="row g-3 align-items-center m-2">
+                    <div class="col-auto"><label for="mailEstudiant" class="col-form-label float-end">Mail</label></div>
+                    <div class="col-auto"><input th:field="*{mailEstudiant}" name="mailEstudiant" type="email" id="mailEstudiant" class="form-control"></div>
+                    <div class="col-auto"><span class="form-text">Format de email</span></div>
+                </div>
+
+                <div class="d-flex justify-content-center"><span class="text-danger" th:if="${#fields.hasErrors('mailEstudiant')}" th:errors="*{mailEstudiant}"></span></div>
+
+                <div class="row g-3 align-items-center m-2">
+                    <div class="col-auto"><label for="dniEstudiant" class="col-form-label float-end">DNI</label></div>
+                    <div class="col-auto"><input th:field="*{dniEstudiant}" name="dniEstudiant" type="text" id="dniEstudiant" class="form-control"></div>
+                    <div class="col-auto"><span class="form-text">Unic</span></div>
+                </div>
+
+                <div class="d-flex justify-content-center"><span class="text-danger" th:if="${#fields.hasErrors('dniEstudiant')}" th:errors="*{dniEstudiant}"></span></div>
+
+                <div class="row g-3 align-items-center m-2">
+                    <div class="col-auto"><label for="dataNaixEstudiant" class="col-form-label float-end">Data naixament</label></div>
+                    <div class="col-auto" style="width: 18vw"><input th:field="*{dataNaixEstudiant}" name="dataNaixEstudiant" type="date" id="dataNaixEstudiant" class="form-control"></div>
+                    <div class="col-auto"><span class="form-text"></span></div>
+                </div>
+
+                <div class="d-flex justify-content-center"><span class="text-danger" th:if="${#fields.hasErrors('dataNaixEstudiant')}" th:errors="*{dataNaixEstudiant}"></span></div>
+
+                <div class="m-4" style="margin-left: 250px !important;">
+                    <button type="submit" class="btn btn-primary m-2">Crea</button>
+                    <a class="btn btn-danger m-2" th:href="@{/estudiants}">Cancela</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</main>
+
+<script th:replace="components/bootstrap :: bootstrapJs"></script>
+</body>
+</html>

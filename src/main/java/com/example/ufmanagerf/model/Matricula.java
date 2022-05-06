@@ -16,6 +16,9 @@ public class Matricula {
     private int idMatricula;
 
     @NotEmpty(message = "Aquest camp no pot estar buit")
+    private String nomMatricula;
+
+    @NotEmpty(message = "Aquest camp no pot estar buit")
     private String dataMatricula;
 
     @OneToMany(mappedBy = "matricula", cascade = CascadeType.ALL)
@@ -27,11 +30,13 @@ public class Matricula {
 
     /*
     idMatricula     int
+    nomMatricula    String
     dataMatricula   String
     itemmats        List<Itemmat>
     */
 
-    public Matricula(String dataMatricula, List<Itemmat> itemmats) {
+    public Matricula(String nomMatricula, String dataMatricula, List<Itemmat> itemmats) {
+        this.nomMatricula = nomMatricula;
         this.dataMatricula = dataMatricula;
         this.itemmats = itemmats;
     }

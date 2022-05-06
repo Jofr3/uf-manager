@@ -46,11 +46,12 @@ public class Controller_Expedient {
 
     @PostMapping("/expedients/save")
     public String save(@Valid @ModelAttribute Expedient expedient, BindingResult bindingResult, Model m, RedirectAttributes redir) {
-        System.out.println(expedient);
-        System.out.println(expedient.getMatricules());
         if (!bindingResult.hasErrors()) {
             ExpedientService.add(expedient);
             //ExpedientService.addMatricules(expedient, expedient.getMatricules());
+            Expedient expedient1 = ExpedientService.get(expedient.getIdExpedient());
+            System.out.println(expedient1);
+            System.out.println(expedient1.getMatricules());
             redir.addFlashAttribute("flash", "L'expedient s'ha creat correctament");
         } else {
             System.out.println("Validation error");

@@ -78,7 +78,6 @@ public class Controller_Itemmat {
 
     @PostMapping("/notes/editPost")
     public String editPost(@Valid @ModelAttribute Itemmat nota, HttpServletRequest request, BindingResult bindingResult, RedirectAttributes redir) {
-        Uf oldUf = UfService.get(Integer.parseInt(request.getParameter("uf")));
         nota.setIdItemmat(Integer.parseInt(request.getParameter("id")));
         if (!bindingResult.hasErrors()) {
             ItemmatService.edit(nota);

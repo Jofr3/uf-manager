@@ -1,7 +1,9 @@
 package com.example.ufmanagerf.controllers;
 
+import com.example.ufmanagerf.model.Estudiant;
 import com.example.ufmanagerf.model.Itemmat;
 import com.example.ufmanagerf.model.Uf;
+import com.example.ufmanagerf.services.Estudiant.Service_Estudiant;
 import com.example.ufmanagerf.services.Itemmat.Service_Itemmat;
 import com.example.ufmanagerf.services.Uf.Service_Uf;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,82 +21,77 @@ import javax.validation.Valid;
 import java.util.List;
 
 @Controller
-public class Controller_Uf {
+public class Controller_Estudiant {
 
     @Autowired
-    private Service_Uf UfService;
+    private Service_Estudiant EstudiantService;
 
-    @Autowired
-    private Service_Itemmat ItemmatService;
-
-    @GetMapping("/ufs")
+    @GetMapping("/estudiants")
     public String index(Model m) {
-        m.addAttribute("ufs", UfService.getAll());
-        return "Uf/index";
+        m.addAttribute("estudiants", EstudiantService.getAll());
+        return "Estudiant/index";
     }
 
-    @GetMapping("/ufs/create")
+    @GetMapping("/estudiants/create")
     public String create(Model m) {
-        m.addAttribute("uf", new Uf());
-        return "Uf/create";
+        m.addAttribute("estudiant", new Estudiant());
+        return "Estudiant/create";
     }
 
-    @PostMapping("/ufs/save")
-    public String save(@Valid @ModelAttribute Uf uf, BindingResult bindingResult, Model m, RedirectAttributes redir) {
+    @PostMapping("/estudiants/save")
+    public String save(@Valid @ModelAttribute Estudiant estudiant, BindingResult bindingResult, Model m, RedirectAttributes redir) {
         if (!bindingResult.hasErrors()) {
-            if(UfService.exists(uf.getNomUf())){
-                bindingResult.addError(new FieldError("uf", "nomUf", "El nom ja existeix"));
-                return "Uf/create";
-            }
-            UfService.add(uf);
-            redir.addFlashAttribute("flash", "La uf s'ha creat correctament");
+            EstudiantService.add(estudiant);
+            redir.addFlashAttribute("flash", "L'estudiant s'ha creat correctament");
         } else {
             System.out.println("Validation error");
-            m.addAttribute("uf", uf);
-            return "Uf/create";
+            m.addAttribute("estudiant", estudiant);
+            return "Estudiant/create";
         }
-        return "redirect:/ufs";
+        return "redirect:/estudiants";
     }
 
-    @GetMapping("/ufs/delete/modal")
+    @GetMapping("/estudiants/delete/modal")
     public String deleteModal(HttpServletRequest request, RedirectAttributes redir, Model m) {
-        Uf uf = UfService.get(Integer.parseInt(request.getParameter("id")));
+        Estudiant estudiant = EstudiantService.get(Integer.parseInt(request.getParameter("id")));
         redir.addFlashAttribute("id", request.getParameter("id"));
-        redir.addFlashAttribute("mssg", "Segur que vols eliminar la uf?");
-        redir.addFlashAttribute("del", "ufs");
-        System.out.println(uf);
-        return "redirect:/ufs";
+        redir.addFlashAttribute("mssg", "Segur que vols eliminar l'estudiant?");
+        redir.addFlashAttribute("del", "estudiants");
+        System.out.println(estudiant);
+        return "redirect:/estudiants";
     }
 
-    @GetMapping("/ufs/delete")
+    @GetMapping("/estudiants/delete")
     public String delete(HttpServletRequest request, RedirectAttributes redir) {
-        UfService.remove(Integer.parseInt(request.getParameter("id")));
-        redir.addFlashAttribute("flash", "La uf s'ha eliminat correctament");
-        return "redirect:/ufs";
+        EstudiantService.remove(Integer.parseInt(request.getParameter("id")));
+        redir.addFlashAttribute("flash", "L'estudiant s'ha eliminat correctament");
+        return "redirect:/estudiants";
     }
 
-    @GetMapping("/ufs/edit")
+    @GetMapping("/estudiants/edit")
     public String edit(HttpServletRequest request, Model m) {
-        Uf uf = UfService.get(Integer.parseInt(request.getParameter("id")));
-        m.addAttribute("uf", uf);
-        return "Uf/edit";
+        Estudiant estudiant = EstudiantService.get(Integer.parseInt(request.getParameter("id")));
+        m.addAttribute("estudiant", estudiant);
+        return "Estudiant/edit";
     }
 
-    @PostMapping("/ufs/editPost")
-    public String editPost(@Valid @ModelAttribute Uf uf, BindingResult bindingResult, RedirectAttributes redir) {
+    @PostMapping("/estudiants/editPost")
+    public String editPost(@Valid @ModelAttribute Estudiant estudiant, HttpServletRequest request, BindingResult bindingResult, RedirectAttributes redir) {
+        estudiant.setIdEstudiant(Integer.parseInt(request.getParameter("id")));
         if (!bindingResult.hasErrors()) {
-            if(UfService.existsEdit(uf.getNomUf(), uf.getIdUf())){
-                bindingResult.addError(new FieldError("uf", "nomUf", "El nom ja existeix"));
-                return "Uf/edit";
-            };
-            UfService.edit(uf);
-            redir.addFlashAttribute("flash", "La uf s'ha editat correctament");
+            EstudiantService.edit(estudiant);
+            redir.addFlashAttribute("flash", "L'estudiant s'ha editat correctament");
         } else {
             System.out.println("Validation error");
-            return "Uf/edit";
+            return "Estudiant/edit";
         }
-        return "redirect:/ufs";
+        return "redirect:/estudiants";
     }
+/*
+
+
+
+
 
     @GetMapping("/ufs/notes")
     public String filter(Model m, HttpServletRequest request) {
@@ -122,4 +119,5 @@ public class Controller_Uf {
         redir.addFlashAttribute("flash", "La uf s'ha editat correctament");
         return "redirect:/ufs";
     }
+*/
 }

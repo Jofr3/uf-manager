@@ -72,7 +72,7 @@
                 </table>
                 <form method="post" th:action="@{/expedient/matricules/editPost(id=${expedient.idExpedient})}" th:object="${expedient}">
                     <select th:field="*{matricules}" name="to[]" id="multiselect_to" class="form-control" multiple="multiple">
-                        <option th:each="matricules: ${expedient.matricules}" th:value="${matricules.idMatricula}" th:text="${matricules.dataMatricul}"></option>
+                        <option th:each="matricules: ${expedient.matricules}" th:value="${matricules.idMatricula}" th:text="${matricules.nomMatricula}"></option>
                     </select>
                     <button type="submit" class="btn btn-light float-end mt-1">Confirma</button>
                 </form>
