@@ -27,7 +27,7 @@ public class Curs {
     private List<Grup> grups;
 
     @Nullable
-    @OneToOne
+    @ManyToOne
     private Pla pla;
 
     /*

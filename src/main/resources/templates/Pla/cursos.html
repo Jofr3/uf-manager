@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Expedients</title>
+    <title>Cursos</title>
     <style th:replace="components/bootstrap :: bootstrapCss"></style>
     <style th:replace="components/bootstrap :: bootstrapIcons"></style>
 </head>
@@ -20,84 +20,71 @@
 <main>
 
     <div class="container-fluid p-5 pt-4">
-        <div th:replace="components/flash :: ok"></div>
         <div class="d-flex justify-content-between">
-            <h3>Expedients</h3>
-            <a class="btn btn-success m-1" th:href="@{/expedients/create}">Crea</a>
+            <h3 th:text="${'Mps de ' + pla.nomPla}"></h3>
+            <a class="btn btn-success m-1" th:href="@{/plans/cursos/modi(id=${pla.idPla})}" th:text="${'Maneja els cursos de '+pla.nomPla}"></a>
         </div>
 
         <table class="table table-secondary table-striped">
             <thead>
             <tr>
                 <th scope="col">Nom</th>
-                <th scope="col">Estudiant</th>
-                <th scope="col">Matricules</th>
+                <th scope="col">Any inici</th>
+                <th scope="col">Any final</th>
+                <th scope="col">Grups</th>
+                <th scope="col">Pla</th>
                 <th scope="col">Edita</th>
                 <th scope="col">Elimina</th>
             </tr>
             </thead>
             <tbody>
-            <tr th:each="expedient: ${expedients}">
-                <th th:text="${expedient.nomExpedient}"></th>
-                <td th:text="${expedient.estudiant != null} ? ${expedient.estudiant.nomEstudiant} : 'No pertany a cap estudiant'"></td>
+            <tr th:each="curs: ${pla.cursos}">
+                <th th:text="${curs.nomCurs}"></th>
+                <td th:text="${curs.anyIniciCurs}"></td>
+                <td th:text="${curs.anyFinalCurs}"></td>
                 <td>
                     <div class="dropdown">
                         <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuButton1"
                                 data-bs-toggle="dropdown" aria-expanded="false">
-                            Matricules
+                            Grups
                         </button>
                         <ul class="dropdown-menu">
+
                             <table class="table table-secondary table-striped">
                                 <thead>
                                 <tr>
                                     <th scope="col">Nom</th>
-                                    <th scope="col">Data</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr th:each="matricula: ${expedient.matricules}">
-                                    <th th:text="${matricula.nomMatricula}"></th>
-                                    <th th:text="${matricula.dataMatricula}"></th>
+                                <tr th:each="grup: ${curs.grups}">
+                                    <th th:text="${grup.nomGrup}"></th>
                                 </tr>
                                 </tbody>
                             </table>
                         </ul>
                         <button class="btn btn-dark" style="padding: 3px">
-                            <a th:href="@{/expedients/matricules(id=${expedient.idExpedient})}"><i
+                            <a th:href="@{/cursos/grups(id=${curs.idCurs})}"><i
                                     style="font-size: 20px; padding: 10px; color: white"
                                     class="bi bi-three-dots"></i></a>
                         </button>
                     </div>
                 </td>
+                <td th:text="${curs.pla != null} ? ${curs.pla.nomPla} : 'No pertany a cap pla'"></td>
                 <td>
-                    <a th:href="@{/expedients/edit(id=${expedient.idExpedient})}" type="button" class="btn btn-primary">Edita</a>
+                    <a th:href="@{/cursos/edit(id=${curs.idCurs})}" type="button" class="btn btn-primary">Edita</a>
                 </td>
                 <td>
-                    <a th:href="@{/expedients/delete/modal(id=${expedient.idExpedient})}" type="button" class="btn btn-danger">Elimina</a>
+                    <a th:href="@{/cursos/delete/modal(id=${curs.idCurs})}" type="button"
+                       class="btn btn-danger">Elimina</a>
                 </td>
             </tr>
             </tbody>
         </table>
     </div>
-    <script th:replace="components/modals :: modal"></script>
+
 </main>
 
-
-<style th:replace="components/bootstrap :: jquery"></style>
-<style th:replace="components/bootstrap :: bootstrapJs"></style>
-<script>
-    $(document).ready(function () {
-        let id = "[[${id}]]";
-        if (id !== "") {
-            $('#modal').modal('show');
-        }
-
-        let flash = "[[${flash}]]"
-        if (flash !== "") {
-            console.log(flash);
-            $("#flash").show();
-        }
-    })
-</script>
+<script th:replace="components/bootstrap :: bootstrapJs"></script>
 </body>
 </html>

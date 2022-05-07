@@ -16,4 +16,6 @@ public interface Repo_Mp extends CrudRepository<Mp, Integer> {
     public boolean existsByNomMp(String nomMp);
 
     public boolean existsByNomMpAndIdMpIsNot(String nomMp, int idMp);
+
+    public List<Mp> getAllByPlaIsNull();
 }

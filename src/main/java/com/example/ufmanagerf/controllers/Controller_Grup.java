@@ -112,8 +112,6 @@ public class Controller_Grup {
         estudiant.setGrup(grup);
         EstudiantService.edit(estudiant);
         GrupService.edit(grup);
-        redir.addFlashAttribute("grup", grup);
-        redir.addFlashAttribute("estudiantsNoGrup", EstudiantService.getAllWhereGrupIsNull());
         return "redirect:modi?id=" + grup.getIdGrup();
     }
 
@@ -125,8 +123,6 @@ public class Controller_Grup {
         estudiant.setGrup(null);
         EstudiantService.edit(estudiant);
         GrupService.edit(grup);
-        redir.addFlashAttribute("grup", grup);
-        redir.addFlashAttribute("estudiantsNoGrup", EstudiantService.getAllWhereGrupIsNull());
         return "redirect:modi?id=" + grup.getIdGrup();
     }
 /*

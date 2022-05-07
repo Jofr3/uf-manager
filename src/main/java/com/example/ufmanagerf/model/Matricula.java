@@ -35,10 +35,9 @@ public class Matricula {
     itemmats        List<Itemmat>
     */
 
-    public Matricula(String nomMatricula, String dataMatricula, List<Itemmat> itemmats) {
+    public Matricula(String nomMatricula, String dataMatricula) {
         this.nomMatricula = nomMatricula;
         this.dataMatricula = dataMatricula;
-        this.itemmats = itemmats;
     }
 
     public Matricula() {
@@ -76,6 +75,13 @@ public class Matricula {
         this.itemmats.remove(itemmat);
     }
 
+    public String getNomMatricula() {
+        return nomMatricula;
+    }
+
+    public void setNomMatricula(String nomMatricula) {
+        this.nomMatricula = nomMatricula;
+    }
 
     @Nullable
     public Expedient getExpedient() {

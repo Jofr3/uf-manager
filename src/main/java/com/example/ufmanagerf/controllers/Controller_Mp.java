@@ -116,28 +116,24 @@ public class Controller_Mp {
     }
 
     @GetMapping("/mps/ufs/add")
-    public String ufAdd(Model m, HttpServletRequest request, RedirectAttributes redir) {
+    public String ufAdd(HttpServletRequest request, RedirectAttributes redir) {
         Mp mp = MpService.get(Integer.parseInt(request.getParameter("idMp")));
         Uf uf = UfSerivce.get(Integer.parseInt(request.getParameter("idUf")));
         mp.setUf(uf);
         uf.setMp(mp);
         UfSerivce.edit(uf);
         MpService.edit(mp);
-        redir.addFlashAttribute("mp", mp);
-        redir.addFlashAttribute("ufsNoMp", UfSerivce.getAllWhereMpIsNull());
         return "redirect:modi?id=" + mp.getIdMp();
     }
 
     @GetMapping("/mps/ufs/remove")
-    public String ufRemove(Model m, HttpServletRequest request, RedirectAttributes redir) {
+    public String ufRemove(HttpServletRequest request, RedirectAttributes redir) {
         Mp mp = MpService.get(Integer.parseInt(request.getParameter("idMp")));
         Uf uf = UfSerivce.get(Integer.parseInt(request.getParameter("idUf")));
         mp.removeUf(uf);
         uf.setMp(null);
         UfSerivce.edit(uf);
         MpService.edit(mp);
-        redir.addFlashAttribute("mp", mp);
-        redir.addFlashAttribute("ufsNoMp", UfSerivce.getAllWhereMpIsNull());
         return "redirect:modi?id=" + mp.getIdMp();
     }
 }

@@ -74,4 +74,9 @@ public class ServiceImpl_Mp implements Service_Mp {
     public boolean existsEdit(String nomMp, int idMp) {
         return RepoMp.existsByNomMpAndIdMpIsNot(nomMp, idMp);
     }
+
+    @Override
+    public List<Mp> getAllWherePlaIsNull(){
+        return RepoMp.getAllByPlaIsNull();
+    }
 }

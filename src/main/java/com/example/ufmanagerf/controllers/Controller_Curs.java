@@ -112,8 +112,6 @@ public class Controller_Curs {
         grup.setCurs(curs);
         GrupService.edit(grup);
         CursService.edit(curs);
-        redir.addFlashAttribute("curs", curs);
-        redir.addFlashAttribute("grupsNoCurs", GrupService.getAllWhereCursIsNull());
         return "redirect:modi?id=" + curs.getIdCurs();
     }
 
@@ -125,8 +123,6 @@ public class Controller_Curs {
         grup.setCurs(null);
         GrupService.edit(grup);
         CursService.edit(curs);
-        redir.addFlashAttribute("curs", curs);
-        redir.addFlashAttribute("grupsNoCurs", GrupService.getAllWhereCursIsNull());
         return "redirect:modi?id=" + curs.getIdCurs();
     }
 /*

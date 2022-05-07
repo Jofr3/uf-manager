@@ -24,4 +24,5 @@ public class Controller_Main {
 
 // EXTRA (si tens temps)
 // TODO canviar els edits que utilitzin la id per paremetre i no per el form en ocult
+// TODO borrar tots els modals dels Modi
 

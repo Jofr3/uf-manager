@@ -1,24 +1,24 @@
-package com.example.ufmanagerf.services.Curs;
+package com.example.ufmanagerf.services.Pla;
 
 import com.example.ufmanagerf.model.Curs;
-import com.example.ufmanagerf.model.Estudiant;
+import com.example.ufmanagerf.model.Pla;
 import com.example.ufmanagerf.repos.Repo_Curs;
-import com.example.ufmanagerf.repos.Repo_Estudiant;
+import com.example.ufmanagerf.repos.Repo_Pla;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class ServiceImpl_Curs implements Service_Curs {
+public class ServiceImpl_Pla implements Service_Pla {
 
     @Autowired
-    Repo_Curs RepoCurs;
+    Repo_Pla RepoPla;
 
     @Override
-    public Curs get(int id) {
+    public Pla get(int id) {
         try {
-            return RepoCurs.getById(id);
+            return RepoPla.getById(id);
         } catch (Exception e) {
             System.out.println("ERR: " + e);
             return null;
@@ -26,9 +26,9 @@ public class ServiceImpl_Curs implements Service_Curs {
     }
 
     @Override
-    public List<Curs> getAll() {
+    public List<Pla> getAll() {
         try {
-            return RepoCurs.findAll();
+            return RepoPla.findAll();
         } catch (Exception e) {
             System.out.println("ERR: " + e);
             return null;
@@ -36,9 +36,9 @@ public class ServiceImpl_Curs implements Service_Curs {
     }
 
     @Override
-    public void add(Curs curs) {
+    public void add(Pla pla) {
         try {
-            RepoCurs.save(curs);
+            RepoPla.save(pla);
         } catch (Exception e) {
             System.out.println("ERR: " + e);
         }
@@ -47,24 +47,19 @@ public class ServiceImpl_Curs implements Service_Curs {
     @Override
     public void remove(int id) {
         try {
-            RepoCurs.deleteById(id);
+            RepoPla.deleteById(id);
         } catch (Exception e) {
             System.out.println("ERR: " + e);
         }
     }
 
     @Override
-    public void edit(Curs curs) {
+    public void edit(Pla pla) {
         try {
-            RepoCurs.save(curs);
+            RepoPla.save(pla);
         } catch (Exception e) {
             System.out.println("ERR: " + e);
         }
-    }
-
-    @Override
-    public List<Curs> getAllWhereCursIsNull(){
-        return RepoCurs.getAllByPlaIsNull();
     }
 
 /*

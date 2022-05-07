@@ -1,9 +1,6 @@
 package com.example.ufmanagerf.controllers;
 
-import com.example.ufmanagerf.model.Expedient;
-import com.example.ufmanagerf.model.Itemmat;
-import com.example.ufmanagerf.model.Matricula;
-import com.example.ufmanagerf.model.Uf;
+import com.example.ufmanagerf.model.*;
 import com.example.ufmanagerf.services.Expedient.Service_Expedient;
 import com.example.ufmanagerf.services.Itemmat.Service_Itemmat;
 import com.example.ufmanagerf.services.Matricula.Service_Matricula;
@@ -65,7 +62,8 @@ public class Controller_Expedient {
     public String deleteModal(HttpServletRequest request, RedirectAttributes redir, Model m) {
         Expedient expedient = ExpedientService.get(Integer.parseInt(request.getParameter("id")));
         redir.addFlashAttribute("id", request.getParameter("id"));
-        redir.addFlashAttribute("obj", expedient);
+        redir.addFlashAttribute("mssg", "Segur que vols eliminar l'expedient?");
+        redir.addFlashAttribute("del", "expedients");
         System.out.println(expedient);
         return "redirect:/expedients";
     }
@@ -103,30 +101,40 @@ public class Controller_Expedient {
     }
 
     @GetMapping("/expedients/matricules")
-    public String filter(Model m, HttpServletRequest request) {
+    public String grups(Model m, HttpServletRequest request) {
         Expedient expedient = ExpedientService.get(Integer.parseInt(request.getParameter("id")));
         m.addAttribute("expedient", expedient);
-        m.addAttribute("matricules", ExpedientService.filterMatricula(expedient));
-        return "Expedient/filter";
-    }
-
-    @GetMapping("/expedients/matricules/edit")
-    public String notes(Model m, HttpServletRequest request) {
-        Expedient expedient = ExpedientService.get(Integer.parseInt(request.getParameter("id")));
-        m.addAttribute("expedient", expedient);
-        m.addAttribute("matriculesNoExpedient", MatriculaService.getAllWhereExpedientIsNull());
         return "Expedient/matricules";
     }
 
-    @PostMapping("/expedient/matricules/editPost")
-    public String notesPost(@ModelAttribute Expedient expedient, Model m, HttpServletRequest request, RedirectAttributes redir) {
-        Expedient EXPEDIENT = ExpedientService.get(Integer.parseInt(request.getParameter("id")));
-        List<Matricula> allMatricules = MatriculaService.getAll();
-        List<Matricula> newMatricules = expedient.getMatricules();
-        ExpedientService.removeMatricules(EXPEDIENT, allMatricules);
-        ExpedientService.addMatricules(EXPEDIENT, newMatricules);
-        redir.addFlashAttribute("flash", "La matricula s'ha editat correctament");
-        return "redirect:/expedients";
+    @GetMapping("/expedients/matricules/modi")
+    public String expedientsModi(Model m, HttpServletRequest request) {
+        Expedient expedient = ExpedientService.get(Integer.parseInt(request.getParameter("id")));
+        m.addAttribute("expedient", expedient);
+        m.addAttribute("matriculesNoExpedient", MatriculaService.getAllWhereExpedientIsNull());
+        return "Expedient/matriculesModi";
+    }
+
+    @GetMapping("/expedients/matricules/add")
+    public String expedientAdd(Model m, HttpServletRequest request, RedirectAttributes redir) {
+        Expedient expedient = ExpedientService.get(Integer.parseInt(request.getParameter("idExpedient")));
+        Matricula matricula = MatriculaService.get(Integer.parseInt(request.getParameter("idMatricula")));
+        expedient.setMatricula(matricula);
+        matricula.setExpedient(expedient);
+        ExpedientService.edit(expedient);
+        MatriculaService.edit(matricula);
+        return "redirect:modi?id=" + expedient.getIdExpedient();
+    }
+
+    @GetMapping("/expedients/matricules/remove")
+    public String expedientRemove(Model m, HttpServletRequest request, RedirectAttributes redir) {
+        Expedient expedient = ExpedientService.get(Integer.parseInt(request.getParameter("idExpedient")));
+        Matricula matricula = MatriculaService.get(Integer.parseInt(request.getParameter("idMatricula")));
+        expedient.removeMatricula(matricula);
+        matricula.setExpedient(null);
+        ExpedientService.edit(expedient);
+        MatriculaService.edit(matricula);
+        return "redirect:modi?id=" + expedient.getIdExpedient();
     }
 /*
 

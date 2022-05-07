@@ -37,35 +37,20 @@
             </div>
             <form th:action="@{/matricules/save}" method="post" th:object="${matricula}">
                 <div class="row g-3 align-items-center m-2">
+                    <div class="col-auto"><label for="nomMatricula" class="col-form-label float-end">Nom</label></div>
+                    <div class="col-auto"><input th:field="*{nomMatricula}" name="nomMatricula" type="text" id="nomMatricula" class="form-control" style="width: 17vw"></div>
+                    <div class="col-auto"><span class="form-text"></span></div>
+                </div>
+
+                <div class="d-flex justify-content-center"><span class="text-danger" th:if="${#fields.hasErrors('nomMatricula')}" th:errors="*{nomMatricula}"></span></div>
+
+                <div class="row g-3 align-items-center m-2">
                     <div class="col-auto"><label for="dataMatricula" class="col-form-label float-end">Numero</label></div>
                     <div class="col-auto"><input th:field="*{dataMatricula}" name="dataMatricula" type="date" id="dataMatricula" class="form-control" style="width: 17vw"></div>
                     <div class="col-auto"><span class="form-text"></span></div>
                 </div>
 
                 <div class="d-flex justify-content-center"><span class="text-danger" th:if="${#fields.hasErrors('dataMatricula')}" th:errors="*{dataMatricula}"></span></div>
-
-                <div class="row g-3 align-items-center m-2">
-                    <div class="col-auto"><label for="itemmats" class="col-form-label float-end">Notes</label></div>
-                    <div class="col-auto">
-                        <select th:field="*{itemmats}" class="selectpicker" id="itemmats" name="itemmats" multiple aria-label="Default select example">
-                            <option th:each="nota: ${notes}" th:value="${nota.idItemmat}" th:text="${nota.idItemmat}"></option>
-                        </select>
-                    </div>
-                    <div class="col-auto"><span class="form-text"></span></div>
-                </div>
-
-<!--
-                <div class="row g-3 align-items-center m-2">
-                    <div class="col-auto"><label for="expedient" class="col-form-label float-end">Expedient</label></div>
-                    <div class="col-auto">
-                        <select th:field="*{expedient}" class="form-select" id="expedient" name="expedient" aria-label="Default select example" style="width: 17vw">
-                            <option th:value="null" selected></option>
-                            <option th:each="expedient: ${expedients}" th:value="${expedient.idExpedient}" th:text="${expedient.estudiant.nomEstudiant}"></option>
-                        </select>
-                    </div>
-                    <div class="col-auto"><span class="form-text"></span></div>
-                </div>
--->
 
                 <div class="m-4" style="margin-left: 250px !important;">
                     <button type="submit" class="btn btn-primary m-2">Crea</button>

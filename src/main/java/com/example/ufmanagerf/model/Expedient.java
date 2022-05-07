@@ -32,9 +32,8 @@ public class Expedient {
     matricules      List<Matricula>
     */
 
-    public Expedient(String nomExpedient, @Nullable List<Matricula> matricules) {
+    public Expedient(String nomExpedient) {
         this.nomExpedient = nomExpedient;
-        this.matricules = matricules;
     }
 
     public Expedient() {
@@ -72,6 +71,14 @@ public class Expedient {
 
     public void setMatricules(@Nullable List<Matricula> matricules) {
         this.matricules = matricules;
+    }
+
+    public void setMatricula(@Nullable Matricula matricula) {
+        this.matricules.add(matricula);
+    }
+
+    public void removeMatricula(@Nullable Matricula matricula) {
+        this.matricules.remove(matricula);
     }
 
     @Override

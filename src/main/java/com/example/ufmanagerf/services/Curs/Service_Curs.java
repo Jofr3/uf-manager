@@ -16,8 +16,9 @@ public interface Service_Curs {
     public void remove(int id);
 
     public void edit(Curs curs);
+
+    public List<Curs> getAllWhereCursIsNull();
 /*
-    public List<Uf> getAllWhereMpIsNull();
 
     public List<Uf> getAllWhereMpIsNullOrMpIsEquals(Mp mp);
 

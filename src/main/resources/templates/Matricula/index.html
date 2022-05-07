@@ -50,7 +50,7 @@
                         </ul>
                     </div>
                 </td>
-                <td th:text="${matricula.expedient != null} ? ${matricula.expedient.dataExpedient} : 'No pertany a cap expedient'"></td>
+                <td th:text="${matricula.expedient != null} ? ${matricula.expedient.nomExpedient} : 'No pertany a cap expedient'"></td>
                 <td>
                     <a th:href="@{/matricules/edit(id=${matricula.idMatricula})}" type="button" class="btn btn-primary">Edita</a>
                 </td>
@@ -61,7 +61,7 @@
             </tbody>
         </table>
     </div>
-    <script th:replace="components/modals :: modalMatricula"></script>
+    <script th:replace="components/modals :: modal"></script>
 </main>
 
 
@@ -71,7 +71,7 @@
     $(document).ready(function () {
         let id = "[[${id}]]";
         if (id !== "") {
-            $('#modalMatricula').modal('show');
+            $('#modal').modal('show');
         }
 
         let flash = "[[${flash}]]"

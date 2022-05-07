@@ -18,18 +18,24 @@ public class Pla {
     private String nomPla;
 
     @Nullable
+    @NotEmpty(message = "Aquest camp no pot estar buit")
+    private String estudi;
+
+    @Nullable
     @OneToMany(mappedBy = "pla", cascade = CascadeType.ALL)
     private List<Mp> mps;
 
     @Nullable
-    @NotEmpty(message = "Aquest camp no pot estar buit")
-    private String estudi;
+    @OneToMany(mappedBy = "pla", cascade = CascadeType.ALL)
+    private List<Curs> cursos;
+
 
     /*
     idPla       int
     nomPla      String
     mps         List<Mp>
     estudi      String
+    cursos      List<Curs>
     */
 
     public Pla(String nomPla, @Nullable List<Mp> mps, @Nullable String estudi) {
@@ -66,6 +72,14 @@ public class Pla {
         this.mps = mps;
     }
 
+    public void setMp(@Nullable Mp mp) {
+        this.mps.add(mp);
+    }
+
+    public void removeMp(@Nullable Mp mp) {
+        this.mps.remove(mp);
+    }
+
     @Nullable
     public String getEstudi() {
         return estudi;
@@ -73,5 +87,22 @@ public class Pla {
 
     public void setEstudi(@Nullable String estudi) {
         this.estudi = estudi;
+    }
+
+    @Nullable
+    public List<Curs> getCursos() {
+        return cursos;
+    }
+
+    public void setCursos(@Nullable List<Curs> cursos) {
+        this.cursos = cursos;
+    }
+
+    public void setCurs(@Nullable Curs curs) {
+        this.cursos.add(curs);
+    }
+
+    public void removeCurs(@Nullable Curs curs) {
+        this.cursos.remove(curs);
     }
 }

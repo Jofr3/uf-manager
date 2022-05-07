@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Matricules</title>
-    <link th:replace="components/bootstrap :: bootstrapCss">
-    <link th:replace="components/bootstrap :: bootstrapIcons">
+    <style th:replace="components/bootstrap :: bootstrapCss"></style>
+    <style th:replace="components/bootstrap :: bootstrapIcons"></style>
 </head>
 <style>
     body {
@@ -12,81 +12,57 @@
         background-color: #2c2e32;
         color: rgba(255, 255, 255, 0.65);
     }
-
-    .col-wrapper, .form-wrapper, .form-control {
-        height: 60vh;
-    }
-    .bi{
-        font-size: 25px;
-    }
-    .form-control::-webkit-scrollbar {
-        display: none;
-    }
-    .form-control {
-        -ms-overflow-style: none;
-        scrollbar-width: none;
-    }
 </style>
 <body>
 
 <header th:replace="components/header"></header>
 
 <main>
+
     <div class="container-fluid p-5 pt-4">
         <div class="d-flex justify-content-between">
             <h3 th:text="${'Matricules de ' + expedient.nomExpedient}"></h3>
+            <a class="btn btn-success m-1" th:href="@{/expedients/matricules/modi(id=${expedient.idExpedient})}" th:text="${'Maneja les matricules de '+expedient.nomExpedient}"></a>
         </div>
 
-        <div class="row col-wrapper">
-            <div class="col form-wrapper">
-                <table class="table table-danger table-striped mb-1">
-                    <thead>
-                    <tr>
-                        <th scope="col">Data</th>
-                        <th scope="col">Notes</th>
-                        <th scope="col">Expedient</th>
-                    </tr>
-                    </thead>
-                </table>
-                <select name="from[]" id="multiselect" class="form-control" multiple="multiple">
-                    <option th:each="matricules: ${matriculesNoExpedient}" th:value="${matricules.idMatricula}" th:text="${matricules.dataMatricula}"></option>
-                </select>
-            </div>
-
-            <div class="col-1 form-wrapper d-flex justify-content-around flex-column">
-                <button type="button" id="multiselect_rightAll" class="btn btn-light"><i class="bi bi-chevron-double-right"></i></button>
-                <button type="button" id="multiselect_rightSelected" class="btn btn-light"><i class="bi bi-chevron-right"></i></button>
-                <button type="button" id="multiselect_leftSelected" class="btn btn-light"><i class="bi bi-chevron-left"></i></button>
-                <button type="button" id="multiselect_leftAll" class="btn btn-light"><i class="bi bi-chevron-double-left"></i></button>
-            </div>
-
-            <div class="col form-wrapper">
-                <table class="table table-success table-striped mb-1">
-                    <thead>
-                    <tr>
-                        <th scope="col">Nota ordinaria</th>
-                        <th scope="col">Nota extraordinaria</th>
-                        <th scope="col">Matricula</th>
-                    </tr>
-                    </thead>
-                </table>
-                <form method="post" th:action="@{/expedient/matricules/editPost(id=${expedient.idExpedient})}" th:object="${expedient}">
-                    <select th:field="*{matricules}" name="to[]" id="multiselect_to" class="form-control" multiple="multiple">
-                        <option th:each="matricules: ${expedient.matricules}" th:value="${matricules.idMatricula}" th:text="${matricules.nomMatricula}"></option>
-                    </select>
-                    <button type="submit" class="btn btn-light float-end mt-1">Confirma</button>
-                </form>
-            </div>
-        </div>
+        <table class="table table-secondary table-striped">
+            <thead>
+            <tr>
+                <th scope="col">Data</th>
+                <th scope="col">Notes</th>
+                <th scope="col">Expedient</th>
+                <th scope="col">Edita</th>
+                <th scope="col">Elimina</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="matricula: ${expedient.matricules}">
+                <th th:text="${matricula.dataMatricula}"></th>
+                <td>
+                    <div class="dropdown">
+                        <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                            Notes
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li th:each="nota: ${matricula.itemmats}" th:text="${nota.idItemmat}" class="dropdown-item"></li>
+                            <li><a th:href="@{/matricules/notes(id=${matricula.idMatricula})}"><i style="font-size: 30px; padding-left: 14px;" class="bi bi-three-dots"></i></a></li>
+                        </ul>
+                    </div>
+                </td>
+                <td th:text="${matricula.expedient != null} ? ${matricula.expedient.nomExpedient} : 'No pertany a cap expedient'"></td>
+                <td>
+                    <a th:href="@{/matricules/edit(id=${matricula.idMatricula})}" type="button" class="btn btn-primary">Edita</a>
+                </td>
+                <td>
+                    <a th:href="@{/matricules/delete/modal(id=${matricula.idMatricula})}" type="button" class="btn btn-danger">Elimina</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
     </div>
 
 </main>
 
-<script th:replace="components/bootstrap :: jquery"></script>
 <script th:replace="components/bootstrap :: bootstrapJs"></script>
-<script th:replace="components/bootstrap :: bootstrapMultiSelect"></script>
-<script>
-    $('#multiselect').multiselect();
-</script>
 </body>
 </html>
