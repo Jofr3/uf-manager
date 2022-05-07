@@ -17,10 +17,6 @@ public interface Service_Mp {
 
     public void edit(Mp mp);
 
-    public void addUfs(Mp mp, List<Uf> uf);
-
-    public void removeUfs(Mp mp, List<Uf> uf);
-
     boolean exists(String nomMp);
 
     boolean existsEdit(String nomMp, int idMp);

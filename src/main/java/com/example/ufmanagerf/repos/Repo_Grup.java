@@ -1,21 +1,20 @@
 package com.example.ufmanagerf.repos;
 
-import com.example.ufmanagerf.model.Estudiant;
-import com.example.ufmanagerf.model.Mp;
-import com.example.ufmanagerf.model.Uf;
+import com.example.ufmanagerf.model.Curs;
+import com.example.ufmanagerf.model.Grup;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Repository
-public interface Repo_Estudiant extends CrudRepository<Estudiant, Integer> {
+public interface Repo_Grup extends CrudRepository<Grup, Integer> {
 
-    public List<Estudiant> findAll();
+    public List<Grup> findAll();
 
-    public Estudiant getById(int id);
+    public Grup getById(int id);
 
-    public List<Estudiant> getAllByGrupIsNull();
+    public List<Grup> getAllByCursIsNull();
 /*
     public boolean existsByNomUf(String nomUf);
 

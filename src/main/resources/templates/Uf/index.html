@@ -65,7 +65,7 @@
             </tbody>
         </table>
     </div>
-    <script th:replace="components/modals :: modalUf"></script>
+    <script th:replace="components/modals :: modal"></script>
 </main>
 
 
@@ -75,7 +75,7 @@
     $(document).ready(function () {
         let id = "[[${id}]]";
         if (id !== "") {
-            $('#modalUf').modal('show');
+            $('#modal').modal('show');
         }
 
         let flash = "[[${flash}]]"

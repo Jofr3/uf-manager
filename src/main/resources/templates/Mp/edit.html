@@ -58,15 +58,6 @@
 
                 <div class="d-flex justify-content-center"><span class="text-danger" th:if="${#fields.hasErrors('nomMp')}" th:errors="*{nomMp}"></span></div>
 
-                <div class="row g-3 align-items-center m-2">
-                    <div class="col-auto"><label for="ufs" class="col-form-label float-end">Ufs</label></div>
-                    <div class="col-auto">
-                        <select th:field="*{ufs}" class="selectpicker" id="ufs" name="ufs" multiple aria-label="size 3 select example">
-                            <option th:each="uf: ${ufs}" th:value="${uf.idUf}" th:text="${uf.nomUf}"></option>
-                        </select>
-                    </div>
-                    <div class="col-auto"><span class="form-text"></span></div>
-                </div>
                 <div class="m-4" style="margin-left: 250px !important;">
                     <button type="submit" class="btn btn-primary m-2">Edita</button>
                     <a class="btn btn-danger m-2" th:href="@{/mps}">Cancela</a>

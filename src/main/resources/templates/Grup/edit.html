@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edita Grups</title>
+    <style th:replace="components/bootstrap :: bootstrapCss"></style>
+</head>
+<style>
+    body {
+        height: 80vh;
+        background-color: #2c2e32;
+        color: rgba(255, 255, 255, 0.65);
+    }
+
+    .col-auto:first-child {
+        width: 140px;
+    }
+
+    .col-auto:last-child {
+        width: 140px;
+    }
+</style>
+<body>
+
+<header th:replace="components/header"></header>
+
+<main>
+    <div class="container p-4 d-flex justify-content-center">
+        <div>
+            <div class="d-flex justify-content-center">
+                <h1>Edita Grup</h1>
+            </div>
+            <form th:action="@{/grups/editPost(id=${grup.idGrup})}" method="post" th:object="${grup}">
+                <div class="row g-3 align-items-center m-2">
+                    <div class="col-auto"><label for="nomGrup" class="col-form-label float-end">Nom</label></div>
+                    <div class="col-auto"><input th:field="*{nomGrup}" name="nomGrup" type="text" id="nomGrup" class="form-control"></div>
+                    <div class="col-auto"><span class="form-text">Unic</span></div>
+                </div>
+
+                <div class="d-flex justify-content-center"><span class="text-danger" th:if="${#fields.hasErrors('nomGrup')}" th:errors="*{nomGrup}"></span></div>
+
+                <div class="m-4" style="margin-left: 250px !important;">
+                    <button type="submit" class="btn btn-primary m-2">Crea</button>
+                    <a class="btn btn-danger m-2" th:href="@{/grups}">Cancela</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</main>
+
+<script th:replace="components/bootstrap :: bootstrapJs"></script>
+</body>
+</html>

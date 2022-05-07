@@ -1,5 +1,7 @@
 package com.example.ufmanagerf.controllers;
 
+import com.example.ufmanagerf.model.Curs;
+import com.example.ufmanagerf.model.Grup;
 import com.example.ufmanagerf.model.Mp;
 import com.example.ufmanagerf.model.Uf;
 import com.example.ufmanagerf.services.Mp.Service_Mp;
@@ -48,7 +50,6 @@ public class Controller_Mp {
                 return "Mp/create";
             }
             MpService.add(mp);
-            MpService.addUfs(mp, mp.getUfs());
             redir.addFlashAttribute("flash", "La mp s'ha creat correctament");
         } else {
             System.out.println("Validation error");
@@ -62,7 +63,8 @@ public class Controller_Mp {
     public String deleteModal(HttpServletRequest request, RedirectAttributes redir, Model m) {
         Mp mp = MpService.get(Integer.parseInt(request.getParameter("id")));
         redir.addFlashAttribute("id", request.getParameter("id"));
-        redir.addFlashAttribute("obj", mp);
+        redir.addFlashAttribute("mssg", "Segur que vols eliminar la mp?");
+        redir.addFlashAttribute("del", "mps");
         System.out.println(mp);
         return "redirect:/mps";
     }
@@ -89,11 +91,7 @@ public class Controller_Mp {
                 bindingResult.addError(new FieldError("mp", "nomMp", "El nom ja existeix"));
                 return "Mp/edit";
             };
-            List<Uf> allUfs = UfSerivce.getAll();
-            List<Uf> newUfs = mp.getUfs();
             MpService.edit(mp);
-            MpService.removeUfs(mp, allUfs);
-            MpService.addUfs(mp, newUfs);
             redir.addFlashAttribute("flash", "La mp s'ha editat correctament");
         } else {
             System.out.println("Validation error");
@@ -106,26 +104,40 @@ public class Controller_Mp {
     public String filter(Model m, HttpServletRequest request) {
         Mp mp = MpService.get(Integer.parseInt(request.getParameter("id")));
         m.addAttribute("mp", mp);
-        m.addAttribute("ufs", UfSerivce.filter(mp));
-        return "Mp/filter";
-    }
-
-    @GetMapping("/mps/ufs/edit")
-    public String ufs(Model m, HttpServletRequest request) {
-        Mp mp = MpService.get(Integer.parseInt(request.getParameter("id")));
-        m.addAttribute("mp", mp);
-        m.addAttribute("ufsNoMp", UfSerivce.getAllWhereMpIsNull());
         return "Mp/ufs";
     }
 
-    @PostMapping("/mps/ufs/editPost")
-    public String ufsPost(@ModelAttribute Mp mp, Model m, HttpServletRequest request, RedirectAttributes redir) {
-        Mp MP = MpService.get(Integer.parseInt(request.getParameter("id")));
-        List<Uf> allUfs = UfSerivce.getAll();
-        List<Uf> newUfs = mp.getUfs();
-        MpService.removeUfs(MP, allUfs);
-        MpService.addUfs(MP, newUfs);
-        redir.addFlashAttribute("flash", "La mp s'ha editat correctament");
-        return "redirect:/mps";
+    @GetMapping("/mps/ufs/modi")
+    public String ufsModi(Model m, HttpServletRequest request) {
+        Mp mp = MpService.get(Integer.parseInt(request.getParameter("id")));
+        m.addAttribute("mp", mp);
+        m.addAttribute("ufsNoMp", UfSerivce.getAllWhereMpIsNull());
+        return "Mp/ufsModi";
+    }
+
+    @GetMapping("/mps/ufs/add")
+    public String ufAdd(Model m, HttpServletRequest request, RedirectAttributes redir) {
+        Mp mp = MpService.get(Integer.parseInt(request.getParameter("idMp")));
+        Uf uf = UfSerivce.get(Integer.parseInt(request.getParameter("idUf")));
+        mp.setUf(uf);
+        uf.setMp(mp);
+        UfSerivce.edit(uf);
+        MpService.edit(mp);
+        redir.addFlashAttribute("mp", mp);
+        redir.addFlashAttribute("ufsNoMp", UfSerivce.getAllWhereMpIsNull());
+        return "redirect:modi?id=" + mp.getIdMp();
+    }
+
+    @GetMapping("/mps/ufs/remove")
+    public String ufRemove(Model m, HttpServletRequest request, RedirectAttributes redir) {
+        Mp mp = MpService.get(Integer.parseInt(request.getParameter("idMp")));
+        Uf uf = UfSerivce.get(Integer.parseInt(request.getParameter("idUf")));
+        mp.removeUf(uf);
+        uf.setMp(null);
+        UfSerivce.edit(uf);
+        MpService.edit(mp);
+        redir.addFlashAttribute("mp", mp);
+        redir.addFlashAttribute("ufsNoMp", UfSerivce.getAllWhereMpIsNull());
+        return "redirect:modi?id=" + mp.getIdMp();
     }
 }

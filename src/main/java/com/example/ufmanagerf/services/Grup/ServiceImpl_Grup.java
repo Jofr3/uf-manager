@@ -1,27 +1,22 @@
-package com.example.ufmanagerf.services.Estudiant;
+package com.example.ufmanagerf.services.Grup;
 
-import com.example.ufmanagerf.model.Estudiant;
-import com.example.ufmanagerf.model.Itemmat;
-import com.example.ufmanagerf.model.Mp;
-import com.example.ufmanagerf.model.Uf;
-import com.example.ufmanagerf.repos.Repo_Estudiant;
-import com.example.ufmanagerf.repos.Repo_Itemmat;
-import com.example.ufmanagerf.repos.Repo_Uf;
+import com.example.ufmanagerf.model.Grup;
+import com.example.ufmanagerf.repos.Repo_Grup;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class ServiceImpl_Estudiant implements Service_Estudiant {
+public class ServiceImpl_Grup implements Service_Grup {
 
     @Autowired
-    Repo_Estudiant RepoEstudiant;
+    Repo_Grup RepoGrup;
 
     @Override
-    public Estudiant get(int id) {
+    public Grup get(int id) {
         try {
-            return RepoEstudiant.getById(id);
+            return RepoGrup.getById(id);
         } catch (Exception e) {
             System.out.println("ERR: " + e);
             return null;
@@ -29,9 +24,9 @@ public class ServiceImpl_Estudiant implements Service_Estudiant {
     }
 
     @Override
-    public List<Estudiant> getAll() {
+    public List<Grup> getAll() {
         try {
-            return RepoEstudiant.findAll();
+            return RepoGrup.findAll();
         } catch (Exception e) {
             System.out.println("ERR: " + e);
             return null;
@@ -39,9 +34,9 @@ public class ServiceImpl_Estudiant implements Service_Estudiant {
     }
 
     @Override
-    public void add(Estudiant estudiant) {
+    public void add(Grup grup) {
         try {
-            RepoEstudiant.save(estudiant);
+            RepoGrup.save(grup);
         } catch (Exception e) {
             System.out.println("ERR: " + e);
         }
@@ -50,25 +45,25 @@ public class ServiceImpl_Estudiant implements Service_Estudiant {
     @Override
     public void remove(int id) {
         try {
-            RepoEstudiant.deleteById(id);
+            RepoGrup.deleteById(id);
         } catch (Exception e) {
             System.out.println("ERR: " + e);
         }
     }
 
     @Override
-    public void edit(Estudiant estudiant) {
+    public void edit(Grup grup) {
         try {
-            RepoEstudiant.save(estudiant);
+            RepoGrup.save(grup);
         } catch (Exception e) {
             System.out.println("ERR: " + e);
         }
     }
 
     @Override
-    public List<Estudiant> getAllWhereGrupIsNull() {
+    public List<Grup> getAllWhereCursIsNull() {
         try {
-            return RepoEstudiant.getAllByGrupIsNull();
+            return RepoGrup.getAllByCursIsNull();
         } catch (Exception e) {
             System.out.println("ERR: " + e);
             return null;

@@ -18,8 +18,9 @@ public interface Service_Estudiant {
     public void remove(int id);
 
     public void edit(Estudiant estudiant);
+
+    public List<Estudiant> getAllWhereGrupIsNull();
 /*
-    public List<Uf> getAllWhereMpIsNull();
 
     public List<Uf> getAllWhereMpIsNullOrMpIsEquals(Mp mp);
 

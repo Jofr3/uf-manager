@@ -28,7 +28,6 @@ public class Grup {
     idGrup          int
     nomGrup         String
     estudiants      List<Estudiants>
-    numEstudiants   String
     curs            Curs
     */
 
@@ -62,6 +61,14 @@ public class Grup {
 
     public void setEstudiants(@Nullable List<Estudiant> estudiants) {
         this.estudiants = estudiants;
+    }
+
+    public void setEstudiant(@Nullable Estudiant estudiant) {
+        this.estudiants.add(estudiant);
+    }
+
+    public void removeEstudiant(@Nullable Estudiant estudiant) {
+        this.estudiants.remove(estudiant);
     }
 
     @Nullable

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Estudiants</title>
+    <style th:replace="components/bootstrap :: bootstrapCss"></style>
+</head>
+<style>
+    body {
+        height: 80vh;
+        background-color: #2c2e32;
+        color: rgba(255, 255, 255, 0.65);
+    }
+</style>
+<body>
+
+<header th:replace="components/header"></header>
+
+<main>
+
+    <div class="container-fluid p-5 pt-4">
+        <div class="d-flex justify-content-between">
+            <h3 th:text="${'Estudiants de ' + grup.nomGrup}"></h3>
+            <a class="btn btn-success m-1" th:href="@{/grups/estudiants/modi(id=${grup.idGrup})}" th:text="${'Maneja els estudiants de '+grup.nomGrup}"></a>
+        </div>
+
+        <table class="table table-secondary table-striped">
+            <thead>
+            <tr>
+                <th scope="col">Nom</th>
+                <th scope="col">Cognom</th>
+                <th scope="col">Mail</th>
+                <th scope="col">DNI</th>
+                <th scope="col">Data naixament</th>
+                <th scope="col">Grup</th>
+                <th scope="col">Edita</th>
+                <th scope="col">Elimina</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="estudiant: ${grup.estudiants}">
+                <th th:text="${estudiant.nomEstudiant}"></th>
+                <td th:text="${estudiant.cognomEstudiant}"></td>
+                <td th:text="${estudiant.mailEstudiant}"></td>
+                <td th:text="${estudiant.dniEstudiant}"></td>
+                <td th:text="${estudiant.dataNaixEstudiant}"></td>
+                <td th:text="${estudiant.grup != null} ? ${estudiant.grup.nomGrup} : 'No pertany a cap grup'"></td>
+                <td>
+                    <a th:href="@{/estudiants/edit(id=${estudiant.idEstudiant})}" type="button" class="btn btn-primary">Edita</a>
+                </td>
+                <td>
+                    <a th:href="@{/estudiants/delete/modal(id=${estudiant.idEstudiant})}" type="button" class="btn btn-danger">Elimina</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+</main>
+
+<script th:replace="components/bootstrap :: bootstrapJs"></script>
+</body>
+</html>

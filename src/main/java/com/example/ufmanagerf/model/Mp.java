@@ -37,10 +37,9 @@ public class Mp {
     pla         Pla
     */
 
-    public Mp(String numMp, String nomMp, List<Uf> ufs) {
+    public Mp(String numMp, String nomMp) {
         this.numMp = numMp;
         this.nomMp = nomMp;
-        this.ufs = ufs;
     }
 
     public Mp() {

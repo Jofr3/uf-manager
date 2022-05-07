@@ -2,8 +2,10 @@ package com.example.ufmanagerf.controllers;
 
 import com.example.ufmanagerf.model.Curs;
 import com.example.ufmanagerf.model.Estudiant;
+import com.example.ufmanagerf.model.Grup;
 import com.example.ufmanagerf.services.Curs.Service_Curs;
 import com.example.ufmanagerf.services.Estudiant.Service_Estudiant;
+import com.example.ufmanagerf.services.Grup.Service_Grup;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,6 +23,9 @@ public class Controller_Curs {
 
     @Autowired
     private Service_Curs CursService;
+
+    @Autowired
+    private Service_Grup GrupService;
 
     @GetMapping("/cursos")
     public String index(Model m) {
@@ -82,6 +87,47 @@ public class Controller_Curs {
             return "Curs/edit";
         }
         return "redirect:/cursos";
+    }
+
+    @GetMapping("/cursos/grups")
+    public String grups(Model m, HttpServletRequest request) {
+        Curs curs = CursService.get(Integer.parseInt(request.getParameter("id")));
+        m.addAttribute("curs", curs);
+        return "Curs/grups";
+    }
+
+    @GetMapping("/cursos/grups/modi")
+    public String grupsModi(Model m, HttpServletRequest request) {
+        Curs curs = CursService.get(Integer.parseInt(request.getParameter("id")));
+        m.addAttribute("curs", curs);
+        m.addAttribute("grupsNoCurs", GrupService.getAllWhereCursIsNull());
+        return "Curs/grupsModi";
+    }
+
+    @GetMapping("/cursos/grups/add")
+    public String grupAdd(Model m, HttpServletRequest request, RedirectAttributes redir) {
+        Curs curs = CursService.get(Integer.parseInt(request.getParameter("idCurs")));
+        Grup grup = GrupService.get(Integer.parseInt(request.getParameter("idGrup")));
+        curs.setGrup(grup);
+        grup.setCurs(curs);
+        GrupService.edit(grup);
+        CursService.edit(curs);
+        redir.addFlashAttribute("curs", curs);
+        redir.addFlashAttribute("grupsNoCurs", GrupService.getAllWhereCursIsNull());
+        return "redirect:modi?id=" + curs.getIdCurs();
+    }
+
+    @GetMapping("/cursos/grups/remove")
+    public String grupRemove(Model m, HttpServletRequest request, RedirectAttributes redir) {
+        Curs curs = CursService.get(Integer.parseInt(request.getParameter("idCurs")));
+        Grup grup = GrupService.get(Integer.parseInt(request.getParameter("idGrup")));
+        curs.removeGrup(grup);
+        grup.setCurs(null);
+        GrupService.edit(grup);
+        CursService.edit(curs);
+        redir.addFlashAttribute("curs", curs);
+        redir.addFlashAttribute("grupsNoCurs", GrupService.getAllWhereCursIsNull());
+        return "redirect:modi?id=" + curs.getIdCurs();
     }
 /*
     @GetMapping("/ufs/notes")

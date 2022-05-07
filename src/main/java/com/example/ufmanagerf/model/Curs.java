@@ -89,6 +89,14 @@ public class Curs {
         this.grups = grups;
     }
 
+    public void setGrup(@Nullable Grup grup) {
+        this.grups.add(grup);
+    }
+
+    public void removeGrup(@Nullable Grup grup) {
+        this.grups.remove(grup);
+    }
+
     @Nullable
     public Pla getPla() {
         return pla;

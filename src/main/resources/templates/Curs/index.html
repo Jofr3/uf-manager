@@ -50,11 +50,25 @@
                             Grups
                         </button>
                         <ul class="dropdown-menu">
-                            <li th:each="grup: ${curs.grups}" th:text="${grup.nomGrup}" class="dropdown-item"></li>
-                            <!--
-                                                        <li><a th:href="@{/mps/ufs(id=${mp.idMp})}"><i style="font-size: 30px; padding-left: 14px;" class="bi bi-three-dots"></i></a></li>
-                            -->
+
+                            <table class="table table-secondary table-striped">
+                                <thead>
+                                <tr>
+                                    <th scope="col">Nom</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="grup: ${curs.grups}">
+                                    <th th:text="${grup.nomGrup}"></th>
+                                </tr>
+                                </tbody>
+                            </table>
                         </ul>
+                        <button class="btn btn-dark" style="padding: 3px">
+                            <a th:href="@{/cursos/grups(id=${curs.idCurs})}"><i
+                                    style="font-size: 20px; padding: 10px; color: white"
+                                    class="bi bi-three-dots"></i></a>
+                        </button>
                     </div>
                 </td>
                 <td th:text="${curs.pla != null} ? ${curs.pla.nomPla} : 'No pertany a cap pla'"></td>

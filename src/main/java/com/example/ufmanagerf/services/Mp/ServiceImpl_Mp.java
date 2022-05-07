@@ -66,38 +66,6 @@ public class ServiceImpl_Mp implements Service_Mp {
     }
 
     @Override
-    public void addUfs(Mp mp, List<Uf> ufs) {
-        try {
-            mp.setUfs(ufs);
-            for (Uf uf : ufs) {
-                uf.setMp(mp);
-                RepoUf.save(uf);
-            }
-            RepoMp.save(mp);
-        } catch (Exception e) {
-            System.out.println("ERR: " + e);
-        }
-    }
-
-    @Override
-    public void removeUfs(Mp mp, List<Uf> ufs) {
-        try {
-            mp.setUfs(null);
-            for (Uf uf : ufs) {
-                if(uf.getMp() != null){
-                    if (uf.getMp().getIdMp() == mp.getIdMp()) {
-                        uf.setMp(null);
-                        RepoUf.save(uf);
-                    }
-                }
-            }
-            RepoMp.save(mp);
-        } catch (Exception e) {
-            System.out.println("ERR: " + e);
-        }
-    }
-
-    @Override
     public boolean exists(String nomMp) {
         return RepoMp.existsByNomMp(nomMp);
     }
