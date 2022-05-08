@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Mps</title>
+    <title>Expedient</title>
     <style th:replace="components/bootstrap :: bootstrapCss"></style>
     <style th:replace="components/bootstrap :: bootstrapIcons"></style>
 </head>
@@ -22,8 +22,8 @@
     <div class="container-fluid p-5 pt-4">
         <div th:replace="components/flash :: ok"></div>
         <div class="d-flex justify-content-between">
-            <h3 th:text="${'Cursos de ' + pla.nomPla}"></h3>
-            <a class="mb-2 btn btn-light" th:href="@{/plans/cursos(id=${pla.idPla})}">Confirma</a>
+            <h3 th:text="${'Expedient de ' + estudiant.nomEstudiant}"></h3>
+            <a class="mb-2 btn btn-light" th:href="@{/estudiants/expedient(id=${estudiant.idEstudiant})}">Confirma</a>
         </div>
 
         <div class="row">
@@ -32,49 +32,50 @@
                     <thead>
                     <tr>
                         <th scope="col">Nom</th>
-                        <th scope="col">Any inici</th>
-                        <th scope="col">Any final</th>
-                        <th scope="col">Grups</th>
-                        <th scope="col">Actiu</th>
-                        <th scope="col">Affegir</th>
+                        <th scope="col">Estudiant</th>
+                        <th scope="col">Matricules</th>
+                        <th scope="col">Affegeix</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr th:each="curs: ${cursosNoPla}">
-                        <th th:text="${curs.nomCurs}"></th>
-                        <td th:text="${curs.anyIniciCurs}"></td>
-                        <td th:text="${curs.anyFinalCurs}"></td>
+                    <tr th:each="expedient: ${expedientsNoEstudiant}">
+                        <th th:text="${expedient.nomExpedient}"></th>
+                        <td th:text="${expedient.estudiant != null} ? ${expedient.estudiant.nomEstudiant} : 'No pertany a cap estudiant'"></td>
                         <td>
                             <div class="dropdown">
                                 <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuButton1"
                                         data-bs-toggle="dropdown" aria-expanded="false">
-                                    Grups
+                                    Matricules
                                 </button>
                                 <ul class="dropdown-menu">
-
                                     <table class="table table-secondary table-striped">
                                         <thead>
                                         <tr>
                                             <th scope="col">Nom</th>
+                                            <th scope="col">Data</th>
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <tr th:each="grup: ${curs.grups}">
-                                            <th th:text="${grup.nomGrup}"></th>
+                                        <tr th:each="matricula: ${expedient.matricules}">
+                                            <th th:text="${matricula.nomMatricula}"></th>
+                                            <th th:text="${matricula.dataMatricula}"></th>
                                         </tr>
                                         </tbody>
                                     </table>
                                 </ul>
                                 <button class="btn btn-dark" style="padding: 3px">
-                                    <a th:href="@{/cursos/grups(id=${curs.idCurs})}"><i
+                                    <a th:href="@{/expedients/matricules(id=${expedient.idExpedient})}"><i
                                             style="font-size: 20px; padding: 10px; color: white"
                                             class="bi bi-three-dots"></i></a>
                                 </button>
                             </div>
                         </td>
-                        <td th:text="${curs.actiu == true} ? 'Si' : 'No'"></td>
-                        <td><a class="btn btn-danger" th:href="@{/plans/cursos/add(idPla=${pla.idPla}, idCurs=${curs.idCurs})}"><i
-                                class="bi bi-arrow-right"></i></a></td>
+                        <td th:switch="${estudiant.expedient}">
+                            <a th:case="null" class="btn btn-danger"
+                               th:href="@{/estudiants/expedient/add(idEstudiant=${estudiant.idEstudiant}, idExpedient=${expedient.idExpedient})}"><i
+                                    class="bi bi-arrow-right"></i></a>
+                            <button th:case="*" class="btn btn-danger" disabled><i class="bi bi-lock-fill"></i></button>
+                        </td>
                     </tr>
                     </tbody>
                 </table>
@@ -84,46 +85,46 @@
                     <thead>
                     <tr>
                         <th scope="col">Nom</th>
-                        <th scope="col">Any inici</th>
-                        <th scope="col">Any final</th>
-                        <th scope="col">Grups</th>
-                        <th scope="col">Affegir</th>
+                        <th scope="col">Estudiant</th>
+                        <th scope="col">Matricules</th>
+                        <th scope="col">Elimina</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr th:each="curs: ${pla.cursos}">
-                        <th th:text="${curs.nomCurs}"></th>
-                        <td th:text="${curs.anyIniciCurs}"></td>
-                        <td th:text="${curs.anyFinalCurs}"></td>
+                    <tr th:each="expedient: ${expedientsEstudiant}">
+                        <th th:text="${expedient.nomExpedient}"></th>
+                        <td th:text="${expedient.estudiant != null} ? ${expedient.estudiant.nomEstudiant} : 'No pertany a cap estudiant'"></td>
                         <td>
                             <div class="dropdown">
                                 <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuButton2"
                                         data-bs-toggle="dropdown" aria-expanded="false">
-                                    Grups
+                                    Matricules
                                 </button>
                                 <ul class="dropdown-menu">
-
                                     <table class="table table-secondary table-striped">
                                         <thead>
                                         <tr>
                                             <th scope="col">Nom</th>
+                                            <th scope="col">Data</th>
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <tr th:each="grup: ${curs.grups}">
-                                            <th th:text="${grup.nomGrup}"></th>
+                                        <tr th:each="matricula: ${expedient.matricules}">
+                                            <th th:text="${matricula.nomMatricula}"></th>
+                                            <th th:text="${matricula.dataMatricula}"></th>
                                         </tr>
                                         </tbody>
                                     </table>
                                 </ul>
                                 <button class="btn btn-dark" style="padding: 3px">
-                                    <a th:href="@{/cursos/grups(id=${curs.idCurs})}"><i
+                                    <a th:href="@{/expedients/matricules(id=${expedient.idExpedient})}"><i
                                             style="font-size: 20px; padding: 10px; color: white"
                                             class="bi bi-three-dots"></i></a>
                                 </button>
                             </div>
                         </td>
-                        <td><a class="btn btn-success" th:href="@{/plans/cursos/remove(idPla=${pla.idPla}, idCurs=${curs.idCurs})}"><i
+                        <td><a class="btn btn-success"
+                               th:href="@{/estudiants/expedient/remove(idEstudiant=${estudiant.idEstudiant}, idExpedient=${expedient.idExpedient})}"><i
                                 class="bi bi-arrow-left"></i></a></td>
                     </tr>
                     </tbody>

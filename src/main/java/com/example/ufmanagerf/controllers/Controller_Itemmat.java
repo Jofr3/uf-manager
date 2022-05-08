@@ -78,9 +78,11 @@ public class Controller_Itemmat {
 
     @PostMapping("/notes/editPost")
     public String editPost(@Valid @ModelAttribute Itemmat nota, HttpServletRequest request, BindingResult bindingResult, RedirectAttributes redir) {
-        nota.setIdItemmat(Integer.parseInt(request.getParameter("id")));
+        Itemmat newNota = ItemmatService.get(Integer.parseInt(request.getParameter("id")));
         if (!bindingResult.hasErrors()) {
-            ItemmatService.edit(nota);
+            newNota.setNotaOrd(nota.getNotaOrd());
+            newNota.setNotaExtra(nota.getNotaExtra());
+            ItemmatService.edit(newNota);
             redir.addFlashAttribute("flash", "La nota s'ha editat correctament");
         } else {
             System.out.println("Validation error");

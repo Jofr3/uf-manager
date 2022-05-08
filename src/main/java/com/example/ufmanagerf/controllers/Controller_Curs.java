@@ -6,6 +6,7 @@ import com.example.ufmanagerf.model.Grup;
 import com.example.ufmanagerf.services.Curs.Service_Curs;
 import com.example.ufmanagerf.services.Estudiant.Service_Estudiant;
 import com.example.ufmanagerf.services.Grup.Service_Grup;
+import com.example.ufmanagerf.services.Pla.Service_Pla;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,6 +18,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 public class Controller_Curs {
@@ -27,6 +30,9 @@ public class Controller_Curs {
     @Autowired
     private Service_Grup GrupService;
 
+    @Autowired
+    private Service_Pla PlaService;
+
     @GetMapping("/cursos")
     public String index(Model m) {
         m.addAttribute("cursos", CursService.getAll());
@@ -36,6 +42,7 @@ public class Controller_Curs {
     @GetMapping("/cursos/create")
     public String create(Model m) {
         m.addAttribute("curs", new Curs());
+        m.addAttribute("actiuExist", CursService.getActiveCurs());
         return "Curs/create";
     }
 
@@ -43,6 +50,7 @@ public class Controller_Curs {
     public String save(@Valid @ModelAttribute Curs curs, BindingResult bindingResult, Model m, RedirectAttributes redir) {
         if (!bindingResult.hasErrors()) {
             CursService.add(curs);
+            System.out.println(curs.isActiu());
             redir.addFlashAttribute("flash", "El curs s'ha creat correctament");
         } else {
             System.out.println("Validation error");
@@ -73,14 +81,19 @@ public class Controller_Curs {
     public String edit(HttpServletRequest request, Model m) {
         Curs curs = CursService.get(Integer.parseInt(request.getParameter("id")));
         m.addAttribute("curs", curs);
+        m.addAttribute("actiuExist", CursService.getActiveCurs());
         return "Curs/edit";
     }
 
     @PostMapping("/cursos/editPost")
     public String editPost(@Valid @ModelAttribute Curs curs, HttpServletRequest request, BindingResult bindingResult, RedirectAttributes redir) {
-        curs.setIdCurs(Integer.parseInt(request.getParameter("id")));
+        Curs newCurs = CursService.get(Integer.parseInt(request.getParameter("id")));
         if (!bindingResult.hasErrors()) {
-            CursService.edit(curs);
+            newCurs.setNomCurs(curs.getNomCurs());
+            newCurs.setAnyIniciCurs(curs.getAnyIniciCurs());
+            newCurs.setAnyIniciCurs(curs.getAnyIniciCurs());
+            newCurs.setActiu(curs.isActiu());
+            CursService.edit(newCurs);
             redir.addFlashAttribute("flash", "El curs s'ha editat correctament");
         } else {
             System.out.println("Validation error");

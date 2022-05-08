@@ -3,6 +3,8 @@ package com.example.ufmanagerf.model;
 import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 
 @Entity
@@ -17,9 +19,13 @@ public class Itemmat {
     private Uf uf;
 
     @NotEmpty(message = "Aquest camp no pot estar buit")
+    @Min(value = 1, message = "Valor minim es 1")
+    @Max(value = 10, message = "Valor maxim es 10")
     private String notaOrd;
 
     @NotEmpty(message = "Aquest camp no pot estar buit")
+    @Min(value = 0, message = "Valor minim es 0")
+    @Max(value = 10, message = "Valor maxim es 10")
     private String notaExtra;
 
     @ManyToOne
@@ -33,13 +39,6 @@ public class Itemmat {
     notaExtra   String
     matricula   Matricula
     */
-
-    public Itemmat(@Nullable Uf uf, String notaOrd, String notaExtra, @Nullable Matricula matricula) {
-        this.uf = uf;
-        this.notaOrd = notaOrd;
-        this.notaExtra = notaExtra;
-        this.matricula = matricula;
-    }
 
     public Itemmat(String notaOrd, String notaExtra) {
         this.notaOrd = notaOrd;

@@ -46,13 +46,32 @@
                 <td th:text="${uf.mp != null} ? ${uf.mp.nomMp} : 'No pertany a cap mp'"></td>
                 <td>
                     <div class="dropdown">
-                        <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                        <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuButton1"
+                                data-bs-toggle="dropdown" aria-expanded="false">
                             Notes
                         </button>
                         <ul class="dropdown-menu">
-                            <li th:each="nota: ${uf.itemmats}" th:text="${nota.idItemmat}" class="dropdown-item"></li>
-                            <li><a th:href="@{/ufs/notes(id=${uf.idUf})}"><i style="font-size: 30px; padding-left: 14px;" class="bi bi-three-dots"></i></a></li>
+                            <table class="table table-secondary table-striped">
+                                <thead>
+                                <tr>
+                                    <th scope="col">Uf</th>
+                                    <th scope="col">Nota ordinaria</th>
+                                    <th scope="col">Nota extraordinaria</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="nota: ${uf.itemmats}">
+                                    <th th:text="${nota.uf != null} ? ${nota.uf.nomUf} : 'No pertany a cap uf'"></th>
+                                    <td th:text="${nota.notaOrd}"></td>
+                                    <td th:text="${nota.notaExtra}"></td>
+                                </tr>
+                                </tbody>
+                            </table>
                         </ul>
+                        <button class="btn btn-dark" style="padding: 3px">
+                            <a th:href="@{/ufs/notes(id=${uf.idUf})}"><i
+                                    style="font-size: 20px; padding: 10px; color: white" class="bi bi-three-dots"></i></a>
+                        </button>
                     </div>
                 </td>
                 <td>

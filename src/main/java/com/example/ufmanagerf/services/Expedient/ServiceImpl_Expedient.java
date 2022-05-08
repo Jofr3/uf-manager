@@ -87,7 +87,7 @@ public class ServiceImpl_Expedient implements Service_Expedient {
         try {
             expedient.setMatricules(null);
             for (Matricula matricula : matricules) {
-                if(matricula.getExpedient() != null){
+                if (matricula.getExpedient() != null) {
                     if (matricula.getExpedient().getIdExpedient() == expedient.getIdExpedient()) {
                         matricula.setExpedient(null);
                         RepoMatricula.save(matricula);
@@ -110,16 +110,17 @@ public class ServiceImpl_Expedient implements Service_Expedient {
         }
     }
 
-/*
     @Override
-    public List<Uf> getAllWhereMpIsNull() {
-        try {
-            return RepoUf.getAllByMpIsNull();
-        } catch (Exception e) {
-            System.out.println("ERR: " + e);
-            return null;
-        }
+    public List<Expedient> getAllWhereEstudiantIs(Estudiant estudiant){
+        return RepoExpedient.getAllByEstudiantIs(estudiant);
     }
+
+    @Override
+    public List<Expedient> getAllWhereEstudiantIsNull() {
+        return RepoExpedient.getAllByEstudiantIsNull();
+    }
+
+/*
 
     @Override
     public List<Uf> getAllWhereMpIsNullOrMpIsEquals(Mp mp) {

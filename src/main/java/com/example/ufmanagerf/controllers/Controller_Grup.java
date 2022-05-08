@@ -78,9 +78,10 @@ public class Controller_Grup {
 
     @PostMapping("/grups/editPost")
     public String editPost(@Valid @ModelAttribute Grup grup, HttpServletRequest request, BindingResult bindingResult, RedirectAttributes redir) {
-        grup.setIdGrup(Integer.parseInt(request.getParameter("id")));
+        Grup newGrup = GrupService.get(Integer.parseInt(request.getParameter("id")));
         if (!bindingResult.hasErrors()) {
-            GrupService.edit(grup);
+            newGrup.setNomGrup(grup.getNomGrup());
+            GrupService.edit(newGrup);
             redir.addFlashAttribute("flash", "El grup s'ha editat correctament");
         } else {
             System.out.println("Validation error");

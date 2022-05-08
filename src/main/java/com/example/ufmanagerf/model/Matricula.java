@@ -5,6 +5,8 @@ import org.hibernate.annotations.NotFoundAction;
 import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import java.util.List;
 
@@ -19,6 +21,8 @@ public class Matricula {
     private String nomMatricula;
 
     @NotEmpty(message = "Aquest camp no pot estar buit")
+    @Min(value = 2010, message = "Valor minim es 2010")
+    @Max(value = 2050, message = "Valor minim es 2050")
     private String dataMatricula;
 
     @OneToMany(mappedBy = "matricula", cascade = CascadeType.ALL)

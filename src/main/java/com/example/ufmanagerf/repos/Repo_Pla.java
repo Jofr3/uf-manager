@@ -1,5 +1,6 @@
 package com.example.ufmanagerf.repos;
 
+import com.example.ufmanagerf.model.Curs;
 import com.example.ufmanagerf.model.Mp;
 import com.example.ufmanagerf.model.Pla;
 import com.example.ufmanagerf.model.Uf;

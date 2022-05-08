@@ -1,5 +1,6 @@
 package com.example.ufmanagerf.repos;
 
+import com.example.ufmanagerf.model.Estudiant;
 import com.example.ufmanagerf.model.Expedient;
 import com.example.ufmanagerf.model.Uf;
 import org.springframework.data.repository.CrudRepository;
@@ -14,6 +15,9 @@ public interface Repo_Expedient extends CrudRepository<Expedient, Integer> {
 
     public Expedient getById(int id);
 
+    public List<Expedient> getAllByEstudiantIs(Estudiant estudiant);
+
+    public List<Expedient> getAllByEstudiantIsNull();
     /*
     public boolean existsByNomUf(String nomUf);
 

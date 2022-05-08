@@ -28,6 +28,7 @@
         <table class="table table-secondary table-striped">
             <thead>
             <tr>
+                <th scope="col">Nom</th>
                 <th scope="col">Data</th>
                 <th scope="col">Notes</th>
                 <th scope="col">Expedient</th>
@@ -37,16 +38,36 @@
             </thead>
             <tbody>
             <tr th:each="matricula: ${expedient.matricules}">
+                <th th:text="${matricula.nomMatricula}"></th>
                 <th th:text="${matricula.dataMatricula}"></th>
                 <td>
                     <div class="dropdown">
-                        <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                        <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuButton1"
+                                data-bs-toggle="dropdown" aria-expanded="false">
                             Notes
                         </button>
                         <ul class="dropdown-menu">
-                            <li th:each="nota: ${matricula.itemmats}" th:text="${nota.idItemmat}" class="dropdown-item"></li>
-                            <li><a th:href="@{/matricules/notes(id=${matricula.idMatricula})}"><i style="font-size: 30px; padding-left: 14px;" class="bi bi-three-dots"></i></a></li>
+                            <table class="table table-secondary table-striped">
+                                <thead>
+                                <tr>
+                                    <th scope="col">Uf</th>
+                                    <th scope="col">Nota ordinaria</th>
+                                    <th scope="col">Nota extraordinaria</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="nota: ${matricula.itemmats}">
+                                    <th th:text="${nota.uf != null} ? ${nota.uf.nomUf} : 'No pertany a cap uf'"></th>
+                                    <td th:text="${nota.notaOrd}"></td>
+                                    <td th:text="${nota.notaExtra}"></td>
+                                </tr>
+                                </tbody>
+                            </table>
                         </ul>
+                        <button class="btn btn-dark" style="padding: 3px">
+                            <a th:href="@{/matricules/notes(id=${matricula.idMatricula})}"><i
+                                    style="font-size: 20px; padding: 10px; color: white" class="bi bi-three-dots"></i></a>
+                        </button>
                     </div>
                 </td>
                 <td th:text="${matricula.expedient != null} ? ${matricula.expedient.nomExpedient} : 'No pertany a cap expedient'"></td>

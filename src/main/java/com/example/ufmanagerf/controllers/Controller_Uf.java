@@ -1,6 +1,7 @@
 package com.example.ufmanagerf.controllers;
 
 import com.example.ufmanagerf.model.Itemmat;
+import com.example.ufmanagerf.model.Matricula;
 import com.example.ufmanagerf.model.Uf;
 import com.example.ufmanagerf.services.Itemmat.Service_Itemmat;
 import com.example.ufmanagerf.services.Uf.Service_Uf;
@@ -42,7 +43,7 @@ public class Controller_Uf {
     @PostMapping("/ufs/save")
     public String save(@Valid @ModelAttribute Uf uf, BindingResult bindingResult, Model m, RedirectAttributes redir) {
         if (!bindingResult.hasErrors()) {
-            if(UfService.exists(uf.getNomUf())){
+            if (UfService.exists(uf.getNomUf())) {
                 bindingResult.addError(new FieldError("uf", "nomUf", "El nom ja existeix"));
                 return "Uf/create";
             }
@@ -81,13 +82,17 @@ public class Controller_Uf {
     }
 
     @PostMapping("/ufs/editPost")
-    public String editPost(@Valid @ModelAttribute Uf uf, BindingResult bindingResult, RedirectAttributes redir) {
+    public String editPost(@Valid @ModelAttribute Uf uf, HttpServletRequest request, BindingResult bindingResult, RedirectAttributes redir) {
+        Uf newUf = UfService.get(Integer.parseInt(request.getParameter("id")));
         if (!bindingResult.hasErrors()) {
-            if(UfService.existsEdit(uf.getNomUf(), uf.getIdUf())){
+            if (UfService.existsEdit(uf.getNomUf(), Integer.parseInt(request.getParameter("id")))) {
                 bindingResult.addError(new FieldError("uf", "nomUf", "El nom ja existeix"));
                 return "Uf/edit";
-            };
-            UfService.edit(uf);
+            }
+            newUf.setNumUf(uf.getNumUf());
+            newUf.setNomUf(uf.getNomUf());
+            newUf.setHoresUf(uf.getHoresUf());
+            UfService.edit(newUf);
             redir.addFlashAttribute("flash", "La uf s'ha editat correctament");
         } else {
             System.out.println("Validation error");
@@ -97,29 +102,39 @@ public class Controller_Uf {
     }
 
     @GetMapping("/ufs/notes")
-    public String filter(Model m, HttpServletRequest request) {
-        Uf uf = UfService.get(Integer.parseInt(request.getParameter("id")));
-        m.addAttribute("uf", uf);
-        m.addAttribute("notes", ItemmatService.filterUf(uf));
-        return "Uf/filter";
-    }
-
-    @GetMapping("/ufs/notes/edit")
     public String notes(Model m, HttpServletRequest request) {
         Uf uf = UfService.get(Integer.parseInt(request.getParameter("id")));
         m.addAttribute("uf", uf);
-        m.addAttribute("notesNoUf", ItemmatService.getAllWhereUfIsNull());
-        return "Uf/itemmats";
+        return "Uf/itemmat";
     }
 
-    @PostMapping("/ufs/notes/editPost")
-    public String notesPost(@ModelAttribute Uf uf, Model m, HttpServletRequest request, RedirectAttributes redir) {
-        Uf UF = UfService.get(Integer.parseInt(request.getParameter("id")));
-        List<Itemmat> allNotes = ItemmatService.getAll();
-        List<Itemmat> newNotes = uf.getItemmats();
-        UfService.removeNotes(UF, allNotes);
-        UfService.addNotes(UF, newNotes);
-        redir.addFlashAttribute("flash", "La uf s'ha editat correctament");
-        return "redirect:/ufs";
+    @GetMapping("/ufs/notes/modi")
+    public String notaModi(Model m, HttpServletRequest request) {
+        Uf uf = UfService.get(Integer.parseInt(request.getParameter("id")));
+        m.addAttribute("uf", uf);
+        m.addAttribute("notesNoUf", ItemmatService.getAllWhereUfIsNull());
+        return "Uf/itemmatModi";
+    }
+
+    @GetMapping("/ufs/notes/add")
+    public String notaAdd(HttpServletRequest request) {
+        Uf uf = UfService.get(Integer.parseInt(request.getParameter("idUf")));
+        Itemmat nota = ItemmatService.get(Integer.parseInt(request.getParameter("idNota")));
+        uf.setItemmat(nota);
+        nota.setUf(uf);
+        ItemmatService.edit(nota);
+        UfService.edit(uf);
+        return "redirect:modi?id=" + uf.getIdUf();
+    }
+
+    @GetMapping("/ufs/notes/remove")
+    public String notaRemove(HttpServletRequest request) {
+        Uf uf = UfService.get(Integer.parseInt(request.getParameter("idUf")));
+        Itemmat nota = ItemmatService.get(Integer.parseInt(request.getParameter("idNota")));
+        uf.removeItemmat(nota);
+        nota.setUf(null);
+        ItemmatService.edit(nota);
+        UfService.edit(uf);
+        return "redirect:modi?id=" + uf.getIdUf();
     }
 }

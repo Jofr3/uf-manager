@@ -21,8 +21,8 @@ public class Uf {
     @NotEmpty(message = "Aquest camp no pot estar buit")
     private String nomUf;
 
-    @Min(value = 1, message = "No pot ser menys de 1 hora")
     @NotEmpty(message = "Aquest camp no pot estar buit")
+    @Min(value = 1, message = "No pot ser menys de 1 hora")
     private String horesUf;
 
     @ManyToOne

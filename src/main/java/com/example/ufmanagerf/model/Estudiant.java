@@ -3,7 +3,9 @@ package com.example.ufmanagerf.model;
 import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 
 @Entity
 public class Estudiant {
@@ -106,6 +108,10 @@ public class Estudiant {
     @Nullable
     public Expedient getExpedient() {
         return expedient;
+    }
+
+    public void setExpedient(@Nullable Expedient expedient) {
+        this.expedient = expedient;
     }
 
     public Grup getGrup() {

@@ -2,6 +2,7 @@ package com.example.ufmanagerf.services.Curs;
 
 import com.example.ufmanagerf.model.Curs;
 import com.example.ufmanagerf.model.Estudiant;
+import com.example.ufmanagerf.model.Pla;
 import com.example.ufmanagerf.repos.Repo_Curs;
 import com.example.ufmanagerf.repos.Repo_Estudiant;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,10 +64,19 @@ public class ServiceImpl_Curs implements Service_Curs {
     }
 
     @Override
-    public List<Curs> getAllWhereCursIsNull(){
+    public List<Curs> getAllWhereCursIsNull() {
         return RepoCurs.getAllByPlaIsNull();
     }
 
+    @Override
+    public Curs getActiveCurs() {
+        try {
+            return RepoCurs.getByActiuIsTrue();
+        } catch (Exception e) {
+            System.out.println("ERR: " + e);
+        }
+        return null;
+    }
 /*
     @Override
     public List<Uf> getAllWhereMpIsNull() {

@@ -37,18 +37,6 @@
             </div>
             <form th:action="@{/notes/editPost(id=${nota.getIdItemmat()})}" method="post" th:object="${nota}">
                 <div class="row g-3 align-items-center m-2">
-                    <div class="col-auto"><label for="uf" class="col-form-label float-end">Ufs</label></div>
-                    <div class="col-auto">
-                        <select th:field="*{uf}" class="selectpicker" id="uf" name="uf" aria-label="size 3 select example">
-                            <option th:each="uf: ${ufs}" th:value="${uf.idUf}" th:text="${uf.nomUf}"></option>
-                        </select>
-                    </div>
-                    <div class="col-auto"><span class="form-text"></span></div>
-                </div>
-
-                <div class="d-flex justify-content-center"><span class="text-danger" th:if="${#fields.hasErrors('uf')}" th:errors="*{uf}"></span></div>
-
-                <div class="row g-3 align-items-center m-2">
                     <div class="col-auto"><label for="notaOrd" class="col-form-label float-end">Nota ordinaria</label></div>
                     <div class="col-auto"><input th:field="*{notaOrd}" name="notaOrd" type="number" id="notaOrd" class="form-control"></div>
                     <div class="col-auto"><span class="form-text">Ha de ser integer</span></div>
@@ -63,16 +51,6 @@
                 </div>
 
                 <div class="d-flex justify-content-center"><span class="text-danger" th:if="${#fields.hasErrors('notaExtra')}" th:errors="*{notaExtra}"></span></div>
-
-                <!--
-                                <div class="row g-3 align-items-center m-2">
-                                    <div class="col-auto"><label for="matricula" class="col-form-label float-end">Matricula</label></div>
-                                    <div class="col-auto"><input th:field="*{matricula}" name="matricula" type="text" id="matricula" class="form-control"></div>
-                                    <div class="col-auto"><span class="form-text"></span></div>
-                                </div>
-
-                                <div class="d-flex justify-content-center"><span class="text-danger" th:if="${#fields.hasErrors('matricula')}" th:errors="*{matricula}"></span></div>
-                -->
 
                 <div class="m-4" style="margin-left: 250px !important;">
                     <button type="submit" class="btn btn-primary m-2">Edita</button>

@@ -18,6 +18,8 @@ public interface Service_Curs {
     public void edit(Curs curs);
 
     public List<Curs> getAllWhereCursIsNull();
+
+    public Curs getActiveCurs();
 /*
 
     public List<Uf> getAllWhereMpIsNullOrMpIsEquals(Mp mp);

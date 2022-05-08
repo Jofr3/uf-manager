@@ -83,9 +83,11 @@ public class Controller_Pla {
 
     @PostMapping("/plans/editPost")
     public String editPost(@Valid @ModelAttribute Pla pla, HttpServletRequest request, BindingResult bindingResult, RedirectAttributes redir) {
-        pla.setIdPla(Integer.parseInt(request.getParameter("id")));
+        Pla newPla = PlaService.get(Integer.parseInt(request.getParameter("id")));
         if (!bindingResult.hasErrors()) {
-            PlaService.edit(pla);
+            newPla.setNomPla(pla.getNomPla());
+            newPla.setEstudi(pla.getEstudi());
+            PlaService.edit(newPla);
             redir.addFlashAttribute("flash", "El pla s'ha editat correctament");
         } else {
             System.out.println("Validation error");

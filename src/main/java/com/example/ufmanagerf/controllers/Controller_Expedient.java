@@ -45,10 +45,6 @@ public class Controller_Expedient {
     public String save(@Valid @ModelAttribute Expedient expedient, BindingResult bindingResult, Model m, RedirectAttributes redir) {
         if (!bindingResult.hasErrors()) {
             ExpedientService.add(expedient);
-            //ExpedientService.addMatricules(expedient, expedient.getMatricules());
-            Expedient expedient1 = ExpedientService.get(expedient.getIdExpedient());
-            System.out.println(expedient1);
-            System.out.println(expedient1.getMatricules());
             redir.addFlashAttribute("flash", "L'expedient s'ha creat correctament");
         } else {
             System.out.println("Validation error");
@@ -85,13 +81,10 @@ public class Controller_Expedient {
 
     @PostMapping("/expedients/editPost")
     public String editPost(@Valid @ModelAttribute Expedient expedient, HttpServletRequest request, BindingResult bindingResult, RedirectAttributes redir) {
-        expedient.setIdExpedient(Integer.parseInt(request.getParameter("id")));
+        Expedient newExpedient = ExpedientService.get(Integer.parseInt(request.getParameter("id")));
         if (!bindingResult.hasErrors()) {
-            List<Matricula> allMatricules = MatriculaService.getAll();
-            List<Matricula> newMatricules = expedient.getMatricules();
-            ExpedientService.edit(expedient);
-            ExpedientService.removeMatricules(expedient, allMatricules);
-            ExpedientService.addMatricules(expedient, newMatricules);
+            newExpedient.setNomExpedient(expedient.getNomExpedient());
+            ExpedientService.edit(newExpedient);
             redir.addFlashAttribute("flash", "L'expedient s'ha editat correctament");
         } else {
             System.out.println("Validation error");

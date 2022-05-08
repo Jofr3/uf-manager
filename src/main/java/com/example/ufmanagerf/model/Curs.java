@@ -1,8 +1,11 @@
 package com.example.ufmanagerf.model;
 
+import net.bytebuddy.implementation.bind.annotation.Default;
 import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import java.util.List;
 
@@ -17,9 +20,13 @@ public class Curs {
     private String nomCurs;
 
     @NotEmpty(message = "Aquest camp no pot estar buit")
+    @Min(value = 2010, message = "Valor minim es 2010")
+    @Max(value = 2050, message = "Valor minim es 2050")
     private String anyIniciCurs;
 
     @NotEmpty(message = "Aquest camp no pot estar buit")
+    @Min(value = 2010, message = "Valor minim es 2010")
+    @Max(value = 2050, message = "Valor minim es 2050")
     private String anyFinalCurs;
 
     @Nullable
@@ -30,6 +37,8 @@ public class Curs {
     @ManyToOne
     private Pla pla;
 
+    private boolean actiu;
+
     /*
     idCurs          int
     nomCurs         String
@@ -39,10 +48,11 @@ public class Curs {
     pla             Pla
     */
 
-    public Curs(String nomCurs, String anyIniciCurs, String anyFinalCurs) {
+    public Curs(String nomCurs, String anyIniciCurs, String anyFinalCurs, boolean actiu) {
         this.nomCurs = nomCurs;
         this.anyIniciCurs = anyIniciCurs;
         this.anyFinalCurs = anyFinalCurs;
+        this.actiu = actiu;
     }
 
     public Curs() {
@@ -104,5 +114,13 @@ public class Curs {
 
     public void setPla(@Nullable Pla pla) {
         this.pla = pla;
+    }
+
+    public boolean isActiu() {
+        return actiu;
+    }
+
+    public void setActiu(boolean actiu) {
+        this.actiu = actiu;
     }
 }

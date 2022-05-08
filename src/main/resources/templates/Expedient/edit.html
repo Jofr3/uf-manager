@@ -36,14 +36,6 @@
                 <h1>Edita Expedient</h1>
             </div>
             <form th:action="@{/expedients/editPost(id=${expedient.getIdExpedient()})}" method="post" th:object="${expedient}">
-<!--
-                <div class="row g-3 align-items-center m-2 d-none">
-                    <div class="col-auto"><label for="dataExpedient" class="col-form-label float-end">Data</label></div>
-                    <div class="col-auto" style="width: 277px;"><input th:field="*{dataExpedient}" name="dataExpedient" type="date" id="dataExpedient" class="form-control"></div>
-                    <div class="col-auto"><span class="form-text">Ha de ser integer</span></div>
-                </div>
--->
-
                 <div class="row g-3 align-items-center m-2">
                     <div class="col-auto"><label for="nomExpedient" class="col-form-label float-end">Nom</label></div>
                     <div class="col-auto" style="width: 277px;"><input th:field="*{nomExpedient}" name="nomExpedient" type="text" id="nomExpedient" class="form-control"></div>
@@ -51,39 +43,6 @@
                 </div>
 
                 <div class="d-flex justify-content-center"><span class="text-danger" th:if="${#fields.hasErrors('nomExpedient')}" th:errors="*{nomExpedient}"></span></div>
-
-                <!--
-                                <div class="row g-3 align-items-center m-2">
-                                    <div class="col-auto"><label for="estudiant" class="col-form-label float-end">Estudiant</label></div>
-                                    <div class="col-auto">
-                                        <select  th:field="*{estudiant}" id="estudiant" name="estudiant" class="form-select" aria-label="">
-                                            <option th:each="estudiant: ${estudiants}" th:value="${estudiant.idEstudiant}" th:text="${estudiant.nomEstudiant}"></option>
-                                        </select>
-                                    </div>
-                                    <div class="col-auto"><span class="form-text"></span></div>
-                                </div>
-                -->
-                <div class="row g-3 align-items-center m-2">
-                    <div class="col-auto"><label for="matricules" class="col-form-label float-end">Matricules</label></div>
-                    <div class="col-auto">
-                        <select th:field="*{matricules}" class="selectpicker" id="matricules" name="matricules" multiple aria-label="Default select example">
-                            <option th:each="matricula: ${matricules}" th:value="${matricula.idMatricula}" th:text="${matricula.dataMatricula}"></option>
-                        </select>
-                    </div>
-                    <div class="col-auto"><span class="form-text"></span></div>
-                </div>
-
-                <!--
-                                <div class="row g-3 align-items-center m-2">
-                                    <div class="col-auto"><label for="plans" class="col-form-label float-end">Plans</label></div>
-                                    <div class="col-auto">
-                                        <select th:field="*{plans}" class="selectpicker" id="plans" name="plans" multiple aria-label="Default select example">
-                                            <option th:each="pla: ${plans}" th:value="${pla.idPla}" th:text="${pla.nomPla}"></option>
-                                        </select>
-                                    </div>
-                                    <div class="col-auto"><span class="form-text"></span></div>
-                                </div>
-                -->
 
                 <div class="m-4" style="margin-left: 250px !important;">
                     <button type="submit" class="btn btn-primary m-2">Edita</button>

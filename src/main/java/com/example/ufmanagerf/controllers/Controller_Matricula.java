@@ -1,8 +1,6 @@
 package com.example.ufmanagerf.controllers;
 
-import com.example.ufmanagerf.model.Itemmat;
-import com.example.ufmanagerf.model.Matricula;
-import com.example.ufmanagerf.model.Uf;
+import com.example.ufmanagerf.model.*;
 import com.example.ufmanagerf.services.Itemmat.Service_Itemmat;
 import com.example.ufmanagerf.services.Matricula.Service_Matricula;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -81,13 +79,11 @@ public class Controller_Matricula {
 
     @PostMapping("/matricules/editPost")
     public String editPost(@Valid @ModelAttribute Matricula matricula, HttpServletRequest request, BindingResult bindingResult, RedirectAttributes redir) {
-        matricula.setIdMatricula(Integer.parseInt(request.getParameter("id")));
+        Matricula newMatricula = MatriculaService.get(Integer.parseInt(request.getParameter("id")));
         if (!bindingResult.hasErrors()) {
-            List<Itemmat> allNotes = ItemmatService.getAll();
-            List<Itemmat> newNotes = matricula.getItemmats();
-            MatriculaService.edit(matricula);
-            MatriculaService.removeNotes(matricula, allNotes);
-            MatriculaService.addNotes(matricula, newNotes);
+            newMatricula.setNomMatricula(matricula.getNomMatricula());
+            newMatricula.setDataMatricula(matricula.getDataMatricula());
+            MatriculaService.edit(newMatricula);
             redir.addFlashAttribute("flash", "La matricula s'ha editat correctament");
         } else {
             System.out.println("Validation error");
@@ -97,30 +93,39 @@ public class Controller_Matricula {
     }
 
     @GetMapping("/matricules/notes")
-    public String filter(Model m, HttpServletRequest request) {
-        Matricula matricula = MatriculaService.get(Integer.parseInt(request.getParameter("id")));
-        m.addAttribute("matricula", matricula);
-        m.addAttribute("notes", ItemmatService.filterMatricula(matricula));
-        return "Matricula/filter";
-    }
-
-    @GetMapping("/matricules/notes/edit")
     public String notes(Model m, HttpServletRequest request) {
         Matricula matricula = MatriculaService.get(Integer.parseInt(request.getParameter("id")));
         m.addAttribute("matricula", matricula);
-        m.addAttribute("notesNoMatricula", ItemmatService.getAllWhereMatriculaIsNull());
-        return "Matricula/itemmats";
+        return "Matricula/itemmat";
     }
 
-    @PostMapping("/matricules/notes/editPost")
-    public String notesPost(@ModelAttribute Matricula matricula, HttpServletRequest request, RedirectAttributes redir) {
-        Matricula MATRICULA = MatriculaService.get(Integer.parseInt(request.getParameter("id")));
-        List<Itemmat> allNotes = ItemmatService.getAll();
-        List<Itemmat> newNotes = matricula.getItemmats();
-        System.out.println(newNotes);
-        MatriculaService.removeNotes(MATRICULA, allNotes);
-        MatriculaService.addNotes(MATRICULA, newNotes);
-        redir.addFlashAttribute("flash", "La matricula s'ha editat correctament");
-        return "redirect:/matricules";
+    @GetMapping("/matricules/notes/modi")
+    public String notesModi(Model m, HttpServletRequest request) {
+        Matricula matricula = MatriculaService.get(Integer.parseInt(request.getParameter("id")));
+        m.addAttribute("matricula", matricula);
+        m.addAttribute("notesNoMatricula", ItemmatService.getAllWhereMatriculaIsNull());
+        return "Matricula/itemmatModi";
+    }
+
+    @GetMapping("/matricules/notes/add")
+    public String notaAdd(HttpServletRequest request) {
+        Matricula matricula = MatriculaService.get(Integer.parseInt(request.getParameter("idMatricula")));
+        Itemmat nota = ItemmatService.get(Integer.parseInt(request.getParameter("idNota")));
+        matricula.setItemmat(nota);
+        nota.setMatricula(matricula);
+        ItemmatService.edit(nota);
+        MatriculaService.edit(matricula);
+        return "redirect:modi?id=" + matricula.getIdMatricula();
+    }
+
+    @GetMapping("/matricules/notes/remove")
+    public String notaRemove(HttpServletRequest request) {
+        Matricula matricula = MatriculaService.get(Integer.parseInt(request.getParameter("idMatricula")));
+        Itemmat nota = ItemmatService.get(Integer.parseInt(request.getParameter("idNota")));
+        matricula.removeItemmat(nota);
+        nota.setMatricula(null);
+        ItemmatService.edit(nota);
+        MatriculaService.edit(matricula);
+        return "redirect:modi?id=" + matricula.getIdMatricula();
     }
 }

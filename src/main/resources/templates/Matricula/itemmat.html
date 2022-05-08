@@ -21,7 +21,7 @@
     <div class="container-fluid p-5 pt-4">
         <div class="d-flex justify-content-between">
             <h3 th:text="${'Notes de ' + matricula.dataMatricula}"></h3>
-            <a class="btn btn-success m-1" th:href="@{/matricules/notes/edit(id=${matricula.idMatricula})}" th:text="${'Maneja les notes de '+matricula.dataMatricula}"></a>
+            <a class="btn btn-success m-1" th:href="@{/matricules/notes/modi(id=${matricula.idMatricula})}" th:text="${'Maneja les notes de '+matricula.dataMatricula}"></a>
         </div>
 
         <table class="table table-secondary table-striped">
@@ -36,11 +36,11 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:each="nota: ${notes}">
+            <tr th:each="nota: ${matricula.itemmats}">
                 <th th:text="${nota.uf != null} ? ${nota.uf.nomUf} : 'No pertany a cap uf'"></th>
                 <td th:text="${nota.notaOrd}"></td>
                 <td th:text="${nota.notaExtra}"></td>
-                <td th:text="${nota.matricula != null} ? ${nota.matricula.dataMatricula} : 'No pertany a cap matricula'"></td>
+                <td th:text="${nota.matricula != null} ? ${nota.matricula.nomMatricula} : 'No pertany a cap matricula'"></td>
                 <td>
                     <a th:href="@{/notes/edit(id=${nota.idItemmat})}" type="button" class="btn btn-primary">Edita</a>
                 </td>

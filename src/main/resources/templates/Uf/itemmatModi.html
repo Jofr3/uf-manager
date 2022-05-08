@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Notes</title>
+    <style th:replace="components/bootstrap :: bootstrapCss"></style>
+    <style th:replace="components/bootstrap :: bootstrapIcons"></style>
+</head>
+<style>
+    body {
+        height: 80vh;
+        background-color: #2c2e32;
+        color: rgba(255, 255, 255, 0.65);
+    }
+</style>
+<body>
+
+<header th:replace="components/header"></header>
+
+<main>
+
+    <div class="container-fluid p-5 pt-4">
+        <div th:replace="components/flash :: ok"></div>
+        <div class="d-flex justify-content-between">
+            <h3 th:text="${'Notes de ' + uf.nomUf}"></h3>
+            <a class="mb-2 btn btn-light" th:href="@{/ufs/notes(id=${uf.idUf})}">Confirma</a>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <table class="table table-danger table-striped">
+                    <thead>
+                    <tr>
+                        <th scope="col">Uf</th>
+                        <th scope="col">Nota ordinaria</th>
+                        <th scope="col">Nota extraordinaria</th>
+                        <th scope="col">Affageix</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="nota: ${notesNoUf}">
+                        <th th:text="${nota.uf != null} ? ${nota.uf.nomUf} : 'No pertany a cap uf'"></th>
+                        <td th:text="${nota.notaOrd}"></td>
+                        <td th:text="${nota.notaExtra}"></td>
+                        <td><a class="btn btn-danger"
+                               th:href="@{/ufs/notes/add(idUf=${uf.idUf}, idNota=${nota.idItemmat})}"><i
+                                class="bi bi-arrow-right"></i></a></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col">
+                <table class="table table-success table-striped">
+                    <thead>
+                    <tr>
+                        <th scope="col">Uf</th>
+                        <th scope="col">Nota ordinaria</th>
+                        <th scope="col">Nota extraordinaria</th>
+                        <th scope="col">Affageix</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="nota: ${uf.itemmats}">
+                        <th th:text="${nota.uf != null} ? ${nota.uf.nomUf} : 'No pertany a cap uf'"></th>
+                        <td th:text="${nota.notaOrd}"></td>
+                        <td th:text="${nota.notaExtra}"></td>
+                        <td><a class="btn btn-success"
+                               th:href="@{/ufs/notes/remove(idUf=${uf.idUf}, idNota=${nota.idItemmat})}"><i
+                                class="bi bi-arrow-left"></i></a></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</main>
+
+
+<style th:replace="components/bootstrap :: jquery"></style>
+<style th:replace="components/bootstrap :: bootstrapJs"></style>
+<script>
+    $(document).ready(function () {
+        let id = "[[${id}]]";
+        if (id !== "") {
+            $('#modalExpedient').modal('show');
+        }
+
+        let flash = "[[${flash}]]"
+        if (flash !== "") {
+            console.log(flash);
+            $("#flash").show();
+        }
+    })
+</script>
+</body>
+</html>

@@ -36,12 +36,7 @@
             <div class="d-flex justify-content-center">
                 <h1>Edita Mp</h1>
             </div>
-            <form th:action="@{/mps/editPost}" method="post" th:object="${mp}">
-                <div class="row g-3 align-items-center m-2 d-none">
-                    <div class="col-auto"><label for="idMp" class="col-form-label float-end">Id</label></div>
-                    <div class="col-auto"><input th:field="*{idMp}" name="idMp" type="number" id="idMp" class="form-control"></div>
-                    <div class="col-auto"><span class="form-text">Ha de ser integer</span></div>
-                </div>
+            <form th:action="@{/mps/editPost(id=${mp.idMp})}" method="post" th:object="${mp}">
                 <div class="row g-3 align-items-center m-2">
                     <div class="col-auto"><label for="numMp" class="col-form-label float-end">Numero</label></div>
                     <div class="col-auto"><input th:field="*{numMp}" name="numMp" type="number" id="numMp" class="form-control"></div>

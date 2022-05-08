@@ -21,6 +21,10 @@ public interface Service_Expedient {
     public void removeMatricules(Expedient expedient, List<Matricula> matricules);
 
     public List<Matricula> filterMatricula(Expedient expedient);
+
+    public List<Expedient> getAllWhereEstudiantIs(Estudiant estudiant);
+
+    public List<Expedient> getAllWhereEstudiantIsNull();
 /*
     public List<Uf> getAllWhereMpIsNull();
 

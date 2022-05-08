@@ -85,13 +85,16 @@ public class Controller_Mp {
     }
 
     @PostMapping("/mps/editPost")
-    public String editPost(@Valid @ModelAttribute Mp mp, BindingResult bindingResult, RedirectAttributes redir) {
+    public String editPost(@Valid @ModelAttribute Mp mp, HttpServletRequest request, BindingResult bindingResult, RedirectAttributes redir) {
+        Mp newMp = MpService.get(Integer.parseInt(request.getParameter("id")));
         if (!bindingResult.hasErrors()) {
-            if(MpService.existsEdit(mp.getNomMp(), mp.getIdMp())){
+            if(MpService.existsEdit(mp.getNomMp(), Integer.parseInt(request.getParameter("id")))){
                 bindingResult.addError(new FieldError("mp", "nomMp", "El nom ja existeix"));
                 return "Mp/edit";
             };
-            MpService.edit(mp);
+            newMp.setNumMp(mp.getNumMp());
+            newMp.setNomMp(mp.getNomMp());
+            MpService.edit(newMp);
             redir.addFlashAttribute("flash", "La mp s'ha editat correctament");
         } else {
             System.out.println("Validation error");

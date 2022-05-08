@@ -46,7 +46,7 @@
 
                 <div class="row g-3 align-items-center m-2">
                     <div class="col-auto"><label for="dataMatricula" class="col-form-label float-end">Numero</label></div>
-                    <div class="col-auto"><input th:field="*{dataMatricula}" name="dataMatricula" type="date" id="dataMatricula" class="form-control" style="width: 17vw"></div>
+                    <div class="col-auto" style="width: 18vw"><input th:field="*{dataMatricula}" placeholder="YYYY" min="2010" max="2050" step="1" name="dataMatricula" type="number" id="dataMatricula" class="form-control" style="width: 17vw"></div>
                     <div class="col-auto"><span class="form-text"></span></div>
                 </div>
 
