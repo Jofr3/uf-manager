@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -56,7 +57,8 @@ public class Controller_Itemmat {
     public String deleteModal(HttpServletRequest request, RedirectAttributes redir, Model m) {
         Itemmat nota = ItemmatService.get(Integer.parseInt(request.getParameter("id")));
         redir.addFlashAttribute("id", request.getParameter("id"));
-        redir.addFlashAttribute("obj", nota);
+        redir.addFlashAttribute("mssg", "Segur que vols eliminar la nota?");
+        redir.addFlashAttribute("del", "notes");
         System.out.println(nota);
         return "redirect:/notes";
     }

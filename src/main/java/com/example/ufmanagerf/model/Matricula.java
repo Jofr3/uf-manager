@@ -32,13 +32,6 @@ public class Matricula {
     @ManyToOne
     private Expedient expedient;
 
-    /*
-    idMatricula     int
-    nomMatricula    String
-    dataMatricula   String
-    itemmats        List<Itemmat>
-    */
-
     public Matricula(String nomMatricula, String dataMatricula) {
         this.nomMatricula = nomMatricula;
         this.dataMatricula = dataMatricula;
@@ -94,13 +87,5 @@ public class Matricula {
 
     public void setExpedient(@Nullable Expedient expedient) {
         this.expedient = expedient;
-    }
-
-    @Override
-    public String toString() {
-        return "Matricula{" +
-                "idMatricula=" + idMatricula +
-                ", dataMatricula='" + dataMatricula + '\'' +
-                '}';
     }
 }

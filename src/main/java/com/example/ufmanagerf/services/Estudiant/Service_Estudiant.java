@@ -20,21 +20,8 @@ public interface Service_Estudiant {
     public void edit(Estudiant estudiant);
 
     public List<Estudiant> getAllWhereGrupIsNull();
-/*
 
-    public List<Uf> getAllWhereMpIsNullOrMpIsEquals(Mp mp);
+    public boolean exists(String nom);
 
-    public List<Uf> filter(Mp mp);
-
-    public void addNotes(Uf uf, List<Itemmat> notes);
-
-    public void removeNotes(Uf uf, List<Itemmat> notes);
-
-
-
-
-    boolean exists(String nomUf);
-
-    public boolean existsEdit(String nomUf, int idUf);
-*/
+    public boolean existsEdit(String nom, int id);
 }

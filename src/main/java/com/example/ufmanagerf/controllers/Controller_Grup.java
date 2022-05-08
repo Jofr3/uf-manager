@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -42,6 +43,10 @@ public class Controller_Grup {
     @PostMapping("/grups/save")
     public String save(@Valid @ModelAttribute Grup grup, BindingResult bindingResult, Model m, RedirectAttributes redir) {
         if (!bindingResult.hasErrors()) {
+            if (GrupService.exists(grup.getNomGrup())) {
+                bindingResult.addError(new FieldError("grup", "nomGrup", "El nom ja existeix"));
+                return "Grup/create";
+            }
             GrupService.add(grup);
             redir.addFlashAttribute("flash", "El grup s'ha creat correctament");
         } else {
@@ -80,6 +85,10 @@ public class Controller_Grup {
     public String editPost(@Valid @ModelAttribute Grup grup, HttpServletRequest request, BindingResult bindingResult, RedirectAttributes redir) {
         Grup newGrup = GrupService.get(Integer.parseInt(request.getParameter("id")));
         if (!bindingResult.hasErrors()) {
+            if (GrupService.existsEdit(grup.getNomGrup(), Integer.parseInt(request.getParameter("id")))) {
+                bindingResult.addError(new FieldError("grup", "nomGrup", "El nom ja existeix"));
+                return "Grup/edit";
+            }
             newGrup.setNomGrup(grup.getNomGrup());
             GrupService.edit(newGrup);
             redir.addFlashAttribute("flash", "El grup s'ha editat correctament");
@@ -126,18 +135,4 @@ public class Controller_Grup {
         GrupService.edit(grup);
         return "redirect:modi?id=" + grup.getIdGrup();
     }
-/*
-
-
-    @PostMapping("/ufs/notes/editPost")
-    public String notesPost(@ModelAttribute Uf uf, Model m, HttpServletRequest request, RedirectAttributes redir) {
-        Uf UF = UfService.get(Integer.parseInt(request.getParameter("id")));
-        List<Itemmat> allNotes = ItemmatService.getAll();
-        List<Itemmat> newNotes = uf.getItemmats();
-        UfService.removeNotes(UF, allNotes);
-        UfService.addNotes(UF, newNotes);
-        redir.addFlashAttribute("flash", "La uf s'ha editat correctament");
-        return "redirect:/ufs";
-    }
-*/
 }

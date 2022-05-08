@@ -18,15 +18,8 @@ public interface Repo_Expedient extends CrudRepository<Expedient, Integer> {
     public List<Expedient> getAllByEstudiantIs(Estudiant estudiant);
 
     public List<Expedient> getAllByEstudiantIsNull();
-    /*
-    public boolean existsByNomUf(String nomUf);
 
-    public boolean existsByNomUfAndIdUfIsNot(String nomUf, int idUf);
+    public boolean existsByNomExpedient(String nom);
 
-    public List<Uf> getAllByMpIsNull();
-
-    public List<Uf> getAllByMpIsNullOrMpEquals(Mp mp);
-
-    public List<Uf> getAllByMpEquals(Mp mp);
-*/
+    public boolean existsByNomExpedientAndIdExpedientIsNot(String nom, int id);
 }

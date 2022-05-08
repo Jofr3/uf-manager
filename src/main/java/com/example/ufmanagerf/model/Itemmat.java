@@ -32,14 +32,6 @@ public class Itemmat {
     @Nullable
     private Matricula matricula;
 
-    /*
-    idItemmat   int
-    uf          Uf
-    notaOrd     String
-    notaExtra   String
-    matricula   Matricula
-    */
-
     public Itemmat(String notaOrd, String notaExtra) {
         this.notaOrd = notaOrd;
         this.notaExtra = notaExtra;
@@ -88,15 +80,5 @@ public class Itemmat {
 
     public void setMatricula(@Nullable Matricula matricula) {
         this.matricula = matricula;
-    }
-
-    @Override
-    public String toString() {
-        return "Itemmat{" +
-                "idItemmat=" + idItemmat +
-                ", uf=" + uf +
-                ", notaOrd='" + notaOrd + '\'' +
-                ", notaExtra='" + notaExtra + '\'' +
-                '}';
     }
 }

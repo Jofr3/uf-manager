@@ -32,8 +32,6 @@
                 <th scope="col">Nom</th>
                 <th scope="col">Estudiants</th>
                 <th scope="col">Curs</th>
-                <th scope="col">Edita</th>
-                <th scope="col">Elimina</th>
             </tr>
             </thead>
             <tbody>
@@ -72,21 +70,28 @@
                         </button>
                     </div>
                 </td>
-                <td th:text="${grup.curs} ? ${grup.curs.nomCurs} : 'No pertany a cap curs'"></td>
-                <td>
-                    <a th:href="@{/grups/edit(id=${grup.idGrup})}" type="button" class="btn btn-primary">Edita</a>
-                </td>
-                <td>
-                    <a th:href="@{/grups/delete/modal(id=${grup.idGrup})}" type="button"
-                       class="btn btn-danger">Elimina</a>
-                </td>
             </tr>
             </tbody>
         </table>
     </div>
-
+    <script th:replace="components/modals :: modal"></script>
 </main>
 
+<script th:replace="components/bootstrap :: jquery"></script>
 <script th:replace="components/bootstrap :: bootstrapJs"></script>
+<script>
+    $(document).ready(function () {
+        let id = "[[${id}]]";
+        if (id !== "") {
+            $('#modal').modal('show');
+        }
+
+        let flash = "[[${flash}]]"
+        if (flash !== "") {
+            console.log(flash);
+            $("#flash").show();
+        }
+    })
+</script>
 </body>
 </html>

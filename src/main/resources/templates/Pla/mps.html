@@ -31,8 +31,6 @@
                 <th scope="col">#</th>
                 <th scope="col">Nom</th>
                 <th scope="col">Ufs</th>
-                <th scope="col">Edita</th>
-                <th scope="col">Elimina</th>
             </tr>
             </thead>
             <tbody>
@@ -69,12 +67,6 @@
                                     class="bi bi-three-dots"></i></a>
                         </button>
                     </div>
-                </td>
-                <td>
-                    <a th:href="@{/mps/edit(id=${mp.idMp})}" type="button" class="btn btn-primary">Edita</a>
-                </td>
-                <td>
-                    <a th:href="@{/mps/delete/modal(id=${mp.idMp})}" type="button" class="btn btn-danger">Elimina</a>
                 </td>
             </tr>
             </tbody>

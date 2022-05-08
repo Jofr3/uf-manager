@@ -29,15 +29,6 @@ public class Pla {
     @OneToMany(mappedBy = "pla", cascade = CascadeType.ALL)
     private List<Curs> cursos;
 
-
-    /*
-    idPla       int
-    nomPla      String
-    mps         List<Mp>
-    estudi      String
-    cursos      List<Curs>
-    */
-
     public Pla(String nomPla, @Nullable List<Mp> mps, @Nullable String estudi) {
         this.nomPla = nomPla;
         this.mps = mps;

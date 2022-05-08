@@ -29,14 +29,6 @@ public class Mp {
     @Nullable
     private Pla pla;
 
-    /*
-    idMp        int
-    numMp       string
-    nomMp       string
-    ufs         List<Uf>
-    pla         Pla
-    */
-
     public Mp(String numMp, String nomMp) {
         this.numMp = numMp;
         this.nomMp = nomMp;
@@ -97,14 +89,5 @@ public class Mp {
 
     public void setPla(@Nullable Pla pla) {
         this.pla = pla;
-    }
-
-    @Override
-    public String toString() {
-        return "Mp{" +
-                "idMp=" + idMp +
-                ", numMp='" + numMp + '\'' +
-                ", nomMp='" + nomMp + '\'' +
-                '}';
     }
 }

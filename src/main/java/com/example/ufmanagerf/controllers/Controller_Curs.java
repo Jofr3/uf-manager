@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -49,6 +50,10 @@ public class Controller_Curs {
     @PostMapping("/cursos/save")
     public String save(@Valid @ModelAttribute Curs curs, BindingResult bindingResult, Model m, RedirectAttributes redir) {
         if (!bindingResult.hasErrors()) {
+            if (CursService.exists(curs.getNomCurs())) {
+                bindingResult.addError(new FieldError("curs", "nomCurs", "El nom ja existeix"));
+                return "Curs/create";
+            }
             CursService.add(curs);
             System.out.println(curs.isActiu());
             redir.addFlashAttribute("flash", "El curs s'ha creat correctament");
@@ -89,6 +94,10 @@ public class Controller_Curs {
     public String editPost(@Valid @ModelAttribute Curs curs, HttpServletRequest request, BindingResult bindingResult, RedirectAttributes redir) {
         Curs newCurs = CursService.get(Integer.parseInt(request.getParameter("id")));
         if (!bindingResult.hasErrors()) {
+            if (CursService.existsEdit(curs.getNomCurs(), Integer.parseInt(request.getParameter("id")))) {
+                bindingResult.addError(new FieldError("curs", "nomCurs", "El nom ja existeix"));
+                return "Curs/edit";
+            }
             newCurs.setNomCurs(curs.getNomCurs());
             newCurs.setAnyIniciCurs(curs.getAnyIniciCurs());
             newCurs.setAnyIniciCurs(curs.getAnyIniciCurs());
@@ -138,32 +147,4 @@ public class Controller_Curs {
         CursService.edit(curs);
         return "redirect:modi?id=" + curs.getIdCurs();
     }
-/*
-    @GetMapping("/ufs/notes")
-    public String filter(Model m, HttpServletRequest request) {
-        Uf uf = UfService.get(Integer.parseInt(request.getParameter("id")));
-        m.addAttribute("uf", uf);
-        m.addAttribute("notes", ItemmatService.filterUf(uf));
-        return "Uf/filter";
-    }
-
-    @GetMapping("/ufs/notes/edit")
-    public String notes(Model m, HttpServletRequest request) {
-        Uf uf = UfService.get(Integer.parseInt(request.getParameter("id")));
-        m.addAttribute("uf", uf);
-        m.addAttribute("notesNoUf", ItemmatService.getAllWhereUfIsNull());
-        return "Uf/itemmats";
-    }
-
-    @PostMapping("/ufs/notes/editPost")
-    public String notesPost(@ModelAttribute Uf uf, Model m, HttpServletRequest request, RedirectAttributes redir) {
-        Uf UF = UfService.get(Integer.parseInt(request.getParameter("id")));
-        List<Itemmat> allNotes = ItemmatService.getAll();
-        List<Itemmat> newNotes = uf.getItemmats();
-        UfService.removeNotes(UF, allNotes);
-        UfService.addNotes(UF, newNotes);
-        redir.addFlashAttribute("flash", "La uf s'ha editat correctament");
-        return "redirect:/ufs";
-    }
-*/
 }

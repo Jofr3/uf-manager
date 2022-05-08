@@ -25,13 +25,6 @@ public class Expedient {
     @OneToMany(mappedBy = "expedient", cascade = CascadeType.ALL)
     private List<Matricula> matricules;
 
-    /*
-    idExpedient     int
-    nomExpedient    String
-    estudiant       Estudiant
-    matricules      List<Matricula>
-    */
-
     public Expedient(String nomExpedient) {
         this.nomExpedient = nomExpedient;
     }
@@ -79,13 +72,5 @@ public class Expedient {
 
     public void removeMatricula(@Nullable Matricula matricula) {
         this.matricules.remove(matricula);
-    }
-
-    @Override
-    public String toString() {
-        return "Expedient{" +
-                "idExpedient=" + idExpedient +
-                ", nomExpedient='" + nomExpedient + '\'' +
-                '}';
     }
 }

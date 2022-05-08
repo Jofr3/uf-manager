@@ -79,24 +79,6 @@ public class ServiceImpl_Matricula implements Service_Matricula {
     }
 
     @Override
-    public void removeNotes(Matricula matricula, List<Itemmat> notes) {
-        try {
-            matricula.setItemmat(null);
-            for (Itemmat nota : notes) {
-                if(nota.getMatricula() != null){
-                    if (nota.getMatricula().getIdMatricula() == matricula.getIdMatricula()) {
-                        nota.setMatricula(null);
-                        RepoItemmat.save(nota);
-                    }
-                }
-            }
-            RepoMatricula.save(matricula);
-        } catch (Exception e) {
-            System.out.println("ERR: " + e);
-        }
-    }
-
-    @Override
     public List<Matricula> getAllWhereExpedientIsNull() {
         try {
             return RepoMatricula.getAllByExpedientIsNull();
@@ -115,25 +97,14 @@ public class ServiceImpl_Matricula implements Service_Matricula {
             return null;
         }
     }
-/*
+
     @Override
-    public List<Uf> filter(Mp mp) {
-        try {
-            return RepoUf.getAllByMpEquals(mp);
-        } catch (Exception e) {
-            System.out.println("ERR: " + e);
-            return null;
-        }
+    public boolean exists(String nom) {
+        return RepoMatricula.existsByNomMatricula(nom);
     }
 
     @Override
-    public boolean exists(String nomUf) {
-        return RepoUf.existsByNomUf(nomUf);
+    public boolean existsEdit(String nom, int id) {
+        return RepoMatricula.existsByNomMatriculaAndIdMatriculaIsNot(nom, id);
     }
-
-    @Override
-    public boolean existsEdit(String nomUf, int idUf) {
-        return RepoUf.existsByNomUfAndIdUfIsNot(nomUf, idUf);
-    }
-*/
 }

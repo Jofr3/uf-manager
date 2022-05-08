@@ -24,13 +24,6 @@ public class Grup {
     @ManyToOne
     private Curs curs;
 
-    /*
-    idGrup          int
-    nomGrup         String
-    estudiants      List<Estudiants>
-    curs            Curs
-    */
-
     public Grup(String nomGrup) {
         this.nomGrup = nomGrup;
     }

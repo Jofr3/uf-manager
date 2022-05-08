@@ -31,8 +31,6 @@
                 <th scope="col">Nom</th>
                 <th scope="col">Hores</th>
                 <th scope="col">Mp</th>
-                <th scope="col">Edita</th>
-                <th scope="col">Elimina</th>
             </tr>
             </thead>
             <tbody>
@@ -41,12 +39,6 @@
                 <td th:text="${uf.nomUf}"></td>
                 <td th:text="${uf.horesUf}"></td>
                 <td th:text="${uf.mp != null} ? ${uf.mp.nomMp} : 'No pertany a cap mp'"></td>
-                <td>
-                    <a th:href="@{/ufs/edit(id=${uf.idUf})}" type="button" class="btn btn-primary">Edita</a>
-                </td>
-                <td>
-                    <a th:href="@{/ufs/delete(id=${uf.idUf})}" type="button" class="btn btn-danger">Elimina</a>
-                </td>
             </tr>
             </tbody>
         </table>

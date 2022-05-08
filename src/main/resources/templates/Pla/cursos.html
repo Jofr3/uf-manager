@@ -34,8 +34,6 @@
                 <th scope="col">Grups</th>
                 <th scope="col">Pla</th>
                 <th scope="col">Actiu</th>
-                <th scope="col">Edita</th>
-                <th scope="col">Elimina</th>
             </tr>
             </thead>
             <tbody>
@@ -73,13 +71,6 @@
                 </td>
                 <td th:text="${curs.pla != null} ? ${curs.pla.nomPla} : 'No pertany a cap pla'"></td>
                 <td th:text="${curs.actiu == true} ? 'Si' : 'No'"></td>
-                <td>
-                    <a th:href="@{/cursos/edit(id=${curs.idCurs})}" type="button" class="btn btn-primary">Edita</a>
-                </td>
-                <td>
-                    <a th:href="@{/cursos/delete/modal(id=${curs.idCurs})}" type="button"
-                       class="btn btn-danger">Elimina</a>
-                </td>
             </tr>
             </tbody>
         </table>

@@ -87,16 +87,6 @@ public class ServiceImpl_Uf implements Service_Uf {
     }
 
     @Override
-    public List<Uf> filter(Mp mp) {
-        try {
-            return RepoUf.getAllByMpEquals(mp);
-        } catch (Exception e) {
-            System.out.println("ERR: " + e);
-            return null;
-        }
-    }
-
-    @Override
     public boolean exists(String nomUf) {
         return RepoUf.existsByNomUf(nomUf);
     }
@@ -104,37 +94,5 @@ public class ServiceImpl_Uf implements Service_Uf {
     @Override
     public boolean existsEdit(String nomUf, int idUf) {
         return RepoUf.existsByNomUfAndIdUfIsNot(nomUf, idUf);
-    }
-
-    @Override
-    public void addNotes(Uf uf, List<Itemmat> notes) {
-        try {
-            uf.setItemmats(notes);
-            for (Itemmat nota : notes) {
-                nota.setUf(uf);
-                RepoItemmat.save(nota);
-            }
-            RepoUf.save(uf);
-        } catch (Exception e) {
-            System.out.println("ERR: " + e);
-        }
-    }
-
-    @Override
-    public void removeNotes(Uf uf, List<Itemmat> notes) {
-        try {
-            uf.setItemmat(null);
-            for (Itemmat nota : notes) {
-                if(nota.getUf() != null){
-                    if (nota.getUf().getIdUf() == uf.getIdUf()) {
-                        nota.setUf(null);
-                        RepoItemmat.save(nota);
-                    }
-                }
-            }
-            RepoUf.save(uf);
-        } catch (Exception e) {
-            System.out.println("ERR: " + e);
-        }
     }
 }

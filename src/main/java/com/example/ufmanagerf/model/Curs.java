@@ -39,15 +39,6 @@ public class Curs {
 
     private boolean actiu;
 
-    /*
-    idCurs          int
-    nomCurs         String
-    anyIniciCurs    String
-    anyFinalCurs    String
-    grups           List<Grup>;
-    pla             Pla
-    */
-
     public Curs(String nomCurs, String anyIniciCurs, String anyFinalCurs, boolean actiu) {
         this.nomCurs = nomCurs;
         this.anyIniciCurs = anyIniciCurs;

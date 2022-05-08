@@ -44,6 +44,10 @@ public class Controller_Expedient {
     @PostMapping("/expedients/save")
     public String save(@Valid @ModelAttribute Expedient expedient, BindingResult bindingResult, Model m, RedirectAttributes redir) {
         if (!bindingResult.hasErrors()) {
+            if (ExpedientService.exists(expedient.getNomExpedient())) {
+                bindingResult.addError(new FieldError("expedient", "nomExpedient", "El nom ja existeix"));
+                return "Expedient/create";
+            }
             ExpedientService.add(expedient);
             redir.addFlashAttribute("flash", "L'expedient s'ha creat correctament");
         } else {
@@ -83,6 +87,10 @@ public class Controller_Expedient {
     public String editPost(@Valid @ModelAttribute Expedient expedient, HttpServletRequest request, BindingResult bindingResult, RedirectAttributes redir) {
         Expedient newExpedient = ExpedientService.get(Integer.parseInt(request.getParameter("id")));
         if (!bindingResult.hasErrors()) {
+            if (ExpedientService.existsEdit(expedient.getNomExpedient(), Integer.parseInt(request.getParameter("id")))) {
+                bindingResult.addError(new FieldError("expedient", "nomExpedient", "El nom ja existeix"));
+                return "Expedient/edit";
+            }
             newExpedient.setNomExpedient(expedient.getNomExpedient());
             ExpedientService.edit(newExpedient);
             redir.addFlashAttribute("flash", "L'expedient s'ha editat correctament");
@@ -129,9 +137,4 @@ public class Controller_Expedient {
         MatriculaService.edit(matricula);
         return "redirect:modi?id=" + expedient.getIdExpedient();
     }
-/*
-
-
-
-*/
 }

@@ -17,9 +17,9 @@ public interface Service_Mp {
 
     public void edit(Mp mp);
 
-    boolean exists(String nomMp);
-
-    boolean existsEdit(String nomMp, int idMp);
-
     public List<Mp> getAllWherePlaIsNull();
+
+    public boolean exists(String nom);
+
+    public boolean existsEdit(String nom, int id);
 }

@@ -12,10 +12,6 @@ public class Controller_Main {
     }
 }
 
-// Final
-// TODO repassar els validators, que tinguin sentit
-
 // EXTRA (si tens temps)
-// TODO borrar tots els modals dels Modi
-// TODO borrar totes les funcions i codi no utilitzat
+// TODO arreglar el flash de error al eliminar
 

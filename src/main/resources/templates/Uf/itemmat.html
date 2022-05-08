@@ -31,8 +31,6 @@
                 <th scope="col">Nota ordinaria</th>
                 <th scope="col">Nota extraordinaria</th>
                 <th scope="col">Matricula</th>
-                <th scope="col">Edita</th>
-                <th scope="col">Elimina</th>
             </tr>
             </thead>
             <tbody>
@@ -41,12 +39,6 @@
                 <td th:text="${nota.notaOrd}"></td>
                 <td th:text="${nota.notaExtra}"></td>
                 <td th:text="${nota.matricula != null} ? ${nota.matricula.nomMatricula} : 'No pertany a cap matricula'"></td>
-                <td>
-                    <a th:href="@{/notes/edit(id=${nota.idItemmat})}" type="button" class="btn btn-primary">Edita</a>
-                </td>
-                <td>
-                    <a th:href="@{/notes/delete/modal(id=${nota.idItemmat})}" type="button" class="btn btn-danger">Elimina</a>
-                </td>
             </tr>
             </tbody>
         </table>

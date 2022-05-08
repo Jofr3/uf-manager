@@ -21,10 +21,6 @@ public interface Service_Itemmat {
 
     public void addUf(Itemmat nota, Uf uf);
 
-    public List<Itemmat> filterUf(Uf uf);
-
-    public List<Itemmat> filterMatricula(Matricula matricula);
-
     public List<Itemmat> getAllWhereUfIsNull();
 
     public List<Itemmat> getAllWhereMatriculaIsNull();

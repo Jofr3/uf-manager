@@ -20,24 +20,11 @@ public interface Service_Matricula {
 
     public void edit(Matricula matricula);
 
-    public void removeNotes(Matricula matricula, List<Itemmat> notes);
-
     public List<Matricula> getAllWhereExpedientIsNull();
 
     public List<Matricula> getAllWhereExpedientIsNullOrExpedientIsEquals(Expedient expedient);
-/*
 
-    public List<Uf> getAllWhereMpIsNullOrMpIsEquals(Mp mp);
+    public boolean exists(String nom);
 
-    public List<Uf> filter(Mp mp);
-
-
-
-
-
-
-    boolean exists(String nomUf);
-
-    public boolean existsEdit(String nomUf, int idUf);
-*/
+    public boolean existsEdit(String nom, int id);
 }

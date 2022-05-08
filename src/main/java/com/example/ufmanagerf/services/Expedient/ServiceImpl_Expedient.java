@@ -50,21 +50,6 @@ public class ServiceImpl_Expedient implements Service_Expedient {
     }
 
     @Override
-    public void addMatricules(Expedient expedient, List<Matricula> matricules) {
-        try {
-            expedient.setMatricules(matricules);
-            for (Matricula matricula : matricules) {
-                matricula.setExpedient(expedient);
-                RepoMatricula.save(matricula);
-            }
-            RepoExpedient.save(expedient);
-        } catch (Exception e) {
-            System.out.println("ERR: " + e);
-            System.out.println("aki2");
-        }
-    }
-
-    @Override
     public void remove(int id) {
         try {
             RepoExpedient.deleteById(id);
@@ -83,34 +68,6 @@ public class ServiceImpl_Expedient implements Service_Expedient {
     }
 
     @Override
-    public void removeMatricules(Expedient expedient, List<Matricula> matricules) {
-        try {
-            expedient.setMatricules(null);
-            for (Matricula matricula : matricules) {
-                if (matricula.getExpedient() != null) {
-                    if (matricula.getExpedient().getIdExpedient() == expedient.getIdExpedient()) {
-                        matricula.setExpedient(null);
-                        RepoMatricula.save(matricula);
-                    }
-                }
-            }
-            RepoExpedient.save(expedient);
-        } catch (Exception e) {
-            System.out.println("ERR: " + e);
-        }
-    }
-
-    @Override
-    public List<Matricula> filterMatricula(Expedient expedient) {
-        try {
-            return RepoMatricula.getAllByExpedientEquals(expedient);
-        } catch (Exception e) {
-            System.out.println("ERR: " + e);
-            return null;
-        }
-    }
-
-    @Override
     public List<Expedient> getAllWhereEstudiantIs(Estudiant estudiant){
         return RepoExpedient.getAllByEstudiantIs(estudiant);
     }
@@ -120,54 +77,14 @@ public class ServiceImpl_Expedient implements Service_Expedient {
         return RepoExpedient.getAllByEstudiantIsNull();
     }
 
-/*
 
     @Override
-    public List<Uf> getAllWhereMpIsNullOrMpIsEquals(Mp mp) {
-        try {
-            return RepoUf.getAllByMpIsNullOrMpEquals(mp);
-        } catch (Exception e) {
-            System.out.println("ERR: " + e);
-            return null;
-        }
-    }
-
-
-
-
-    @Override
-    public List<Uf> filter(Mp mp) {
-        try {
-            return RepoUf.getAllByMpEquals(mp);
-        } catch (Exception e) {
-            System.out.println("ERR: " + e);
-            return null;
-        }
+    public boolean exists(String nom) {
+        return RepoExpedient.existsByNomExpedient(nom);
     }
 
     @Override
-    public boolean exists(String nomUf) {
-        return RepoUf.existsByNomUf(nomUf);
+    public boolean existsEdit(String nom, int id) {
+        return RepoExpedient.existsByNomExpedientAndIdExpedientIsNot(nom, id);
     }
-
-    @Override
-    public boolean existsEdit(String nomUf, int idUf) {
-        return RepoUf.existsByNomUfAndIdUfIsNot(nomUf, idUf);
-    }
-
-    @Override
-    public void addNotes(Uf uf, List<Itemmat> notes) {
-        try {
-            uf.setItemmats(notes);
-            for (Itemmat nota : notes) {
-                nota.setUf(uf);
-                RepoItemmat.save(nota);
-            }
-            RepoUf.save(uf);
-        } catch (Exception e) {
-            System.out.println("ERR: " + e);
-        }
-    }
-
-*/
 }

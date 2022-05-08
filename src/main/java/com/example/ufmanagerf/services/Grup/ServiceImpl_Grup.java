@@ -69,72 +69,14 @@ public class ServiceImpl_Grup implements Service_Grup {
             return null;
         }
     }
-/*
 
     @Override
-    public List<Uf> getAllWhereMpIsNullOrMpIsEquals(Mp mp) {
-        try {
-            return RepoUf.getAllByMpIsNullOrMpEquals(mp);
-        } catch (Exception e) {
-            System.out.println("ERR: " + e);
-            return null;
-        }
-    }
-
-
-
-
-
-    @Override
-    public List<Uf> filter(Mp mp) {
-        try {
-            return RepoUf.getAllByMpEquals(mp);
-        } catch (Exception e) {
-            System.out.println("ERR: " + e);
-            return null;
-        }
+    public boolean exists(String nom) {
+        return RepoGrup.existsByNomGrup(nom);
     }
 
     @Override
-    public boolean exists(String nomUf) {
-        return RepoUf.existsByNomUf(nomUf);
+    public boolean existsEdit(String nom, int id) {
+        return RepoGrup.existsByNomGrupAndIdGrupIsNot(nom, id);
     }
-
-    @Override
-    public boolean existsEdit(String nomUf, int idUf) {
-        return RepoUf.existsByNomUfAndIdUfIsNot(nomUf, idUf);
-    }
-
-    @Override
-    public void addNotes(Uf uf, List<Itemmat> notes) {
-        try {
-            uf.setItemmats(notes);
-            for (Itemmat nota : notes) {
-                nota.setUf(uf);
-                RepoItemmat.save(nota);
-            }
-            RepoUf.save(uf);
-        } catch (Exception e) {
-            System.out.println("ERR: " + e);
-        }
-    }
-
-    @Override
-    public void removeNotes(Uf uf, List<Itemmat> notes) {
-        try {
-            uf.setItemmat(null);
-            for (Itemmat nota : notes) {
-                if(nota.getUf() != null){
-                    if (nota.getUf().getIdUf() == uf.getIdUf()) {
-                        nota.setUf(null);
-                        RepoItemmat.save(nota);
-                    }
-                }
-            }
-            RepoUf.save(uf);
-        } catch (Exception e) {
-            System.out.println("ERR: " + e);
-        }
-    }
-*/
 }

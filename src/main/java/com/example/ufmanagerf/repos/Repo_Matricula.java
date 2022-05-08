@@ -22,15 +22,7 @@ public interface Repo_Matricula extends CrudRepository<Matricula, Integer> {
 
     public List<Matricula> getAllByExpedientEquals(Expedient expedient);
 
-/*
-    public boolean existsByNomUf(String nomUf);
+    public boolean existsByNomMatricula(String nom);
 
-    public boolean existsByNomUfAndIdUfIsNot(String nomUf, int idUf);
-
-    public List<Uf> getAllByMpIsNull();
-
-    public List<Uf> getAllByMpIsNullOrMpEquals(Mp mp);
-
-    public List<Uf> getAllByMpEquals(Mp mp);
-*/
+    public boolean existsByNomMatriculaAndIdMatriculaIsNot(String nom, int id);
 }

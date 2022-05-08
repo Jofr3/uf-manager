@@ -36,16 +36,6 @@ public class Estudiant {
     @OneToOne
     private Expedient expedient;
 
-    /*
-    idEstudiant         int
-    nomEstudiant        String
-    cognomEstudiant     String
-    mailEstudiant       String
-    dniEstudiant        String
-    dataNaixEstudiant   String
-    expedient           Expedinet
-    */
-
     public Estudiant(String nomEstudiant, String cognomEstudiant, String mailEstudiant, String dniEstudiant, String dataNaixEstudiant) {
         this.nomEstudiant = nomEstudiant;
         this.cognomEstudiant = cognomEstudiant;

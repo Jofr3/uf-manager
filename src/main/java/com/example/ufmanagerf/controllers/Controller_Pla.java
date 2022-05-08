@@ -47,6 +47,10 @@ public class Controller_Pla {
     @PostMapping("/plans/save")
     public String save(@Valid @ModelAttribute Pla pla, BindingResult bindingResult, Model m, RedirectAttributes redir) {
         if (!bindingResult.hasErrors()) {
+            if (PlaService.exists(pla.getNomPla())) {
+                bindingResult.addError(new FieldError("pla", "nomPla", "El nom ja existeix"));
+                return "Pla/create";
+            }
             PlaService.add(pla);
             redir.addFlashAttribute("flash", "El pla s'ha creat correctament");
         } else {
@@ -85,6 +89,10 @@ public class Controller_Pla {
     public String editPost(@Valid @ModelAttribute Pla pla, HttpServletRequest request, BindingResult bindingResult, RedirectAttributes redir) {
         Pla newPla = PlaService.get(Integer.parseInt(request.getParameter("id")));
         if (!bindingResult.hasErrors()) {
+            if (PlaService.existsEdit(pla.getNomPla(), Integer.parseInt(request.getParameter("id")))) {
+                bindingResult.addError(new FieldError("pla", "nomPla", "El nom ja existeix"));
+                return "Pla/edit";
+            }
             newPla.setNomPla(pla.getNomPla());
             newPla.setEstudi(pla.getEstudi());
             PlaService.edit(newPla);

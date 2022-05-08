@@ -80,26 +80,6 @@ public class ServiceImpl_Itemmat implements Service_Itemmat {
     }
 
     @Override
-    public List<Itemmat> filterUf(Uf uf) {
-        try {
-            return RepoItemmat.getAllByUfEquals(uf);
-        } catch (Exception e) {
-            System.out.println("ERR: " + e);
-            return null;
-        }
-    }
-
-    @Override
-    public List<Itemmat> filterMatricula(Matricula matricula) {
-        try {
-            return RepoItemmat.getAllByMatriculaEquals(matricula);
-        } catch (Exception e) {
-            System.out.println("ERR: " + e);
-            return null;
-        }
-    }
-
-    @Override
     public List<Itemmat> getAllWhereUfIsNull() {
         try {
             return RepoItemmat.getAllByUfIsNull();

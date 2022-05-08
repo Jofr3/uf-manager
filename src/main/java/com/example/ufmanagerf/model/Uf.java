@@ -33,15 +33,6 @@ public class Uf {
     @Nullable
     private List<Itemmat> itemmats;
 
-    /*
-    idUf            int
-    numUf           string
-    nomUf           string
-    horesUf         string
-    mp              Mp
-    itemmats        List<itemmat>
-    */
-
     public Uf(String numUf, String nomUf, String horesUf) {
         this.numUf = numUf;
         this.nomUf = nomUf;
@@ -105,16 +96,5 @@ public class Uf {
 
     public void removeItemmat(Itemmat itemmat) {
         this.itemmats.remove(itemmat);
-    }
-
-    @Override
-    public String toString() {
-        return "Uf{" +
-                "idUf=" + idUf +
-                ", numUf='" + numUf + '\'' +
-                ", nomUf='" + nomUf + '\'' +
-                ", horesUf='" + horesUf + '\'' +
-                ", mp=" + mp +
-                '}';
     }
 }

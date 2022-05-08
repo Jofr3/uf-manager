@@ -32,8 +32,6 @@
                 <th scope="col">Data</th>
                 <th scope="col">Notes</th>
                 <th scope="col">Expedient</th>
-                <th scope="col">Edita</th>
-                <th scope="col">Elimina</th>
             </tr>
             </thead>
             <tbody>
@@ -71,12 +69,6 @@
                     </div>
                 </td>
                 <td th:text="${matricula.expedient != null} ? ${matricula.expedient.nomExpedient} : 'No pertany a cap expedient'"></td>
-                <td>
-                    <a th:href="@{/matricules/edit(id=${matricula.idMatricula})}" type="button" class="btn btn-primary">Edita</a>
-                </td>
-                <td>
-                    <a th:href="@{/matricules/delete/modal(id=${matricula.idMatricula})}" type="button" class="btn btn-danger">Elimina</a>
-                </td>
             </tr>
             </tbody>
         </table>

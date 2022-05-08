@@ -16,19 +16,13 @@ public interface Service_Uf {
 
     public List<Uf> getAllWhereMpIsNullOrMpIsEquals(Mp mp);
 
-    public List<Uf> filter(Mp mp);
-
-    public void addNotes(Uf uf, List<Itemmat> notes);
-
-    public void removeNotes(Uf uf, List<Itemmat> notes);
-
     public void add(Uf uf);
 
     public void remove(int id);
 
     public void edit(Uf uf);
 
-    boolean exists(String nomUf);
+    public boolean exists(String nom);
 
-    public boolean existsEdit(String nomUf, int idUf);
+    public boolean existsEdit(String nom, int id);
 }

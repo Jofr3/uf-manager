@@ -33,8 +33,6 @@
                 <th scope="col">DNI</th>
                 <th scope="col">Data naixament</th>
                 <th scope="col">Grup</th>
-                <th scope="col">Edita</th>
-                <th scope="col">Elimina</th>
             </tr>
             </thead>
             <tbody>
@@ -45,12 +43,6 @@
                 <td th:text="${estudiant.dniEstudiant}"></td>
                 <td th:text="${estudiant.dataNaixEstudiant}"></td>
                 <td th:text="${estudiant.grup != null} ? ${estudiant.grup.nomGrup} : 'No pertany a cap grup'"></td>
-                <td>
-                    <a th:href="@{/estudiants/edit(id=${estudiant.idEstudiant})}" type="button" class="btn btn-primary">Edita</a>
-                </td>
-                <td>
-                    <a th:href="@{/estudiants/delete/modal(id=${estudiant.idEstudiant})}" type="button" class="btn btn-danger">Elimina</a>
-                </td>
             </tr>
             </tbody>
         </table>

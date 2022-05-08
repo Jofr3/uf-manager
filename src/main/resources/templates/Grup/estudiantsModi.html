@@ -79,22 +79,6 @@
     </div>
 </main>
 
-
-<style th:replace="components/bootstrap :: jquery"></style>
 <style th:replace="components/bootstrap :: bootstrapJs"></style>
-<script>
-    $(document).ready(function () {
-        let id = "[[${id}]]";
-        if (id !== "") {
-            $('#modalExpedient').modal('show');
-        }
-
-        let flash = "[[${flash}]]"
-        if (flash !== "") {
-            console.log(flash);
-            $("#flash").show();
-        }
-    })
-</script>
 </body>
 </html>

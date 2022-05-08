@@ -16,14 +16,8 @@ public interface Repo_Curs extends CrudRepository<Curs, Integer> {
     public List<Curs> getAllByPlaIsNull();
 
     public Curs getByActiuIsTrue();
-/*
-    public boolean existsByNomUf(String nomUf);
 
-    public boolean existsByNomUfAndIdUfIsNot(String nomUf, int idUf);
+    public boolean existsByNomCurs(String nom);
 
-
-    public List<Uf> getAllByMpIsNullOrMpEquals(Mp mp);
-
-    public List<Uf> getAllByMpEquals(Mp mp);
-*/
+    public boolean existsByNomCursAndIdCursIsNot(String nom, int id);
 }

@@ -12,34 +12,15 @@ public interface Service_Expedient {
 
     public void add(Expedient expedient);
 
-    public void addMatricules(Expedient expedient, List<Matricula> matricules);
-
     public void remove(int id);
 
     public void edit(Expedient expedient);
 
-    public void removeMatricules(Expedient expedient, List<Matricula> matricules);
-
-    public List<Matricula> filterMatricula(Expedient expedient);
-
     public List<Expedient> getAllWhereEstudiantIs(Estudiant estudiant);
 
     public List<Expedient> getAllWhereEstudiantIsNull();
-/*
-    public List<Uf> getAllWhereMpIsNull();
 
-    public List<Uf> getAllWhereMpIsNullOrMpIsEquals(Mp mp);
+    public boolean exists(String nom);
 
-    public List<Uf> filter(Mp mp);
-
-    public void addNotes(Uf uf, List<Itemmat> notes);
-
-
-
-
-
-    boolean exists(String nomUf);
-
-    public boolean existsEdit(String nomUf, int idUf);
-*/
+    public boolean existsEdit(String nom, int id);
 }

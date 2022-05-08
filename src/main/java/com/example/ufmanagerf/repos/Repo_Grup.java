@@ -15,14 +15,8 @@ public interface Repo_Grup extends CrudRepository<Grup, Integer> {
     public Grup getById(int id);
 
     public List<Grup> getAllByCursIsNull();
-/*
-    public boolean existsByNomUf(String nomUf);
 
-    public boolean existsByNomUfAndIdUfIsNot(String nomUf, int idUf);
+    public boolean existsByNomGrup(String nom);
 
-
-    public List<Uf> getAllByMpIsNullOrMpEquals(Mp mp);
-
-    public List<Uf> getAllByMpEquals(Mp mp);
-*/
+    public boolean existsByNomGrupAndIdGrupIsNot(String nom, int id);
 }

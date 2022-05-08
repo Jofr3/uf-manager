@@ -17,13 +17,7 @@ public interface Service_Pla {
 
     public void edit(Pla pla);
 
-/*
-    public List<Uf> getAllWhereMpIsNull();
+    public boolean exists(String nom);
 
-    public List<Uf> getAllWhereMpIsNullOrMpIsEquals(Mp mp);
-
-    boolean exists(String nomUf);
-
-    public boolean existsEdit(String nomUf, int idUf);
-*/
+    public boolean existsEdit(String nom, int id);
 }

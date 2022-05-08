@@ -16,14 +16,8 @@ public interface Repo_Estudiant extends CrudRepository<Estudiant, Integer> {
     public Estudiant getById(int id);
 
     public List<Estudiant> getAllByGrupIsNull();
-/*
-    public boolean existsByNomUf(String nomUf);
 
-    public boolean existsByNomUfAndIdUfIsNot(String nomUf, int idUf);
+    public boolean existsByDniEstudiant(String nom);
 
-
-    public List<Uf> getAllByMpIsNullOrMpEquals(Mp mp);
-
-    public List<Uf> getAllByMpEquals(Mp mp);
-*/
+    public boolean existsByDniEstudiantAndIdEstudiantIsNot(String nom, int id);
 }

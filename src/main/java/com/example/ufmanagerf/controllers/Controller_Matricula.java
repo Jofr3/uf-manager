@@ -42,6 +42,10 @@ public class Controller_Matricula {
     @PostMapping("/matricules/save")
     public String save(@Valid @ModelAttribute Matricula matricula, BindingResult bindingResult, Model m, RedirectAttributes redir) {
         if (!bindingResult.hasErrors()) {
+            if (MatriculaService.exists(matricula.getNomMatricula())) {
+                bindingResult.addError(new FieldError("matricula", "nomMatricula", "El nom ja existeix"));
+                return "Matricula/create";
+            }
             MatriculaService.add(matricula);
             MatriculaService.addNotes(matricula, matricula.getItemmats());
             redir.addFlashAttribute("flash", "La matricula s'ha creat correctament");
@@ -57,7 +61,8 @@ public class Controller_Matricula {
     public String deleteModal(HttpServletRequest request, RedirectAttributes redir, Model m) {
         Matricula matricula = MatriculaService.get(Integer.parseInt(request.getParameter("id")));
         redir.addFlashAttribute("id", request.getParameter("id"));
-        redir.addFlashAttribute("obj", matricula);
+        redir.addFlashAttribute("mssg", "Segur que vols eliminar la matricula?");
+        redir.addFlashAttribute("del", "matricules");
         System.out.println(matricula);
         return "redirect:/matricules";
     }
@@ -81,6 +86,10 @@ public class Controller_Matricula {
     public String editPost(@Valid @ModelAttribute Matricula matricula, HttpServletRequest request, BindingResult bindingResult, RedirectAttributes redir) {
         Matricula newMatricula = MatriculaService.get(Integer.parseInt(request.getParameter("id")));
         if (!bindingResult.hasErrors()) {
+            if (MatriculaService.existsEdit(matricula.getNomMatricula(), Integer.parseInt(request.getParameter("id")))) {
+                bindingResult.addError(new FieldError("matricula", "nomMatricula", "El nom ja existeix"));
+                return "Matricula/edit";
+            }
             newMatricula.setNomMatricula(matricula.getNomMatricula());
             newMatricula.setDataMatricula(matricula.getDataMatricula());
             MatriculaService.edit(newMatricula);

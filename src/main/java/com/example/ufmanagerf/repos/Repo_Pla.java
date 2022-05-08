@@ -16,15 +16,7 @@ public interface Repo_Pla extends CrudRepository<Pla, Integer> {
 
     public Pla getById(int id);
 
-/*
-    public List<Pla> getAllByMpIsNull();
+    public boolean existsByNomPla(String nom);
 
-    public boolean existsByNomUf(String nomUf);
-
-    public boolean existsByNomUfAndIdUfIsNot(String nomUf, int idUf);
-
-    public List<Uf> getAllByMpIsNullOrMpEquals(Mp mp);
-
-    public List<Uf> getAllByMpEquals(Mp mp);
-*/
+    public boolean existsByNomPlaAndIdPlaIsNot(String nom, int id);
 }

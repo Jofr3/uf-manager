@@ -43,6 +43,10 @@ public class Controller_Estudiant {
     @PostMapping("/estudiants/save")
     public String save(@Valid @ModelAttribute Estudiant estudiant, BindingResult bindingResult, Model m, RedirectAttributes redir) {
         if (!bindingResult.hasErrors()) {
+            if (EstudiantService.exists(estudiant.getDniEstudiant())) {
+            bindingResult.addError(new FieldError("estudiant", "dniEstudiant", "Aquest DNI ja esta en us"));
+                return "Estudiant/create";
+            }
             EstudiantService.add(estudiant);
             redir.addFlashAttribute("flash", "L'estudiant s'ha creat correctament");
         } else {
@@ -81,6 +85,10 @@ public class Controller_Estudiant {
     public String editPost(@Valid @ModelAttribute Estudiant estudiant, HttpServletRequest request, BindingResult bindingResult, RedirectAttributes redir) {
         Estudiant newEstudiant = EstudiantService.get(Integer.parseInt(request.getParameter("id")));
         if (!bindingResult.hasErrors()) {
+            if (EstudiantService.existsEdit(estudiant.getDniEstudiant(), Integer.parseInt(request.getParameter("id")))) {
+                bindingResult.addError(new FieldError("estudiant", "dniEstudiant", "Aquest DNI ja esta en us"));
+                return "Estudiant/edit";
+            }
             newEstudiant.setNomEstudiant(estudiant.getNomEstudiant());
             newEstudiant.setCognomEstudiant(estudiant.getCognomEstudiant());
             newEstudiant.setMailEstudiant(estudiant.getMailEstudiant());
@@ -134,37 +142,4 @@ public class Controller_Estudiant {
         EstudiantService.edit(estudiant);
         return "redirect:modi?id=" + estudiant.getIdEstudiant();
     }
-/*
-
-
-
-
-
-    @GetMapping("/ufs/notes")
-    public String filter(Model m, HttpServletRequest request) {
-        Uf uf = UfService.get(Integer.parseInt(request.getParameter("id")));
-        m.addAttribute("uf", uf);
-        m.addAttribute("notes", ItemmatService.filterUf(uf));
-        return "Uf/filter";
-    }
-
-    @GetMapping("/ufs/notes/edit")
-    public String notes(Model m, HttpServletRequest request) {
-        Uf uf = UfService.get(Integer.parseInt(request.getParameter("id")));
-        m.addAttribute("uf", uf);
-        m.addAttribute("notesNoUf", ItemmatService.getAllWhereUfIsNull());
-        return "Uf/itemmats";
-    }
-
-    @PostMapping("/ufs/notes/editPost")
-    public String notesPost(@ModelAttribute Uf uf, Model m, HttpServletRequest request, RedirectAttributes redir) {
-        Uf UF = UfService.get(Integer.parseInt(request.getParameter("id")));
-        List<Itemmat> allNotes = ItemmatService.getAll();
-        List<Itemmat> newNotes = uf.getItemmats();
-        UfService.removeNotes(UF, allNotes);
-        UfService.addNotes(UF, newNotes);
-        redir.addFlashAttribute("flash", "La uf s'ha editat correctament");
-        return "redirect:/ufs";
-    }
-*/
 }
