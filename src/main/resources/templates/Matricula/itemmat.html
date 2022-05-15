@@ -21,7 +21,11 @@
     <div class="container-fluid p-5 pt-4">
         <div class="d-flex justify-content-between">
             <h3 th:text="${'Notes de ' + matricula.dataMatricula}"></h3>
-            <a class="btn btn-success m-1" th:href="@{/matricules/notes/modi(id=${matricula.idMatricula})}" th:text="${'Maneja les notes de '+matricula.dataMatricula}"></a>
+            <div>
+                <a class="btn btn-primary m-1" th:href="@{/matricules}">Torna endarrera</a>
+                <a class="btn btn-success m-1" th:href="@{/matricules/notes/modi(id=${matricula.idMatricula})}"
+                   th:text="${'Maneja les notes de '+matricula.dataMatricula}"></a>
+            </div>
         </div>
 
         <table class="table table-secondary table-striped">

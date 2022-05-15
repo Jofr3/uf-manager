@@ -21,7 +21,10 @@
     <div class="container-fluid p-5 pt-4">
         <div class="d-flex justify-content-between">
             <h3 th:text="${'Ufs de ' + mp.nomMp}"></h3>
+            <div>
+            <a class="btn btn-primary m-1" th:href="@{/mps}">Torna endarrera</a>
             <a class="btn btn-success m-1" th:href="@{/mps/ufs/modi(id=${mp.idMp})}" th:text="${'Maneja les ufs de '+mp.nomMp}"></a>
+            </div>
         </div>
 
         <table class="table table-secondary table-striped">

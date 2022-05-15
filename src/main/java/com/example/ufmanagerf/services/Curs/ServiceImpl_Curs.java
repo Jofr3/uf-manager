@@ -79,6 +79,16 @@ public class ServiceImpl_Curs implements Service_Curs {
     }
 
     @Override
+    public List<Curs> getAllInactiveCursos() {
+        try {
+            return RepoCurs.getAllByActiuIsFalse();
+        } catch (Exception e) {
+            System.out.println("ERR: " + e);
+        }
+        return null;
+    }
+
+    @Override
     public boolean exists(String nom) {
         return RepoCurs.existsByNomCurs(nom);
     }

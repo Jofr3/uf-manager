@@ -21,7 +21,11 @@
     <div class="container-fluid p-5 pt-4">
         <div class="d-flex justify-content-between">
             <h3 th:text="${'Estudiants de ' + grup.nomGrup}"></h3>
-            <a class="btn btn-success m-1" th:href="@{/grups/estudiants/modi(id=${grup.idGrup})}" th:text="${'Maneja els estudiants de '+grup.nomGrup}"></a>
+            <div>
+                <a class="btn btn-primary m-1" th:href="@{/grups}">Torna endarrera</a>
+                <a class="btn btn-success m-1" th:href="@{/grups/estudiants/modi(id=${grup.idGrup})}"
+                   th:text="${'Maneja els estudiants de '+grup.nomGrup}"></a>
+            </div>
         </div>
 
         <table class="table table-secondary table-striped">

@@ -21,6 +21,8 @@ public interface Service_Curs {
 
     public Curs getActiveCurs();
 
+    public List<Curs> getAllInactiveCursos();
+
     public boolean exists(String nom);
 
     public boolean existsEdit(String nom, int id);

@@ -21,7 +21,11 @@
     <div class="container-fluid p-5 pt-4">
         <div class="d-flex justify-content-between">
             <h3 th:text="${'Notes de ' + uf.nomUf}"></h3>
-            <a class="btn btn-success m-1" th:href="@{/ufs/notes/modi(id=${uf.idUf})}" th:text="${'Maneja les notes de '+uf.nomUf}"></a>
+            <div>
+                <a class="btn btn-primary m-1" th:href="@{/ufs}">Torna endarrera</a>
+                <a class="btn btn-success m-1" th:href="@{/ufs/notes/modi(id=${uf.idUf})}"
+                   th:text="${'Maneja les notes de '+uf.nomUf}"></a>
+            </div>
         </div>
 
         <table class="table table-secondary table-striped">

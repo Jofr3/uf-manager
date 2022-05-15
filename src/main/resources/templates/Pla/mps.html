@@ -22,7 +22,10 @@
     <div class="container-fluid p-5 pt-4">
         <div class="d-flex justify-content-between">
             <h3 th:text="${'Mps de ' + pla.nomPla}"></h3>
+            <div>
+            <a class="btn btn-primary m-1" th:href="@{/plans}">Torna endarrera</a>
             <a class="btn btn-success m-1" th:href="@{/plans/mps/modi(id=${pla.idPla})}" th:text="${'Maneja les mps de '+pla.nomPla}"></a>
+            </div>
         </div>
 
         <table class="table table-secondary table-striped">

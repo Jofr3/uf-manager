@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Index</title>
     <style th:replace="components/bootstrap :: bootstrapCss"></style>
+    <style th:replace="components/bootstrap :: bootstrapIcons"></style>
 </head>
 <style>
     body {
@@ -17,17 +18,413 @@
 <header th:replace="components/header"></header>
 
 <main>
-    <div class="container-fluid d-flex justify-content-center">
-        <div class="m-4 d-flex justify-content-around flex-column" style="width: 300px;">
-            <a class="btn btn-light m-2" th:href="@{/cursos}">Cursos</a>
-            <a class="btn btn-light m-2" th:href="@{/estudiants}">Estudiants</a>
-            <a class="btn btn-light m-2" th:href="@{/expedients}">Expedients</a>
-            <a class="btn btn-light m-2" th:href="@{/grups}">Grups</a>
-            <a class="btn btn-light m-2" th:href="@{/notes}">Notes</a>
-            <a class="btn btn-light m-2" th:href="@{/matricules}">Matricules</a>
-            <a class="btn btn-light m-2" th:href="@{/mps}">Mps</a>
-            <a class="btn btn-light m-2" th:href="@{/ufs}">Ufs</a>
-            <a class="btn btn-light m-2" th:href="@{/plans}">plans</a>
+    <div class="row m-0">
+
+        <div class="col">
+
+            <div class="m-3" th:switch="${cursActiu}">
+
+
+                <h5 class="ms-3">Curs actiu</h5>
+
+                <div th:case="null" class="accordion m-3" style="color: black">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button" type="button"
+                                    data-bs-toggle="collapse"
+                                    aria-expanded="false">
+                                No hi ha cap curs actiu
+                            </button>
+                        </h2>
+                        <div class="accordion-collapse collapse"
+                             aria-labelledby="c1">
+                            <div class="accordion-body">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div th:case="*" class="accordion m-3" id="a1" style="color: black">
+
+                    <div class="accordion-item" style="position: relative">
+                        <h2 class="accordion-header" th:id="${cursActiu.nomCurs+'-c2'}">
+
+                            <button th:text="${cursActiu.nomCurs + ' (' + cursActiu.anyIniciCurs +' - '+ cursActiu.anyFinalCurs+')'}"
+                                    class="accordion-button" type="button"
+                                    data-bs-toggle="collapse"
+                                    th:data-bs-target="${'#'+cursActiu.nomCurs+'-b2'}" aria-expanded="false"
+                                    th:aria-controls="${cursActiu.nomCurs+'-b2'}">
+                            </button>
+                        </h2>
+
+                        <button class="btn btn-dark"
+                                style="padding: 3px; position: absolute; right: 60px; top: 6px; z-index: 100">
+                            <a th:href="@{/cursos/grups(id=${cursActiu.idCurs})}"><i
+                                    style="font-size: 20px; padding: 10px; color: white"
+                                    class="bi bi-three-dots"></i></a>
+                        </button>
+
+                        <div th:id="${cursActiu.nomCurs+'-b2'}" class="accordion-collapse collapse"
+                             th:aria-labelledby="${cursActiu.nomCurs+'-c2'}">
+                            <div class="accordion-body">
+
+                                <div class="accordion-item" th:each="grup: ${cursActiu.grups}"
+                                     style="position: relative">
+                                    <h2 class="accordion-header" th:id="${grup.nomGrup+'-c2'}">
+                                        <button th:text="${grup.nomGrup}"
+                                                class="accordion-button" type="button"
+                                                data-bs-toggle="collapse"
+                                                th:data-bs-target="${'#'+grup.nomGrup+'-b2'}" aria-expanded="false"
+                                                th:aria-controls="${grup.nomGrup+'-b2'}">
+                                        </button>
+                                    </h2>
+                                    <button class="btn btn-dark"
+                                            style="padding: 3px; position: absolute; right: 60px; top: 6px; z-index: 100">
+                                        <a th:href="@{/grups/estudiants(id=${grup.idGrup})}"><i
+                                                style="font-size: 20px; padding: 10px; color: white"
+                                                class="bi bi-three-dots"></i></a>
+                                    </button>
+                                    <div th:id="${grup.nomGrup+'-b2'}" class="accordion-collapse collapse"
+                                         th:aria-labelledby="${grup.nomGrup+'-c2'}">
+                                        <div class="accordion-body">
+
+                                            <div class="accordion-item" th:each="estudiant: ${grup.estudiants}"
+                                                 style="position: relative">
+                                                <h2 class="accordion-header" th:id="${estudiant.nomEstudiant+'-c2'}">
+                                                    <button th:text="${estudiant.nomEstudiant+' '+estudiant.cognomEstudiant}"
+                                                            class="accordion-button" type="button"
+                                                            data-bs-toggle="collapse"
+                                                            th:data-bs-target="${'#'+estudiant.nomEstudiant+'-b2'}"
+                                                            aria-expanded="false"
+                                                            th:aria-controls="${estudiant.nomEstudiant+'-b2'}">
+                                                    </button>
+                                                    <button class="btn btn-dark"
+                                                            style="padding: 3px; position: absolute; right: 60px; top: 6px; z-index: 100">
+                                                        <a th:href="@{/estudiants/expedient(id=${estudiant.idEstudiant})}"><i
+                                                                style="font-size: 20px; padding: 10px; color: white"
+                                                                class="bi bi-three-dots"></i></a>
+                                                    </button>
+                                                </h2>
+                                                <div th:id="${estudiant.nomEstudiant+'-b2'}"
+                                                     class="accordion-collapse collapse"
+                                                     th:aria-labelledby="${estudiant.nomEstudiant+'-c2'}">
+                                                    <div class="accordion-body" th:switch="${estudiant.expedient}">
+
+                                                        <p th:case="null">
+                                                            No te un expedient
+                                                        </p>
+
+                                                        <div class="accordion-item" th:case="*">
+                                                            <h2 class="accordion-header"
+                                                                th:id="${estudiant.expedient.nomExpedient+'-c2'}"
+                                                                style="position: relative">
+                                                                <button th:text="${estudiant.expedient.nomExpedient}"
+                                                                        class="accordion-button" type="button"
+                                                                        data-bs-toggle="collapse"
+                                                                        th:data-bs-target="${'#'+estudiant.expedient.nomExpedient+'-b2'}"
+                                                                        aria-expanded="false"
+                                                                        th:aria-controls="${estudiant.expedient.nomExpedient+'-b2'}">
+                                                                </button>
+                                                                <button class="btn btn-dark"
+                                                                        style="padding: 3px; position: absolute; right: 60px; top: 6px; z-index: 100">
+                                                                    <a th:href="@{/expedients/matricules(id=${estudiant.expedient.idExpedient})}"><i
+                                                                            style="font-size: 20px; padding: 10px; color: white"
+                                                                            class="bi bi-three-dots"></i></a>
+                                                                </button>
+                                                            </h2>
+                                                            <div th:id="${estudiant.expedient.nomExpedient+'-b2'}"
+                                                                 class="accordion-collapse collapse"
+                                                                 th:aria-labelledby="${estudiant.expedient.nomExpedient+'-c2'}">
+                                                                <div class="accordion-body">
+
+                                                                    <div class="accordion-item"
+                                                                         th:each="matricula: ${estudiant.expedient.matricules}"
+                                                                         style="position: relative">
+                                                                        <h2 class="accordion-header"
+                                                                            th:id="${matricula.nomMatricula+'-c2'}">
+                                                                            <button th:text="${matricula.nomMatricula}"
+                                                                                    class="accordion-button"
+                                                                                    type="button"
+                                                                                    data-bs-toggle="collapse"
+                                                                                    th:data-bs-target="${'#'+matricula.nomMatricula+'-b2'}"
+                                                                                    aria-expanded="false"
+                                                                                    th:aria-controls="${matricula.nomMatricula+'-b2'}">
+                                                                            </button>
+                                                                            <button class="btn btn-dark"
+                                                                                    style="padding: 3px; position: absolute; right: 60px; top: 6px; z-index: 100">
+                                                                                <a th:href="@{/matricules/notes(id=${matricula.idMatricula})}"><i
+                                                                                        style="font-size: 20px; padding: 10px; color: white"
+                                                                                        class="bi bi-three-dots"></i></a>
+                                                                            </button>
+                                                                        </h2>
+                                                                        <div th:id="${matricula.nomMatricula+'-b2'}"
+                                                                             class="accordion-collapse collapse"
+                                                                             th:aria-labelledby="${matricula.nomMatricula+'-c2'}">
+                                                                            <div class="accordion-body">
+
+                                                                                <div class="accordion-item"
+                                                                                     th:each="nota: ${matricula.itemmats}">
+                                                                                    <h2 class="accordion-header"
+                                                                                        th:id="${nota.idItemmat+'-c2'}">
+                                                                                        <button th:text="${nota.uf != null} ? ${nota.uf.nomUf +': '+nota.notaOrd+' - '+nota.notaExtra} : ${'Uf no assignada - '+nota.notaOrd+' - '+nota.notaExtra}"
+                                                                                                class="accordion-button"
+                                                                                                type="button"
+                                                                                                data-bs-toggle="collapse"
+                                                                                                th:data-bs-target="${'#'+nota.idItemmat+'-b2'}"
+                                                                                                aria-expanded="false"
+                                                                                                th:aria-controls="${nota.idItemmat+'-b2'}">
+                                                                                        </button>
+                                                                                    </h2>
+                                                                                    <div th:id="${nota.idItemmat+'-b2'}"
+                                                                                         class="accordion-collapse collapse"
+                                                                                         th:aria-labelledby="${nota.idItemmat+'-c2'}">
+                                                                                        <div class="accordion-body">
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <h5 class="ms-3">Altres cursos</h5>
+
+                <div th:each="cursInactiu: ${cursosInactius}" class="accordion m-3" id="a2" style="color: black">
+
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" th:id="${cursInactiu.nomCurs+'-c2'}">
+                            <button th:text="${cursInactiu.nomCurs + ' (' + cursInactiu.anyIniciCurs +' - '+ cursInactiu.anyFinalCurs+')'}"
+                                    class="accordion-button" type="button"
+                                    data-bs-toggle="collapse"
+                                    th:data-bs-target="${'#'+cursInactiu.nomCurs+'-b2'}" aria-expanded="false"
+                                    th:aria-controls="${cursInactiu.nomCurs+'-b2'}">
+                            </button>
+                        </h2>
+                        <div th:id="${cursInactiu.nomCurs+'-b2'}" class="accordion-collapse collapse"
+                             th:aria-labelledby="${cursInactiu.nomCurs+'-c2'}">
+                            <div class="accordion-body">
+
+                                <div class="accordion-item" th:each="grup: ${cursInactiu.grups}">
+                                    <h2 class="accordion-header" th:id="${grup.nomGrup+'-c2'}">
+                                        <button th:text="${grup.nomGrup}"
+                                                class="accordion-button" type="button"
+                                                data-bs-toggle="collapse"
+                                                th:data-bs-target="${'#'+grup.nomGrup+'-b2'}" aria-expanded="false"
+                                                th:aria-controls="${grup.nomGrup+'-b2'}">
+                                        </button>
+                                    </h2>
+                                    <div th:id="${grup.nomGrup+'-b2'}" class="accordion-collapse collapse"
+                                         th:aria-labelledby="${grup.nomGrup+'-c2'}">
+                                        <div class="accordion-body">
+
+                                            <div class="accordion-item" th:each="estudiant: ${grup.estudiants}">
+                                                <h2 class="accordion-header" th:id="${estudiant.nomEstudiant+'-c2'}">
+                                                    <button th:text="${estudiant.nomEstudiant+' '+estudiant.cognomEstudiant+' - '+estudiant.dniEstudiant}"
+                                                            class="accordion-button" type="button"
+                                                            data-bs-toggle="collapse"
+                                                            th:data-bs-target="${'#'+estudiant.nomEstudiant+'-b2'}"
+                                                            aria-expanded="false"
+                                                            th:aria-controls="${estudiant.nomEstudiant+'-b2'}">
+                                                    </button>
+                                                </h2>
+                                                <div th:id="${estudiant.nomEstudiant+'-b2'}"
+                                                     class="accordion-collapse collapse"
+                                                     th:aria-labelledby="${estudiant.nomEstudiant+'-c2'}">
+                                                    <div class="accordion-body" th:switch="${estudiant.expedient}">
+
+                                                        <p th:case="null">
+                                                            No te un expedient
+                                                        </p>
+
+                                                        <div class="accordion-item" th:case="*">
+                                                            <h2 class="accordion-header"
+                                                                th:id="${estudiant.expedient.nomExpedient+'-c2'}">
+                                                                <button th:text="${estudiant.expedient.nomExpedient}"
+                                                                        class="accordion-button" type="button"
+                                                                        data-bs-toggle="collapse"
+                                                                        th:data-bs-target="${'#'+estudiant.expedient.nomExpedient+'-b2'}"
+                                                                        aria-expanded="false"
+                                                                        th:aria-controls="${estudiant.expedient.nomExpedient+'-b2'}">
+                                                                </button>
+                                                            </h2>
+                                                            <div th:id="${estudiant.expedient.nomExpedient+'-b2'}"
+                                                                 class="accordion-collapse collapse"
+                                                                 th:aria-labelledby="${estudiant.expedient.nomExpedient+'-c2'}">
+                                                                <div class="accordion-body">
+
+                                                                    <div class="accordion-item"
+                                                                         th:each="matricula: ${estudiant.expedient.matricules}">
+                                                                        <h2 class="accordion-header"
+                                                                            th:id="${matricula.nomMatricula+'-c2'}">
+                                                                            <button th:text="${matricula.nomMatricula}"
+                                                                                    class="accordion-button"
+                                                                                    type="button"
+                                                                                    data-bs-toggle="collapse"
+                                                                                    th:data-bs-target="${'#'+matricula.nomMatricula+'-b2'}"
+                                                                                    aria-expanded="false"
+                                                                                    th:aria-controls="${matricula.nomMatricula+'-b2'}">
+                                                                            </button>
+                                                                        </h2>
+                                                                        <div th:id="${matricula.nomMatricula+'-b2'}"
+                                                                             class="accordion-collapse collapse"
+                                                                             th:aria-labelledby="${matricula.nomMatricula+'-c2'}">
+                                                                            <div class="accordion-body">
+
+                                                                                <div class="accordion-item"
+                                                                                     th:each="nota: ${matricula.itemmats}">
+                                                                                    <h2 class="accordion-header"
+                                                                                        th:id="${nota.idItemmat+'-c2'}">
+                                                                                        <button th:text="${nota.uf != null} ? ${nota.uf.nomUf +': '+nota.notaOrd+' - '+nota.notaExtra} : ${'Uf no assignada - '+nota.notaOrd+' - '+nota.notaExtra}"
+                                                                                                class="accordion-button"
+                                                                                                type="button"
+                                                                                                data-bs-toggle="collapse"
+                                                                                                th:data-bs-target="${'#'+nota.idItemmat+'-b2'}"
+                                                                                                aria-expanded="false"
+                                                                                                th:aria-controls="${nota.idItemmat+'-b2'}">
+                                                                                        </button>
+                                                                                    </h2>
+                                                                                    <div th:id="${nota.idItemmat+'-b2'}"
+                                                                                         class="accordion-collapse collapse"
+                                                                                         th:aria-labelledby="${nota.idItemmat+'-c2'}">
+                                                                                        <div class="accordion-body">
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+
+            <div class="m-3" th:switch="${plans.size()}">
+
+                <h5 class="ms-3">Plans</h5>
+
+                <div th:case="0" class="accordion m-3" style="color: black">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button" type="button"
+                                    data-bs-toggle="collapse"
+                                    aria-expanded="false">
+                                No hi ha cap pla
+                            </button>
+                        </h2>
+                        <div class="accordion-collapse collapse"
+                             aria-labelledby="c1">
+                            <div class="accordion-body">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div th:each="pla: ${plans}" class="accordion m-3" style="color: black">
+                    <div class="accordion-item" style="position: relative">
+                        <h2 class="accordion-header" th:id="${pla.nomPla+'-c2'}">
+                            <button th:text="${pla.nomPla + ' (' + pla.estudi+')'}"
+                                    class="accordion-button" type="button"
+                                    data-bs-toggle="collapse"
+                                    th:data-bs-target="${'#'+pla.nomPla+'-b2'}" aria-expanded="false"
+                                    th:aria-controls="${pla.nomPla+'-b2'}">
+                            </button>
+                        </h2>
+                        <button class="btn btn-dark"
+                                style="padding: 3px; position: absolute; right: 60px; top: 6px; z-index: 100">
+                            <a th:href="@{/plans/mps(id=${pla.idPla})}"><i
+                                    style="font-size: 20px; padding: 10px; color: white"
+                                    class="bi bi-three-dots"></i></a>
+                        </button>
+
+                        <div th:id="${pla.nomPla+'-b2'}" class="accordion-collapse collapse"
+                             th:aria-labelledby="${pla.nomPla+'-c2'}">
+                            <div class="accordion-body">
+
+                                <div class="accordion-item" th:each="mp: ${pla.mps}" style="position: relative">
+                                    <h2 class="accordion-header" th:id="${mp.nomMp+'-c2'}">
+                                        <button th:text="${mp.nomMp}"
+                                                class="accordion-button" type="button"
+                                                data-bs-toggle="collapse"
+                                                th:data-bs-target="${'#'+mp.nomMp+'-b2'}" aria-expanded="false"
+                                                th:aria-controls="${mp.nomMp+'-b2'}">
+                                        </button>
+                                    </h2>
+                                    <button class="btn btn-dark"
+                                            style="padding: 3px; position: absolute; right: 60px; top: 6px; z-index: 100">
+                                        <a th:href="@{/mps/ufs(id=${mp.idMp})}"><i
+                                                style="font-size: 20px; padding: 10px; color: white"
+                                                class="bi bi-three-dots"></i></a>
+                                    </button>
+                                    <div th:id="${mp.nomMp+'-b2'}" class="accordion-collapse collapse"
+                                         th:aria-labelledby="${mp.nomMp+'-c2'}">
+                                        <div class="accordion-body">
+
+                                            <div class="accordion-item" th:each="uf: ${mp.ufs}">
+                                                <h2 class="accordion-header" th:id="${uf.nomUf+'-c2'}">
+                                                    <button th:text="${uf.numUf+' - '+uf.nomUf+' - '+uf.horesUf}"
+                                                            class="accordion-button" type="button"
+                                                            data-bs-toggle="collapse"
+                                                            th:data-bs-target="${'#'+uf.nomUf+'-b2'}"
+                                                            aria-expanded="false"
+                                                            th:aria-controls="${uf.nomUf+'-b2'}">
+                                                    </button>
+                                                </h2>
+                                                <div th:id="${uf.nomUf+'-b2'}"
+                                                     class="accordion-collapse collapse"
+                                                     th:aria-labelledby="${uf.nomUf+'-c2'}">
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
         </div>
     </div>
 </main>

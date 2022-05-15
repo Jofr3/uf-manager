@@ -22,8 +22,11 @@
     <div class="container-fluid p-5 pt-4">
         <div class="d-flex justify-content-between">
             <h3 th:text="${'Grups de ' + curs.nomCurs}"></h3>
+            <div>
+            <a class="btn btn-primary m-1" th:href="@{/cursos}">Torna endarrera</a>
             <a class="btn btn-success m-1" th:href="@{/cursos/grups/modi(id=${curs.idCurs})}"
                th:text="${'Maneja els grups de '+curs.nomCurs}"></a>
+            </div>
         </div>
 
         <table class="table table-secondary table-striped">
@@ -31,7 +34,6 @@
             <tr>
                 <th scope="col">Nom</th>
                 <th scope="col">Estudiants</th>
-                <th scope="col">Curs</th>
             </tr>
             </thead>
             <tbody>
